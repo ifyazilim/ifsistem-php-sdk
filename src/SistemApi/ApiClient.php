@@ -3,8 +3,6 @@
 use DI\ContainerBuilder;
 use SistemApi\Service\ApiService;
 use SistemApi\Service\SayfaService;
-use function DI\get;
-use function DI\object;
 
 /**
  * @property ApiService apiService
@@ -30,10 +28,10 @@ class ApiClient
         $builder->useAnnotations(true);
 
         $builder->addDefinitions([
-            'sayfa' => object(SayfaService::class),
-            'api' => object(ApiService::class)->constructor($token),
+            'sayfa' => \DI\object(SayfaService::class),
+            'api' => \DI\object(ApiService::class)->constructor($token),
 
-            ApiService::class => get('api')
+            ApiService::class => \DI\get('api')
 
         ]);
 
