@@ -18,6 +18,11 @@ class Sayfa
     private $rbaslik;
 
     /**
+     * @var string
+     */
+    private $icerik;
+
+    /**
      * @param \stdClass $item
      */
     public function __construct($item)
@@ -25,6 +30,7 @@ class Sayfa
         $this->id = $item->id;
         $this->baslik = $item->baslik;
         $this->rbaslik = $item->rbaslik;
+        $this->icerik = $item->icerik;
     }
 
     /**
@@ -49,5 +55,13 @@ class Sayfa
     public function getRbaslik()
     {
         return $this->rbaslik;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIcerik()
+    {
+        return $this->icerik;
     }
 }
