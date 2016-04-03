@@ -2,25 +2,10 @@
 
 class Sayfa
 {
-    /**
-     * @var int
-     */
-    private $id;
-
-    /**
-     * @var string
-     */
-    private $baslik;
-
-    /**
-     * @var string
-     */
-    private $rbaslik;
-
-    /**
-     * @var string
-     */
-    private $icerik;
+    public $id;
+    public $baslik;
+    public $rbaslik;
+    public $icerik;
 
     /**
      * @param \stdClass $item
