@@ -15,7 +15,8 @@ class Kategori
      */
     public function __construct($item = null)
     {
-        if ( ! is_null($item)) $this->setItem($item);
+        if (isset($item) && ! empty($item))
+            $this->setItem($item);
     }
 
     /**
