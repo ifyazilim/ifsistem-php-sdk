@@ -109,7 +109,7 @@ class SayfaService
     public function getListe(SayfaListeAyar $sayfaListeAyar = null)
     {
         // response alalım
-        $response = $this->api->get('/sayfa/liste', is_null($sayfaListeAyar) ? [] : $sayfaListeAyar->serialize());
+        $response = $this->api->get('/sayfa/liste', is_null($sayfaListeAyar) ? '' : $sayfaListeAyar->serialize());
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {

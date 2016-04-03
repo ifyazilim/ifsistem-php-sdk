@@ -53,7 +53,7 @@ class HaberService
     public function getListe(HaberListeAyar $haberListeAyar = null)
     {
         // response alalım
-        $response = $this->api->get('/haber/liste', is_null($haberListeAyar) ? [] : $haberListeAyar->serialize());
+        $response = $this->api->get('/haber/liste', is_null($haberListeAyar) ? '' : $haberListeAyar->serialize());
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {
