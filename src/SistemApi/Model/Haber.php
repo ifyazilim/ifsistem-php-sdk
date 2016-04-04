@@ -1,5 +1,7 @@
 <?php namespace SistemApi\Model;
 
+use Carbon\Carbon;
+
 class Haber
 {
     public $id;
@@ -11,7 +13,12 @@ class Haber
     public $site_id;
     public $durum;
     public $haber_lokasyonu;
+
+    /**
+     * @var Carbon
+     */
     public $haber_zamani;
+    public $is_yayinda;
     public $is_haber_saati_gosterilsin;
     public $is_resimli;
     public $uzanti;
@@ -38,7 +45,8 @@ class Haber
         $this->site_id = $item->site_id;
         $this->durum = $item->durum;
         $this->haber_lokasyonu = $item->haber_lokasyonu;
-        $this->haber_zamani = $item->haber_zamani;
+        $this->haber_zamani = Carbon::createFromFormat('Y-m-d H:i:s', $item->haber_zamani);
+        $this->is_yayinda = $item->is_yayinda;
         $this->is_haber_saati_gosterilsin = $item->is_haber_saati_gosterilsin;
         $this->is_resimli = $item->is_resimli;
         $this->uzanti = $item->uzanti;
