@@ -50,7 +50,7 @@ class Haber
         $this->hit = $item->hit;
         $this->site_id = $item->site_id;
         $this->durum = $item->durum;
-        $this->kategori_id = $item->hbr_kategori_id;
+        $this->kategori_id = $item->kategori_id;
         $this->haber_lokasyonu = $item->haber_lokasyonu;
         $this->haber_zamani = Carbon::createFromFormat('Y-m-d H:i:s', $item->haber_zamani);
         $this->is_yayinda = $item->is_yayinda;
