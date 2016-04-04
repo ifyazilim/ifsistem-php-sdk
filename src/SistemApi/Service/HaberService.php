@@ -66,6 +66,30 @@ class HaberService
     }
 
     /**
+     * @param int $id
+     * @return Haber
+     *
+     * @throws NotFoundException
+     * @throws UnauthorizedException
+     */
+    public function getById($id)
+    {
+        // response alalım
+        $response = $this->api->get('/haber/detay-by-id/' . $id);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new Haber($response->body);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 404: throw new NotFoundException($response->body->mesaj);
+
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
      * @return Haber\Kategori[]
      *
      * @throws NotFoundException
