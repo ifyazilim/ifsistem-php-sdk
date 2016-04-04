@@ -26,7 +26,7 @@ class ApiService
      */
     public function get($uri, $body = '')
     {
-        return Request::get('http://ifsistem.app/api/v1' . $uri, Mime::JSON)
+        return Request::get('http://www.ifsistem.com/api/v1' . $uri, Mime::JSON)
             ->addHeader('X-IFSISTEM-TOKEN', $this->token)
             ->body($body)
             ->send();
@@ -34,7 +34,7 @@ class ApiService
 
     public function post($uri, $payload = null)
     {
-        return Request::post('http://ifsistem.app/api/v1' . $uri, $payload, Mime::JSON)
+        return Request::post('http://www.ifsistem.com/api/v1' . $uri, $payload, Mime::JSON)
             ->addHeader('X-IFSISTEM-TOKEN', $this->token)
             ->sendsAndExpects(Mime::JSON)
             ->send();
