@@ -13,6 +13,16 @@ class Galeri
     public $updated_at;
 
     /**
+     * @var GaleriIcerik
+     */
+    public $varsayilanIcerik;
+
+    /**
+     * @var GaleriIcerik[]
+     */
+    public $icerikler = [];
+
+    /**
      * @param \stdClass $item
      */
     public function __construct($item)
@@ -29,6 +39,12 @@ class Galeri
 
         if (isset($item->varsayilanIcerik)) {
             $this->varsayilanIcerik = new GaleriIcerik($item->varsayilanIcerik);
+        }
+
+        if (isset($item->icerikler)) {
+            foreach ($item->icerikler as $icerik) {
+                $this->icerikler[] = new GaleriIcerik($icerik);
+            }
         }
     }
 }
