@@ -26,5 +26,9 @@ class Galeri
         $this->tur_id = $item->tur_id;
         $this->created_at = $item->created_at;
         $this->updated_at = $item->updated_at;
+
+        if (isset($item->varsayilanIcerik)) {
+            $this->varsayilanIcerik = new GaleriIcerik($item->varsayilanIcerik);
+        }
     }
 }

@@ -4,7 +4,7 @@ class GaleriIcerik
 {
     public $id;
     public $aciklama;
-    public $glr_galeri_id;
+    public $galeri_id;
     public $embed_kodu;
     public $uzanti;
     public $hash;
@@ -19,7 +19,7 @@ class GaleriIcerik
     {
         $this->id = $item->id;
         $this->aciklama = $item->aciklama;
-        $this->glr_galeri_id = $item->glr_galeri_id;
+        $this->galeri_id = $item->galeri_id;
         $this->embed_kodu = $item->embed_kodu;
         $this->uzanti = $item->uzanti;
         $this->hash = $item->hash;
