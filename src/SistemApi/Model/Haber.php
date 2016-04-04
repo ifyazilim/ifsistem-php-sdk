@@ -33,6 +33,11 @@ class Haber
     public $kategori;
 
     /**
+     * @var Galeri[]
+     */
+    public $galeriler = [];
+
+    /**
      * @param \stdClass $item
      */
     public function __construct($item)
@@ -56,9 +61,14 @@ class Haber
         $this->created_at = $item->created_at;
         $this->updated_at = $item->updated_at;
 
-        if (isset($item->kategori) && ! empty($item->kategori)) {
-
+        if (isset($item->kategori)) {
             $this->kategori = new Kategori($item->kategori);
+        }
+
+        if (isset($item->galeriler)) {
+            foreach ($item->galeriler as $galeri) {
+                $this->galeriler[] = new Galeri($galeri);
+            }
         }
     }
 
