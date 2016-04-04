@@ -3,9 +3,11 @@
 use SistemApi\Exception\NotFoundException;
 use SistemApi\Exception\UnauthorizedException;
 use SistemApi\Exception\UnknownException;
+use SistemApi\Model\Ayar\GaleriIcerikListeAyar;
 use SistemApi\Model\Ayar\GaleriListeAyar;
 use SistemApi\Model\GaleriIcerik;
 use SistemApi\Model\Haber;
+use SistemApi\Model\Response\GaleriIcerikPagedResponse;
 use SistemApi\Model\Response\GaleriPagedResponse;
 
 class GaleriService
@@ -37,6 +39,29 @@ class GaleriService
                     return new GaleriIcerik($item);
                 }, $response->body);
 
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param int $galeriId
+     * @param GaleriIcerikListeAyar $galeriIcerikListeAyar
+     * @return GaleriIcerikPagedResponse
+     *
+     * @throws UnauthorizedException
+     * @throws UnknownException
+     */
+    public function getIcerikListeByGaleriId($galeriId, GaleriIcerikListeAyar $galeriIcerikListeAyar = null)
+    {
+        // response alalım
+        $response = $this->api->get('/galeri/icerik/liste/' . $galeriId, is_null($galeriIcerikListeAyar) ? '' : $galeriIcerikListeAyar->serialize());
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new GaleriIcerikPagedResponse($response->body);
             case 401: throw new UnauthorizedException($response->body->mesaj);
         }
 
