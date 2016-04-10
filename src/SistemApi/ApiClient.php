@@ -8,6 +8,7 @@ use SistemApi\Service\IletisimMesajService;
 use SistemApi\Service\MansetService;
 use SistemApi\Service\MenuService;
 use SistemApi\Service\SayfaService;
+use SistemApi\Service\SiteService;
 
 /**
  * @property ApiService apiService
@@ -20,6 +21,7 @@ use SistemApi\Service\SayfaService;
  * @property HaberService haber
  * @property GaleriService galeri
  * @property IletisimMesajService iletisimMesaj
+ * @property SiteService site
  *
  */
 class ApiClient
@@ -45,6 +47,7 @@ class ApiClient
             'haber' => \DI\get(HaberService::class),
             'galeri' => \DI\get(GaleriService::class),
             'iletisimMesaj' => \DI\get(IletisimMesajService::class),
+            'site' => \DI\get(SiteService::class),
 
             'api' => function() use($token) {
                 return new ApiService($token);
