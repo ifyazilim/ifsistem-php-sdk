@@ -5,6 +5,7 @@ use SistemApi\Exception\UnauthorizedException;
 use SistemApi\Exception\UnknownException;
 use SistemApi\Model\Ayar\GaleriIcerikListeAyar;
 use SistemApi\Model\Ayar\GaleriListeAyar;
+use SistemApi\Model\Galeri;
 use SistemApi\Model\GaleriIcerik;
 use SistemApi\Model\Haber;
 use SistemApi\Model\Response\GaleriIcerikPagedResponse;
@@ -17,6 +18,29 @@ class GaleriService
      * @var ApiService
      */
     private $api;
+
+    /**
+     * @param int $id
+     * @return Galeri
+     *
+     * @throws NotFoundException
+     * @throws UnauthorizedException
+     */
+    public function getById($id)
+    {
+        // response alalım
+        $response = $this->api->get('/galeri/detay-by-id/' . $id);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new Galeri($response->body);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 404: throw new NotFoundException($response->body->mesaj);
+        }
+
+        throw new UnknownException($response);
+    }
 
     /**
      * @param int $adet
