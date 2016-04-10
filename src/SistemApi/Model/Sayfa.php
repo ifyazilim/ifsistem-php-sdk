@@ -6,19 +6,32 @@ class Sayfa
     public $baslik;
     public $rbaslik;
     public $icerik;
+    public $kodu;
+    public $hit;
+
+    /**
+     * @var Kategori
+     */
+    public $kategori;
 
     /**
      * @param \stdClass $item
      */
     public function __construct($item)
     {
-        $this->id = $item->id;
-        $this->baslik = $item->baslik;
-        $this->rbaslik = $item->rbaslik;
-        $this->icerik = $item->icerik;
+        if (isset($item->id)) $this->id = $item->id;
+        if (isset($item->baslik)) $this->baslik = $item->baslik;
+        if (isset($item->rbaslik)) $this->rbaslik = $item->rbaslik;
+        if (isset($item->icerik)) $this->icerik = $item->icerik;
+        if (isset($item->kodu)) $this->kodu = $item->kodu;
+        if (isset($item->hit)) $this->hit = $item->hit;
+
+        if (isset($item->kategori))
+            $this->kategori = new Kategori($item->kategori);
     }
 
     /**
+     * @deprecated use public id property
      * @return int
      */
     public function getId()
@@ -27,6 +40,7 @@ class Sayfa
     }
 
     /**
+     * @deprecated use public baslik property
      * @return string
      */
     public function getBaslik()
@@ -35,6 +49,7 @@ class Sayfa
     }
 
     /**
+     * @deprecated use public rbaslik property
      * @return string
      */
     public function getRbaslik()
@@ -43,6 +58,7 @@ class Sayfa
     }
 
     /**
+     * @deprecated use public icerik property
      * @return string
      */
     public function getIcerik()

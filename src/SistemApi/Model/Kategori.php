@@ -15,16 +15,6 @@ class Kategori
      */
     public function __construct($item = null)
     {
-        if (isset($item) && ! empty($item))
-            $this->setItem($item);
-    }
-
-    /**
-     * @param \stdClass $item
-     * @return $this
-     */
-    private function setItem($item)
-    {
         if (isset($item->id)) $this->id = $item->id;
         if (isset($item->adi)) $this->adi = $item->adi;
         if (isset($item->radi)) $this->radi = $item->radi;
