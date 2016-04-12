@@ -47,4 +47,12 @@ class Galeri
             }
         }
     }
+
+    /**
+     * @return bool
+     */
+    public function isResimGalerisi()
+    {
+        return $this->tur_id == 1;
+    }
 }

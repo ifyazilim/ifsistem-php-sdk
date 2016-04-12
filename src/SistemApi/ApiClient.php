@@ -2,12 +2,16 @@
 
 use DI\ContainerBuilder;
 use SistemApi\Service\ApiService;
+use SistemApi\Service\EmlakService;
 use SistemApi\Service\GaleriService;
 use SistemApi\Service\HaberService;
+use SistemApi\Service\IlceService;
 use SistemApi\Service\IletisimMesajService;
 use SistemApi\Service\MansetService;
 use SistemApi\Service\MenuService;
 use SistemApi\Service\SayfaService;
+use SistemApi\Service\SehirService;
+use SistemApi\Service\SemtService;
 use SistemApi\Service\SiteService;
 
 /**
@@ -22,6 +26,10 @@ use SistemApi\Service\SiteService;
  * @property GaleriService galeri
  * @property IletisimMesajService iletisimMesaj
  * @property SiteService site
+ * @property SehirService sehir
+ * @property IlceService ilce
+ * @property SemtService semt
+ * @property EmlakService emlak
  *
  */
 class ApiClient
@@ -48,6 +56,10 @@ class ApiClient
             'galeri' => \DI\get(GaleriService::class),
             'iletisimMesaj' => \DI\get(IletisimMesajService::class),
             'site' => \DI\get(SiteService::class),
+            'sehir' => \DI\get(SehirService::class),
+            'ilce' => \DI\get(IlceService::class),
+            'semt' => \DI\get(SemtService::class),
+            'emlak' => \DI\get(EmlakService::class),
 
             'api' => function() use($token) {
                 return new ApiService($token);

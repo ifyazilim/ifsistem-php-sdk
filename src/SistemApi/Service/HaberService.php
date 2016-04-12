@@ -5,6 +5,7 @@ use SistemApi\Exception\UnauthorizedException;
 use SistemApi\Exception\UnknownException;
 use SistemApi\Model\Ayar\HaberListeAyar;
 use SistemApi\Model\Haber;
+use SistemApi\Model\Kategori;
 use SistemApi\Model\Response\HaberPagedResponse;
 
 class HaberService
@@ -92,8 +93,8 @@ class HaberService
     /**
      * @return Haber\Kategori[]
      *
-     * @throws NotFoundException
      * @throws UnauthorizedException
+     * @throws UnknownException
      */
     public function getKategoriListe()
     {
@@ -110,6 +111,30 @@ class HaberService
                 }, $response->body);
 
             case 401: throw new UnauthorizedException($response->body->mesaj);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param int $id
+     * @return Kategori
+     *
+     * @throws NotFoundException
+     * @throws UnauthorizedException
+     */
+    public function getKategoriById($id)
+    {
+        // response alalım
+        $response = $this->api->get('/haber/kategori/detay/' . $id);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new Kategori($response->body);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 404: throw new NotFoundException($response->body->mesaj);
+
         }
 
         throw new UnknownException($response);
