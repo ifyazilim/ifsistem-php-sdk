@@ -26,8 +26,9 @@ class Sayfa
         if (isset($item->kodu)) $this->kodu = $item->kodu;
         if (isset($item->hit)) $this->hit = $item->hit;
 
-        if (isset($item->kategori))
+        if (isset($item->kategori)) {
             $this->kategori = new Kategori($item->kategori);
+        }
     }
 
     /**

@@ -22,6 +22,7 @@ class Kategori
         if (isset($item->radi)) $this->radi = $item->radi;
         if (isset($item->kodu)) $this->kodu = $item->kodu;
         if (isset($item->site_id)) $this->site_id = $item->site_id;
+
         if (isset($item->created_at)) $this->created_at = Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at);
         if (isset($item->updated_at)) $this->updated_at = Carbon::createFromFormat('Y-m-d H:i:s', $item->updated_at);
     }
