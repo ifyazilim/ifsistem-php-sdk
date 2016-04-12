@@ -26,7 +26,7 @@ class HaberService
     public function getListeSonEklenenler($adet = 4)
     {
         // response alalım
-        $response = $this->api->get('/manset/liste-by-kategori-kodu/' . $adet);
+        $response = $this->api->get('/haber/liste-son-eklenenler/' . $adet);
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {
