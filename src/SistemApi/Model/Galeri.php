@@ -1,5 +1,7 @@
 <?php namespace SistemApi\Model;
 
+use Carbon\Carbon;
+
 class Galeri
 {
     public $id;
@@ -9,7 +11,16 @@ class Galeri
     public $site_id;
     public $haber_id;
     public $tur_id;
+    public $varsayilan_icerik_id;
+
+    /**
+     * @var Carbon
+     */
     public $created_at;
+
+    /**
+     * @var Carbon
+     */
     public $updated_at;
 
     /**
@@ -27,15 +38,16 @@ class Galeri
      */
     public function __construct($item)
     {
-        $this->id = $item->id;
-        $this->baslik = $item->baslik;
-        $this->rbaslik = $item->rbaslik;
-        $this->kodu = $item->kodu;
-        $this->site_id = $item->site_id;
-        $this->haber_id = $item->haber_id;
-        $this->tur_id = $item->tur_id;
-        $this->created_at = $item->created_at;
-        $this->updated_at = $item->updated_at;
+        if (isset($item->id)) $this->id = $item->id;
+        if (isset($item->baslik)) $this->baslik = $item->baslik;
+        if (isset($item->rbaslik)) $this->rbaslik = $item->rbaslik;
+        if (isset($item->kodu)) $this->kodu = $item->kodu;
+        if (isset($item->site_id)) $this->site_id = $item->site_id;
+        if (isset($item->haber_id)) $this->haber_id = $item->haber_id;
+        if (isset($item->tur_id)) $this->tur_id = $item->tur_id;
+        if (isset($item->varsayilan_icerik_id)) $this->varsayilan_icerik_id = $item->varsayilan_icerik_id;
+        if (isset($item->created_at)) $this->created_at = Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at);
+        if (isset($item->updated_at)) $this->updated_at = Carbon::createFromFormat('Y-m-d H:i:s', $item->updated_at);
 
         if (isset($item->varsayilanIcerik)) {
             $this->varsayilanIcerik = new GaleriIcerik($item->varsayilanIcerik);
