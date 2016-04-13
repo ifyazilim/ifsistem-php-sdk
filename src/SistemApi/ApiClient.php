@@ -13,6 +13,7 @@ use SistemApi\Service\SayfaService;
 use SistemApi\Service\SehirService;
 use SistemApi\Service\SemtService;
 use SistemApi\Service\SiteService;
+use SistemApi\Service\UrunService;
 
 /**
  * @property ApiService apiService
@@ -30,6 +31,7 @@ use SistemApi\Service\SiteService;
  * @property IlceService ilce
  * @property SemtService semt
  * @property EmlakService emlak
+ * @property UrunService urun
  *
  */
 class ApiClient
@@ -60,6 +62,7 @@ class ApiClient
             'ilce' => \DI\get(IlceService::class),
             'semt' => \DI\get(SemtService::class),
             'emlak' => \DI\get(EmlakService::class),
+            'urun' => \DI\get(UrunService::class),
 
             'api' => function() use($token) {
                 return new ApiService($token);
