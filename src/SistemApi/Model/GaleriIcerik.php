@@ -8,9 +8,6 @@ class GaleriIcerik
     public $aciklama;
     public $galeri_id;
     public $embed_kodu;
-    public $uzanti;
-    public $hash;
-    public $durum;
     public $created_at;
     public $updated_at;
 
@@ -28,9 +25,6 @@ class GaleriIcerik
         if (isset($item->aciklama)) $this->aciklama = $item->aciklama;
         if (isset($item->galeri_id)) $this->galeri_id = $item->galeri_id;
         if (isset($item->embed_kodu)) $this->embed_kodu = $item->embed_kodu;
-        if (isset($item->uzanti)) $this->uzanti = $item->uzanti;
-        if (isset($item->hash)) $this->hash = $item->hash;
-        if (isset($item->durum)) $this->durum = $item->durum;
         if (isset($item->created_at)) $this->created_at = Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at);
         if (isset($item->updated_at)) $this->updated_at = Carbon::createFromFormat('Y-m-d H:i:s', $item->updated_at);
 
