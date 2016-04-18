@@ -21,9 +21,10 @@ class Haber
     public $haber_zamani;
     public $is_yayinda;
     public $is_haber_saati_gosterilsin;
-    public $is_resimli;
-    public $uzanti;
-    public $hash;
+
+    public $orjinal_resim_id;
+    public $detay_resim_id;
+    public $kucuk_resim_id;
 
     /**
      * @var Carbon
@@ -71,9 +72,11 @@ class Haber
         if (isset($item->haber_zamani)) $this->haber_zamani = Carbon::createFromFormat('Y-m-d H:i:s', $item->haber_zamani);
         if (isset($item->is_yayinda)) $this->is_yayinda = $item->is_yayinda;
         if (isset($item->is_haber_saati_gosterilsin)) $this->is_haber_saati_gosterilsin = $item->is_haber_saati_gosterilsin;
-        if (isset($item->is_resimli)) $this->is_resimli = $item->is_resimli;
-        if (isset($item->uzanti)) $this->uzanti = $item->uzanti;
-        if (isset($item->hash)) $this->hash = $item->hash;
+
+        if (isset($item->orjinal_resim_id)) $this->orjinal_resim_id = $item->orjinal_resim_id;
+        if (isset($item->detay_resim_id)) $this->detay_resim_id = $item->detay_resim_id;
+        if (isset($item->kucuk_resim_id)) $this->kucuk_resim_id = $item->kucuk_resim_id;
+
         if (isset($item->created_at)) $this->created_at = Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at);
         if (isset($item->updated_at)) $this->updated_at = Carbon::createFromFormat('Y-m-d H:i:s', $item->updated_at);
 
