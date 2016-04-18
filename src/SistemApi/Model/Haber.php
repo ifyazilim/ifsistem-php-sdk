@@ -11,7 +11,6 @@ class Haber
     public $icerik;
     public $hit;
     public $site_id;
-    public $durum;
     public $kategori_id;
     public $haber_lokasyonu;
 
@@ -66,7 +65,6 @@ class Haber
         if (isset($item->icerik)) $this->icerik = $item->icerik;
         if (isset($item->hit)) $this->hit = $item->hit;
         if (isset($item->site_id)) $this->site_id = $item->site_id;
-        if (isset($item->durum)) $this->durum = $item->durum;
         if (isset($item->kategori_id)) $this->kategori_id = $item->kategori_id;
         if (isset($item->haber_lokasyonu)) $this->haber_lokasyonu = $item->haber_lokasyonu;
         if (isset($item->haber_zamani)) $this->haber_zamani = Carbon::createFromFormat('Y-m-d H:i:s', $item->haber_zamani);
