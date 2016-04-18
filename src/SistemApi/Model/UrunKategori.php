@@ -21,6 +21,7 @@ class UrunKategori
     // diğer
 
     public $urun_adet;
+    public $resim_adresi;
 
     /**
      * @param \stdClass $item
@@ -35,5 +36,6 @@ class UrunKategori
 
         // diğer
         if (isset($item->urun_adet)) $this->urun_adet = $item->urun_adet;
+        if (isset($item->resim_adresi)) $this->resim_adresi = $item->resim_adresi;
     }
 }
