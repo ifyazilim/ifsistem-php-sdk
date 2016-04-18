@@ -39,31 +39,4 @@ class GaleriIcerik
         if (isset($item->resim_adresi_orjinal)) $this->resim_adresi_orjinal = $item->resim_adresi_orjinal;
         if (isset($item->resim_adresi_kirpilmis)) $this->resim_adresi_kirpilmis = $item->resim_adresi_kirpilmis;
     }
-
-    /**
-     * @deprecated
-     * @return string
-     */
-    public function getResimAdi()
-    {
-        return sprintf('%d-%s.%s', $this->id, $this->hash, $this->uzanti);
-    }
-
-    /**
-     * @deprecated use resim_adresi_orjinal property
-     * @return string
-     */
-    public function getResimOrjinalSrc()
-    {
-        return 'http://siteder1.s3-website-eu-west-1.amazonaws.com/public_site/glr_icerik_resim/orjinal/' . $this->getResimAdi();
-    }
-
-    /**
-     * @deprecated use resim_adresi_kirpilmis property
-     * @return string
-     */
-    public function getResimKirpilmisSrc()
-    {
-        return 'http://siteder1.s3-website-eu-west-1.amazonaws.com/public_site/glr_icerik_resim/kirpilmis/' . $this->getResimAdi();
-    }
 }

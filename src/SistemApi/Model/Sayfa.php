@@ -48,40 +48,4 @@ class Sayfa
             $this->kategori = new Kategori($item->kategori);
         }
     }
-
-    /**
-     * @deprecated use public id property
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @deprecated use public baslik property
-     * @return string
-     */
-    public function getBaslik()
-    {
-        return $this->baslik;
-    }
-
-    /**
-     * @deprecated use public rbaslik property
-     * @return string
-     */
-    public function getRbaslik()
-    {
-        return $this->rbaslik;
-    }
-
-    /**
-     * @deprecated use public icerik property
-     * @return string
-     */
-    public function getIcerik()
-    {
-        return $this->icerik;
-    }
 }

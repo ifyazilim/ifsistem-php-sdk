@@ -95,40 +95,4 @@ class Haber
             }
         }
     }
-
-    /**
-     * @deprecated
-     * @return string
-     */
-    public function getResimAdi()
-    {
-        return sprintf('%d-%s.%s', $this->id, $this->hash, $this->uzanti);
-    }
-
-    /**
-     * @deprecated use resim_adresi_orjinal property
-     * @return string
-     */
-    public function getOrjinalResimSrc()
-    {
-        return 'http://siteder1.s3-website-eu-west-1.amazonaws.com/public_site/hbr_haber_resim/orjinal/' . $this->getResimAdi();
-    }
-
-    /**
-     * @deprecated use resim_adresi_detay property
-     * @return string
-     */
-    public function getDetayResimSrc()
-    {
-        return 'http://siteder1.s3-website-eu-west-1.amazonaws.com/public_site/hbr_haber_resim/detay/' . $this->getResimAdi();
-    }
-
-    /**
-     * @deprecated use resim_adresi_kucuk property
-     * @return string
-     */
-    public function getKucukResimSrc()
-    {
-        return 'http://siteder1.s3-website-eu-west-1.amazonaws.com/public_site/hbr_haber_resim/kucuk/' . $this->getResimAdi();
-    }
 }

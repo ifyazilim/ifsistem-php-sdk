@@ -3,7 +3,7 @@
 use SistemApi\Exception\NotFoundException;
 use SistemApi\Exception\UnauthorizedException;
 use SistemApi\Exception\UnknownException;
-use SistemApi\Model\Menu\Eleman;
+use SistemApi\Model\MenuEleman;
 
 class MenuService
 {
@@ -15,7 +15,7 @@ class MenuService
 
     /**
      * @param string $menuKodu
-     * @return Eleman[]
+     * @return MenuEleman[]
      *
      * @throws NotFoundException
      * @throws UnauthorizedException
@@ -31,7 +31,7 @@ class MenuService
             case 200:
 
                 return array_map(function($item) {
-                    return new Eleman($item);
+                    return new MenuEleman($item);
                 }, $response->body);
 
             case 401: throw new UnauthorizedException($response->body->mesaj);
