@@ -1,11 +1,15 @@
 <?php namespace SistemApi\Service;
 
+use SistemApi\Exception\BadRequestException;
 use SistemApi\Exception\NotFoundException;
 use SistemApi\Exception\UnauthorizedException;
 use SistemApi\Exception\UnknownException;
+use SistemApi\Model\Ayar\HaberKategoriListeAyar;
 use SistemApi\Model\Ayar\HaberListeAyar;
 use SistemApi\Model\Haber;
+use SistemApi\Model\HaberKategori;
 use SistemApi\Model\Kategori;
+use SistemApi\Model\Response\HaberKategoriPagedResponse;
 use SistemApi\Model\Response\HaberPagedResponse;
 
 class HaberService
@@ -117,6 +121,30 @@ class HaberService
     }
 
     /**
+     * @param HaberKategoriListeAyar $ayar
+     * @return HaberKategoriPagedResponse
+     *
+     * @throws UnauthorizedException
+     * @throws UnknownException
+     */
+    public function listeKategori(HaberKategoriListeAyar $ayar = null)
+    {
+        // response alalım
+        $response = $this->api->get('/haber/kategori/liste-yeni', is_null($ayar) ? '' : $ayar->serialize());
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new HaberKategoriPagedResponse($response->body);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @deprecated use getKategori
+     *
      * @param int $id
      * @return Kategori
      *
@@ -135,6 +163,107 @@ class HaberService
             case 401: throw new UnauthorizedException($response->body->mesaj);
             case 404: throw new NotFoundException($response->body->mesaj);
 
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param int $id
+     * @return HaberKategori
+     *
+     * @throws NotFoundException
+     * @throws UnauthorizedException
+     */
+    public function getKategori($id)
+    {
+        // response alalım
+        $response = $this->api->get('/haber/kategori/detay/' . $id);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new HaberKategori($response->body);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 404: throw new NotFoundException($response->body->mesaj);
+
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param array $data
+     * @return HaberKategori
+     *
+     * @throws BadRequestException
+     * @throws UnauthorizedException
+     * @throws UnknownException
+     */
+    public function ekleKategori($data)
+    {
+        // response alalım
+        $response = $this->api->post('/haber/kategori/ekle', $data);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new HaberKategori($response->body);
+            case 400: throw new BadRequestException($response->body->mesaj);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param int $id
+     * @param array $data
+     * @return HaberKategori
+     *
+     * @throws BadRequestException
+     * @throws UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnknownException
+     */
+    public function guncelleKategori($id, $data)
+    {
+        // response alalım
+        $response = $this->api->post('/haber/kategori/guncelle/' . $id, $data);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new HaberKategori($response->body);
+            case 400: throw new BadRequestException($response->body->mesaj);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 404: throw new NotFoundException($response->body->mesaj);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param int $id
+     * @return HaberKategori
+     *
+     * @throws BadRequestException
+     * @throws UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnknownException
+     */
+    public function silKategori($id)
+    {
+        // response alalım
+        $response = $this->api->get('/haber/kategori/sil/' . $id);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new HaberKategori($response->body);
+            case 400: throw new BadRequestException($response->body->mesaj);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 404: throw new NotFoundException($response->body->mesaj);
         }
 
         throw new UnknownException($response);

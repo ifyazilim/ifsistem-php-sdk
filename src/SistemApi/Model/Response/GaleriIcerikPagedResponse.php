@@ -1,9 +1,9 @@
 <?php namespace SistemApi\Model\Response;
 
 use SistemApi\Model\GaleriIcerik;
-use SistemApi\Model\Soyut\ListePagedResponse;
+use SistemApi\Model\Response\Base\PagedResponse;
 
-class GaleriIcerikPagedResponse extends ListePagedResponse
+class GaleriIcerikPagedResponse extends PagedResponse
 {
     /**
      * @param \stdClass $item

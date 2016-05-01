@@ -1,14 +1,17 @@
 <?php namespace SistemApi\Service;
 
+use SistemApi\Exception\BadRequestException;
 use SistemApi\Exception\NotFoundException;
 use SistemApi\Exception\UnauthorizedException;
 use SistemApi\Exception\UnknownException;
+use SistemApi\Model\Ayar\EmlakDanismanListeAyar;
 use SistemApi\Model\Ayar\EmlakIlanListeAyar;
 use SistemApi\Model\EmlakDanisman;
 use SistemApi\Model\EmlakIlan;
 use SistemApi\Model\EmlakKategori;
 use SistemApi\Model\EmlakTip;
 use SistemApi\Model\EmlakTur;
+use SistemApi\Model\Response\EmlakDanismanPagedResponse;
 use SistemApi\Model\Response\EmlakIlanPagedResponse;
 
 class EmlakService
@@ -95,6 +98,8 @@ class EmlakService
     }
 
     /**
+     * @deprecated use listeDanisman
+     *
      * @return EmlakDanisman[]
      *
      * @throws UnauthorizedException
@@ -182,6 +187,131 @@ class EmlakService
             case 401: throw new UnauthorizedException($response->body->mesaj);
             case 404: throw new NotFoundException($response->body->mesaj);
 
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param EmlakDanismanListeAyar $ayar
+     * @return EmlakDanismanPagedResponse
+     *
+     * @throws UnauthorizedException
+     * @throws UnknownException
+     */
+    public function listeDanisman($ayar = null)
+    {
+        // response alalım
+        $response = $this->api->get('/emlak/danisman/liste', empty($ayar) ? '' : $ayar->serialize());
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new EmlakDanismanPagedResponse($response->body);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param int $id
+     * @return EmlakDanisman
+     *
+     * @throws NotFoundException
+     * @throws UnauthorizedException
+     */
+    public function getDanisman($id)
+    {
+        // response alalım
+        $response = $this->api->get('/emlak/danisman/detay/' . $id);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new EmlakDanisman($response->body);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 404: throw new NotFoundException($response->body->mesaj);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param EmlakDanisman $danisman
+     * @param string $resim
+     * @return EmlakDanisman
+     *
+     * @throws BadRequestException
+     * @throws UnauthorizedException
+     * @throws UnknownException
+     */
+    public function ekleDanisman($danisman, $resim)
+    {
+        // response alalım
+        $response = $this->api->post('/emlak/danisman/ekle', $danisman->toArray(), [
+            'resim' => $resim
+        ]);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new EmlakDanisman($response->body);
+            case 400: throw new BadRequestException($response->body->mesaj);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param int $id
+     * @param EmlakDanisman $danisman
+     * @return EmlakDanisman
+     *
+     * @throws BadRequestException
+     * @throws UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnknownException
+     */
+    public function guncelleDanisman($id, $danisman)
+    {
+        // response alalım
+        $response = $this->api->post('/emlak/danisman/guncelle/' . $id, $danisman->toArray());
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new EmlakDanisman($response->body);
+            case 400: throw new BadRequestException($response->body->mesaj);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 404: throw new NotFoundException($response->body->mesaj);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param int $id
+     * @return EmlakDanisman
+     *
+     * @throws BadRequestException
+     * @throws UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnknownException
+     */
+    public function silDanisman($id)
+    {
+        // response alalım
+        $response = $this->api->get('/emlak/danisman/sil/' . $id);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new EmlakDanisman($response->body);
+            case 400: throw new BadRequestException($response->body->mesaj);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 404: throw new NotFoundException($response->body->mesaj);
         }
 
         throw new UnknownException($response);

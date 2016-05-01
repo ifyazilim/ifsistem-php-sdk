@@ -6,7 +6,8 @@
     "nesbot/carbon": "^1.21",
     "php-di/php-di": "^5.2",
     "symfony/var-dumper": "^3.0",
-    "doctrine/annotations": "^1.2"
+    "doctrine/annotations": "^1.2",
+    "illuminate/support": "^5.2"
   },
   "require-dev": {
     "mockery/mockery": "~0.9",

@@ -32,11 +32,16 @@ class ApiService
             ->send();
     }
 
-    public function post($uri, $payload = null)
+    public function post($uri, $payload = [], $files = [])
     {
-        return Request::post('http://www.ifsistem.com/api/v1' . $uri, $payload, Mime::JSON)
+        $request = Request::post('http://www.ifsistem.com/api/v1' . $uri, empty($payload) ? null : $payload, Mime::JSON)
             ->addHeader('X-IFSISTEM-TOKEN', $this->token)
-            ->sendsAndExpects(Mime::JSON)
-            ->send();
+            ->sendsAndExpects(Mime::JSON);
+
+        // files boş değilse
+        if ( ! empty($files))
+            $request = $request->attach($files);
+
+        return $request->send();
     }
 }

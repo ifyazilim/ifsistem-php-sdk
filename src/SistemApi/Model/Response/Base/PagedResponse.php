@@ -1,8 +1,8 @@
-<?php namespace SistemApi\Model\Soyut;
+<?php namespace SistemApi\Model\Response\Base;
 
 use SistemApi\Model\Inner\Sayfalama;
 
-abstract class ListePagedResponse
+abstract class PagedResponse
 {
     /**
      * @var Sayfalama

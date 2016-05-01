@@ -1,22 +1,22 @@
 <?php namespace SistemApi\Model\Response;
 
-use SistemApi\Model\EmlakIlan;
+use SistemApi\Model\HaberKategori;
 use SistemApi\Model\Response\Base\PagedResponse;
 
-class EmlakIlanPagedResponse extends PagedResponse
+class HaberKategoriPagedResponse extends PagedResponse
 {
     /**
      * @param \stdClass $item
      */
     public function __construct($item)
     {
-        parent::__construct($item, EmlakIlan::class);
+        parent::__construct($item, HaberKategori::class);
     }
 
     /**
-     * @return EmlakIlan[]
+     * @return HaberKategori[]
      */
-    public function getEmlakIlanlar()
+    public function getHaberKategoriler()
     {
         return $this->kayitlar;
     }

@@ -1,9 +1,9 @@
 <?php namespace SistemApi\Model\Response;
 
+use SistemApi\Model\Response\Base\PagedResponse;
 use SistemApi\Model\Sayfa;
-use SistemApi\Model\Soyut\ListePagedResponse;
 
-class SayfaPagedResponse extends ListePagedResponse
+class SayfaPagedResponse extends PagedResponse
 {
     /**
      * @param \stdClass $item

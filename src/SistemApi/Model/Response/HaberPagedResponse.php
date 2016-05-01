@@ -1,9 +1,9 @@
 <?php namespace SistemApi\Model\Response;
 
 use SistemApi\Model\Haber;
-use SistemApi\Model\Soyut\ListePagedResponse;
+use SistemApi\Model\Response\Base\PagedResponse;
 
-class HaberPagedResponse extends ListePagedResponse
+class HaberPagedResponse extends PagedResponse
 {
     /**
      * @param \stdClass $item
