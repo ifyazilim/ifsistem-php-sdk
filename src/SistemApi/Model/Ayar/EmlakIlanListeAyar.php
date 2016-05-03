@@ -1,6 +1,8 @@
 <?php namespace SistemApi\Model\Ayar;
 
-class EmlakIlanListeAyar
+use SistemApi\Model\Ayar\Base\ListeAyar;
+
+class EmlakIlanListeAyar extends ListeAyar
 {
     /**
      * @var int
@@ -48,21 +50,11 @@ class EmlakIlanListeAyar
     private $oneCikanOncelikli = false;
 
     /**
-     * @var int
+     * @return array
      */
-    private $sayfa;
-
-    /**
-     * @var int
-     */
-    private $adet;
-
-    /**
-     * @return string
-     */
-    public function serialize()
+    public function toArray()
     {
-        return json_encode([
+        return array_merge(parent::toArray(), [
             'sehirId' => $this->sehirId,
             'ilceId' => $this->ilceId,
             'semtId' => $this->semtId,
@@ -71,30 +63,8 @@ class EmlakIlanListeAyar
             'kategoriId' => $this->kategoriId,
             'danismanId' => $this->danismanId,
             'excludedIds' => implode(',', $this->excludedIds),
-            'oneCikanOncelikli' => $this->oneCikanOncelikli ? 1 : 0,
-            'sayfa' => $this->sayfa,
-            'adet' => $this->adet
+            'oneCikanOncelikli' => $this->oneCikanOncelikli ? 1 : 0
         ]);
-    }
-
-    /**
-     * @param int $sayfa
-     * @return $this
-     */
-    public function setSayfa($sayfa)
-    {
-        $this->sayfa = $sayfa;
-        return $this;
-    }
-
-    /**
-     * @param int $adet
-     * @return $this
-     */
-    public function setAdet($adet)
-    {
-        $this->adet = $adet;
-        return $this;
     }
 
     /**

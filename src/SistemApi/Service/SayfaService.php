@@ -216,7 +216,7 @@ class SayfaService
     public function getListe(SayfaListeAyar $ayar = null)
     {
         // response alalım
-        $response = $this->api->get('/sayfa/liste', is_null($ayar) ? '' : $ayar->serialize());
+        $response = $this->api->get('/sayfa/liste', is_null($ayar) ? [] : $ayar->toArray());
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {
@@ -238,7 +238,7 @@ class SayfaService
     public function listeKategori($ayar = null)
     {
         // response alalım
-        $response = $this->api->get('/sayfa/kategori/liste', is_null($ayar) ? '' : $ayar->toArray());
+        $response = $this->api->get('/sayfa/kategori/liste', is_null($ayar) ? [] : $ayar->toArray());
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {

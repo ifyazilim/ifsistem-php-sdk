@@ -1,6 +1,6 @@
 <?php namespace SistemApi\Exception;
 
-use Httpful\Response;
+use Unirest\Response;
 
 class UnknownException extends \RuntimeException
 {

@@ -60,7 +60,7 @@ class HaberService
     public function getListe(HaberListeAyar $haberListeAyar = null)
     {
         // response alalım
-        $response = $this->api->get('/haber/liste', is_null($haberListeAyar) ? '' : $haberListeAyar->toArray());
+        $response = $this->api->get('/haber/liste', is_null($haberListeAyar) ? [] : $haberListeAyar->toArray());
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {
@@ -82,7 +82,7 @@ class HaberService
     public function liste(HaberListeAyar $ayar = null)
     {
         // response alalım
-        $response = $this->api->get('/haber/liste', is_null($ayar) ? '' : $ayar->toArray());
+        $response = $this->api->get('/haber/liste', is_null($ayar) ? [] : $ayar->toArray());
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {
@@ -259,7 +259,7 @@ class HaberService
     public function listeKategori(HaberKategoriListeAyar $ayar = null)
     {
         // response alalım
-        $response = $this->api->get('/haber/kategori/liste-yeni', is_null($ayar) ? '' : $ayar->toArray());
+        $response = $this->api->get('/haber/kategori/liste-yeni', is_null($ayar) ? [] : $ayar->toArray());
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {

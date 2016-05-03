@@ -134,7 +134,7 @@ class EmlakService
     public function getListeIlanlar(EmlakIlanListeAyar $emlakIlanListeAyar = null)
     {
         // response alalım
-        $response = $this->api->get('/emlak/ilan-liste', is_null($emlakIlanListeAyar) ? '' : $emlakIlanListeAyar->serialize());
+        $response = $this->api->get('/emlak/ilan-liste', is_null($emlakIlanListeAyar) ? [] : $emlakIlanListeAyar->toArray());
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {
@@ -156,7 +156,7 @@ class EmlakService
     public function getAdetIlanlar(EmlakIlanListeAyar $emlakIlanListeAyar = null)
     {
         // response alalım
-        $response = $this->api->get('/emlak/ilan-adet', is_null($emlakIlanListeAyar) ? '' : $emlakIlanListeAyar->serialize());
+        $response = $this->api->get('/emlak/ilan-adet', is_null($emlakIlanListeAyar) ? [] : $emlakIlanListeAyar->toArray());
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {
@@ -202,7 +202,7 @@ class EmlakService
     public function listeDanisman($ayar = null)
     {
         // response alalım
-        $response = $this->api->get('/emlak/danisman/liste', empty($ayar) ? '' : $ayar->toArray());
+        $response = $this->api->get('/emlak/danisman/liste', empty($ayar) ? [] : $ayar->toArray());
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {
@@ -238,7 +238,7 @@ class EmlakService
     }
 
     /**
-     * @param EmlakDanisman $danisman
+     * @param array $data
      * @param string $resim
      * @return EmlakDanisman
      *
@@ -246,10 +246,10 @@ class EmlakService
      * @throws UnauthorizedException
      * @throws UnknownException
      */
-    public function ekleDanisman($danisman, $resim)
+    public function ekleDanisman($data, $resim)
     {
         // response alalım
-        $response = $this->api->post('/emlak/danisman/ekle', $danisman->toArray(), [
+        $response = $this->api->post('/emlak/danisman/ekle', $data, [
             'resim' => $resim
         ]);
 
@@ -266,7 +266,7 @@ class EmlakService
 
     /**
      * @param int $id
-     * @param EmlakDanisman $danisman
+     * @param array $data
      * @return EmlakDanisman
      *
      * @throws BadRequestException
@@ -274,10 +274,10 @@ class EmlakService
      * @throws NotFoundException
      * @throws UnknownException
      */
-    public function guncelleDanisman($id, $danisman)
+    public function guncelleDanisman($id, $data)
     {
         // response alalım
-        $response = $this->api->post('/emlak/danisman/guncelle/' . $id, $danisman->toArray());
+        $response = $this->api->post('/emlak/danisman/guncelle/' . $id, $data);
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {

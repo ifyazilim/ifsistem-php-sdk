@@ -1,7 +1,7 @@
 <?php namespace SistemApi\Service;
 
-use Httpful\Mime;
-use Httpful\Request;
+use Unirest\Request;
+use Unirest\Response;
 
 class ApiService
 {
@@ -27,28 +27,29 @@ class ApiService
 
     /**
      * @param string $uri
-     * @param string $body
+     * @param array $query
      *
-     * @return \Httpful\Response
+     * @return Response
      */
-    public function get($uri, $body = '')
+    public function get($uri, $query = [])
     {
-        return Request::get($this->uri . $uri, Mime::JSON)
-            ->addHeader('X-IFSISTEM-TOKEN', $this->token)
-            ->body($body)
-            ->send();
+        $headers = [
+            'Accept' => 'application/json',
+            'X-IFSISTEM-TOKEN' => $this->token
+        ];
+
+        return Request::get($this->uri . $uri, $headers, $query);
     }
 
-    public function post($uri, $payload = [], $files = [])
+    public function post($uri, $data = [], $files = [])
     {
-        $request = Request::post($this->uri . $uri, empty($payload) ? null : $payload, Mime::JSON)
-            ->addHeader('X-IFSISTEM-TOKEN', $this->token)
-            ->sendsAndExpects(Mime::JSON);
+        $headers = [
+            'Accept' => 'application/json',
+            'X-IFSISTEM-TOKEN' => $this->token
+        ];
 
-        // files boş değilse
-        if ( ! empty($files))
-            $request = $request->attach($files);
+        $body = empty($files) ? Request\Body::Json($data) : Request\Body::multipart($data, $files);
 
-        return $request->send();
+        return Request::post($this->uri . $uri, $headers, $body);
     }
 }

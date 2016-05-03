@@ -2,12 +2,12 @@
   "name": "ifyazilim/ifsistem-php-sdk",
   "description": "php ile ifsistem'i entegre yapmak için kullanılır.",
   "require": {
-    "nategood/httpful": "*",
     "nesbot/carbon": "^1.21",
     "php-di/php-di": "^5.2",
     "symfony/var-dumper": "^3.0",
     "doctrine/annotations": "^1.2",
-    "illuminate/support": "^5.2"
+    "illuminate/support": "^5.2",
+    "mashape/unirest-php": "3.0.*"
   },
   "require-dev": {
     "mockery/mockery": "~0.9",

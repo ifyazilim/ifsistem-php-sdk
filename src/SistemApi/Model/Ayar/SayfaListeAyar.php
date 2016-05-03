@@ -1,6 +1,8 @@
 <?php namespace SistemApi\Model\Ayar;
 
-class SayfaListeAyar
+use SistemApi\Model\Ayar\Base\ListeAyar;
+
+class SayfaListeAyar extends ListeAyar
 {
     /**
      * @var int
@@ -8,24 +10,12 @@ class SayfaListeAyar
     private $kategoriId;
 
     /**
-     * @var int
+     * @return array
      */
-    private $sayfa;
-
-    /**
-     * @var int
-     */
-    private $adet;
-
-    /**
-     * @return string
-     */
-    public function serialize()
+    public function toArray()
     {
-        return json_encode([
-            'kategoriId' => $this->kategoriId,
-            'sayfa' => $this->sayfa,
-            'adet' => $this->adet
+        return array_merge(parent::toArray(), [
+            'kategoriId' => $this->kategoriId
         ]);
     }
 
@@ -36,26 +26,6 @@ class SayfaListeAyar
     public function setKategoriId($kategoriId)
     {
         $this->kategoriId = $kategoriId;
-        return $this;
-    }
-
-    /**
-     * @param int $sayfa
-     * @return $this
-     */
-    public function setSayfa($sayfa)
-    {
-        $this->sayfa = $sayfa;
-        return $this;
-    }
-
-    /**
-     * @param int $adet
-     * @return $this
-     */
-    public function setAdet($adet)
-    {
-        $this->adet = $adet;
         return $this;
     }
 }

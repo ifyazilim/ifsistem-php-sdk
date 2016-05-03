@@ -10,7 +10,7 @@ class HaberListeAyar extends ListeAyar
     private $kategoriId;
 
     /**
-     * @return string
+     * @return array
      */
     public function toArray()
     {

@@ -80,7 +80,7 @@ class GaleriService
     public function getIcerikListeByGaleriId($galeriId, GaleriIcerikListeAyar $galeriIcerikListeAyar = null)
     {
         // response alalım
-        $response = $this->api->get('/galeri/icerik/liste/' . $galeriId, is_null($galeriIcerikListeAyar) ? '' : $galeriIcerikListeAyar->serialize());
+        $response = $this->api->get('/galeri/icerik/liste/' . $galeriId, is_null($galeriIcerikListeAyar) ? [] : $galeriIcerikListeAyar->toArray());
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {
@@ -102,7 +102,7 @@ class GaleriService
     public function getListe(GaleriListeAyar $galeriListeAyar = null)
     {
         // response alalım
-        $response = $this->api->get('/galeri/liste', is_null($galeriListeAyar) ? '' : $galeriListeAyar->serialize());
+        $response = $this->api->get('/galeri/liste', is_null($galeriListeAyar) ? [] : $galeriListeAyar->toArray());
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {

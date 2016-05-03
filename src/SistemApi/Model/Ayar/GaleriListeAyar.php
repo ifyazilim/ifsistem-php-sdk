@@ -1,6 +1,8 @@
 <?php namespace SistemApi\Model\Ayar;
 
-class GaleriListeAyar
+use SistemApi\Model\Ayar\Base\ListeAyar;
+
+class GaleriListeAyar extends ListeAyar
 {
     /**
      * @var int
@@ -13,25 +15,13 @@ class GaleriListeAyar
     private $haberId;
 
     /**
-     * @var int
+     * @return array
      */
-    private $sayfa;
-
-    /**
-     * @var int
-     */
-    private $adet;
-
-    /**
-     * @return string
-     */
-    public function serialize()
+    public function toArray()
     {
-        return json_encode([
+        return array_merge(parent::toArray(), [
             'turId' => $this->turId,
-            'haberId' => $this->haberId,
-            'sayfa' => $this->sayfa,
-            'adet' => $this->adet
+            'haberId' => $this->haberId
         ]);
     }
 
@@ -52,26 +42,6 @@ class GaleriListeAyar
     public function setHaberId($haberId)
     {
         $this->haberId = $haberId;
-        return $this;
-    }
-
-    /**
-     * @param int $sayfa
-     * @return $this
-     */
-    public function setSayfa($sayfa)
-    {
-        $this->sayfa = $sayfa;
-        return $this;
-    }
-
-    /**
-     * @param int $adet
-     * @return $this
-     */
-    public function setAdet($adet)
-    {
-        $this->adet = $adet;
         return $this;
     }
 }

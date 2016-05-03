@@ -10,7 +10,7 @@ class KullaniciListeAyar extends ListeAyar
     private $ids = [];
 
     /**
-     * @return string
+     * @return array
      */
     public function toArray()
     {
