@@ -25,14 +25,14 @@ abstract class ListeAyar
     /**
      * @return string
      */
-    public function serialize()
+    public function toArray()
     {
-        return json_encode([
+        return [
             'orderBy' => $this->orderBy,
             'orderType' => $this->orderType,
             'sayfa' => $this->sayfa,
             'adet' => $this->adet
-        ]);
+        ];
     }
 
     /**

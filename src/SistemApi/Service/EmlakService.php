@@ -202,7 +202,7 @@ class EmlakService
     public function listeDanisman($ayar = null)
     {
         // response alalım
-        $response = $this->api->get('/emlak/danisman/liste', empty($ayar) ? '' : $ayar->serialize());
+        $response = $this->api->get('/emlak/danisman/liste', empty($ayar) ? '' : $ayar->toArray());
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {

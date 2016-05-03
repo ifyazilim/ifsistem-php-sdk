@@ -7,8 +7,10 @@ use SistemApi\Service\GaleriService;
 use SistemApi\Service\HaberService;
 use SistemApi\Service\IlceService;
 use SistemApi\Service\IletisimMesajService;
+use SistemApi\Service\KullaniciService;
 use SistemApi\Service\MansetService;
 use SistemApi\Service\MenuService;
+use SistemApi\Service\ResimService;
 use SistemApi\Service\SayfaService;
 use SistemApi\Service\SehirService;
 use SistemApi\Service\SemtService;
@@ -32,7 +34,8 @@ use SistemApi\Service\UrunService;
  * @property SemtService semt
  * @property EmlakService emlak
  * @property UrunService urun
- *
+ * @property KullaniciService kullanici
+ * @property ResimService resim
  */
 class ApiClient
 {
@@ -63,6 +66,8 @@ class ApiClient
             'semt' => \DI\get(SemtService::class),
             'emlak' => \DI\get(EmlakService::class),
             'urun' => \DI\get(UrunService::class),
+            'kullanici' => \DI\get(KullaniciService::class),
+            'resim' => \DI\get(ResimService::class),
 
             'api' => function() use($token) {
                 return new ApiService($token);
