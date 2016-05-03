@@ -23,7 +23,7 @@ class KullaniciService
     public function liste(KullaniciListeAyar $ayar = null)
     {
         // response alalım
-        $response = $this->api->get('/kullanici/liste', is_null($ayar) ? [] : $ayar->toArray());
+        $response = $this->api->get('/kullanici/liste', is_null($ayar) ? '' : $ayar->toArray());
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {

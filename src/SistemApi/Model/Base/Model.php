@@ -68,7 +68,7 @@ class Model implements Arrayable, Jsonable
     public function fill($attributes)
     {
         foreach ($attributes as $key => $value) {
-            $this->setAttribute($key, $value);
+            $this->$key = $value;
         }
     }
 

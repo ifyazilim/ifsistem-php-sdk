@@ -1,5 +1,6 @@
 <?php namespace SistemApi\Model;
 
+use Illuminate\Support\Collection;
 use SistemApi\Model\Base\Model;
 
 /**
@@ -14,13 +15,21 @@ use SistemApi\Model\Base\Model;
  * // diğer modeller
  *
  * @property SayfaKategori kategori
+ * @property Collection|Kullanici[] yazarlar
  */
 class Sayfa extends Model
 {
     public function __set($key, $value)
     {
         switch ($key) {
-            case 'kategori': parent::__set($key, new SayfaKategori($value)); break;
+            case 'kategori': $value = new SayfaKategori($value); break;
+            case 'yazarlar':
+                $collection = new Collection();
+                foreach ($value as $id => $item) {
+                    $collection->put($id, new Kullanici($item));
+                }
+                $value = $collection;
+                break;
         }
 
         parent::__set($key, $value);

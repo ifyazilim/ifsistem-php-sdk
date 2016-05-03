@@ -11,11 +11,18 @@ class ApiService
     private $token;
 
     /**
-     * @param string $token
+     * @var string
      */
-    public function __construct($token)
+    private $uri;
+
+    /**
+     * @param string $token
+     * @param string $uri
+     */
+    public function __construct($token, $uri)
     {
         $this->token = $token;
+        $this->uri = $uri;
     }
 
     /**
@@ -26,7 +33,7 @@ class ApiService
      */
     public function get($uri, $body = '')
     {
-        return Request::get('http://www.ifsistem.com/api/v1' . $uri, Mime::JSON)
+        return Request::get($this->uri . $uri, Mime::JSON)
             ->addHeader('X-IFSISTEM-TOKEN', $this->token)
             ->body($body)
             ->send();
@@ -34,7 +41,7 @@ class ApiService
 
     public function post($uri, $payload = [], $files = [])
     {
-        $request = Request::post('http://www.ifsistem.com/api/v1' . $uri, empty($payload) ? null : $payload, Mime::JSON)
+        $request = Request::post($this->uri . $uri, empty($payload) ? null : $payload, Mime::JSON)
             ->addHeader('X-IFSISTEM-TOKEN', $this->token)
             ->sendsAndExpects(Mime::JSON);
 

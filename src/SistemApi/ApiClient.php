@@ -46,8 +46,9 @@ class ApiClient
 
     /**
      * @param string $token
+     * @param string $uri
      */
-    public function __construct($token)
+    public function __construct($token, $uri = 'http://www.ifsistem.com/api/v1')
     {
         $builder = new ContainerBuilder(Container::class);
 
@@ -69,8 +70,8 @@ class ApiClient
             'kullanici' => \DI\get(KullaniciService::class),
             'resim' => \DI\get(ResimService::class),
 
-            'api' => function() use($token) {
-                return new ApiService($token);
+            'api' => function() use($token, $uri) {
+                return new ApiService($token, $uri);
             },
             ApiService::class => \DI\get('api')
         ]);

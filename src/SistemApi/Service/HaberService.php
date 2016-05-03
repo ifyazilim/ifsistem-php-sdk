@@ -82,7 +82,7 @@ class HaberService
     public function liste(HaberListeAyar $ayar = null)
     {
         // response alalım
-        $response = $this->api->get('/haber/liste', is_null($ayar) ? [] : $ayar->toArray());
+        $response = $this->api->get('/haber/liste', is_null($ayar) ? '' : $ayar->toArray());
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {
