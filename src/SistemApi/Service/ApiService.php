@@ -45,6 +45,7 @@ class ApiService
     {
         $headers = [
             'Accept' => 'application/json',
+            'Content-Type' => 'application/json',
             'X-IFSISTEM-TOKEN' => $this->token
         ];
 
