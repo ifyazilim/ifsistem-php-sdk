@@ -10,6 +10,14 @@ class HaberListeAyar extends ListeAyar
     private $kategoriId;
 
     /**
+     * @return HaberListeAyar
+     */
+    public function setOrderByYayinBaslangicZamani()
+    {
+        return $this->setOrderBy('yayin_baslangic_zamani');
+    }
+
+    /**
      * @return array
      */
     public function toArray()
@@ -21,11 +29,19 @@ class HaberListeAyar extends ListeAyar
 
     /**
      * @param int $kategoriId
-     * @return SayfaListeAyar
+     * @return HaberListeAyar
      */
     public function setKategoriId($kategoriId)
     {
         $this->kategoriId = $kategoriId;
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getKategoriId()
+    {
+        return $this->kategoriId;
     }
 }

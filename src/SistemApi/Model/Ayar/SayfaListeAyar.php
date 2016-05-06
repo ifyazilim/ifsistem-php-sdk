@@ -28,4 +28,12 @@ class SayfaListeAyar extends ListeAyar
         $this->kategoriId = $kategoriId;
         return $this;
     }
+
+    /**
+     * @return int
+     */
+    public function getKategoriId()
+    {
+        return $this->kategoriId;
+    }
 }

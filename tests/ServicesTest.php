@@ -6,8 +6,12 @@ class ServicesTest extends PHPUnit_Framework_TestCase
     {
         $client = new \SistemApi\ApiClient('X-IFSISTEM-TOKEN', 'http://ifsistem.app/api/v1');
 
-        $siteAyar = $client->site->getAyar();
+        $haberler = $client->haber->liste(
+            (new \SistemApi\Model\Ayar\HaberListeAyar())
+                ->setOrderByYayinBaslangicZamani()
+                ->setAdet(4)
+        );
 
-         \Symfony\Component\VarDumper\VarDumper::dump($siteAyar);
+         \Symfony\Component\VarDumper\VarDumper::dump($haberler);
     }
 }

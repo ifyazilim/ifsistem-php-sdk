@@ -10,12 +10,18 @@ class KullaniciListeAyar extends ListeAyar
     private $ids = [];
 
     /**
+     * @var string
+     */
+    private $grupKodu;
+
+    /**
      * @return array
      */
     public function toArray()
     {
         return array_merge([
-            'ids' => $this->ids
+            'ids' => $this->ids,
+            'grupKodu' => $this->grupKodu
         ], parent::toArray());
     }
 
@@ -35,5 +41,31 @@ class KullaniciListeAyar extends ListeAyar
     {
         $this->ids[] = $id;
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getIds()
+    {
+        return $this->ids;
+    }
+
+    /**
+     * @param string $grupKodu
+     * @return KullaniciListeAyar
+     */
+    public function setGrupKodu($grupKodu)
+    {
+        $this->grupKodu = $grupKodu;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGrupKodu()
+    {
+        return $this->grupKodu;
     }
 }

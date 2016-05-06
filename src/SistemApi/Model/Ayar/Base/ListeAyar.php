@@ -30,21 +30,16 @@ abstract class ListeAyar
     private $dilId = 1;
 
     /**
-     * @var int
-     */
-    private $foundRows;
-
-    /**
      * @param array $args
      */
     public function __construct($args = null)
     {
         // varsayılan bilgiler için
-        $args['sayfa'] = isset($argc['sayfa']) ? ($args['sayfa'] < 1 ? 1 : $args['sayfa']) : 1;
-        $args['adet'] = isset($argc['adet']) ? ($args['adet'] < 1 || $args['adet'] > 50 ? 50 : $args['adet']) : 50;
-        $args['orderBy'] = isset($argc['orderBy']) ? $args['orderBy'] : 'id';
-        $args['orderType'] = isset($argc['orderType']) ? $args['orderType'] : 'desc';
-        $args['dilId'] = isset($argc['dilId']) ? $args['dilId'] : 1; // türkçe
+        $args['sayfa'] = isset($args['sayfa']) ? ($args['sayfa'] < 1 ? 1 : $args['sayfa']) : 1;
+        $args['adet'] = isset($args['adet']) ? ($args['adet'] < 1 || $args['adet'] > 50 ? 50 : $args['adet']) : 50;
+        $args['orderBy'] = isset($args['orderBy']) ? $args['orderBy'] : 'id';
+        $args['orderType'] = isset($args['orderType']) ? $args['orderType'] : 'desc';
+        $args['dilId'] = isset($args['dilId']) ? $args['dilId'] : 1; // türkçe
 
         foreach ($args as $key => $value) {
             $methodName = 'set' . Str::studly($key);
@@ -69,11 +64,21 @@ abstract class ListeAyar
     }
 
     /**
-     * @param int $foundRows
+     * @return int
      */
-    public function setFoundRows($foundRows)
+    public function getSkip()
     {
-        $this->foundRows = $foundRows;
+        return ($this->getSayfa() - 1) * $this->getAdet();
+    }
+
+    /**
+     * @param int $sayfa
+     * @return $this
+     */
+    public function setSayfa($sayfa)
+    {
+        $this->sayfa = $sayfa;
+        return $this;
     }
 
     /**
@@ -82,6 +87,16 @@ abstract class ListeAyar
     public function getSayfa()
     {
         return empty($this->sayfa) ? 1 : intval($this->sayfa);
+    }
+
+    /**
+     * @param int $adet
+     * @return $this
+     */
+    public function setAdet($adet)
+    {
+        $this->adet = $adet;
+        return $this;
     }
 
     /**
@@ -97,27 +112,12 @@ abstract class ListeAyar
     }
 
     /**
+     * @param int $foundRows
      * @return int
      */
-    public function getSkip()
+    public function getToplamSayfa($foundRows)
     {
-        return ($this->getSayfa() - 1) * $this->getAdet();
-    }
-
-    /**
-     * @return int
-     */
-    public function getTake()
-    {
-        return $this->getAdet();
-    }
-
-    /**
-     * @return int
-     */
-    public function getToplamSayfa()
-    {
-        return intval(ceil($this->getFoundRows() / $this->getAdet()));
+        return intval(ceil($foundRows / $this->getAdet()));
     }
 
     /**
@@ -148,34 +148,6 @@ abstract class ListeAyar
     }
 
     /**
-     * @param int $sayfa
-     * @return $this
-     */
-    public function setSayfa($sayfa)
-    {
-        $this->sayfa = $sayfa;
-        return $this;
-    }
-
-    /**
-     * @param int $adet
-     * @return $this
-     */
-    public function setAdet($adet)
-    {
-        $this->adet = $adet;
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getFoundRows()
-    {
-        return intval($this->foundRows);
-    }
-
-    /**
      * @param string $orderBy
      * @return ListeAyar
      */
@@ -186,6 +158,14 @@ abstract class ListeAyar
     }
 
     /**
+     * @return string
+     */
+    public function getOrderBy()
+    {
+        return $this->orderBy;
+    }
+
+    /**
      * @param string $orderType
      * @return ListeAyar
      */
@@ -193,14 +173,6 @@ abstract class ListeAyar
     {
         $this->orderType = $orderType;
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getOrderBy()
-    {
-        return $this->orderBy;
     }
 
     /**
@@ -219,5 +191,13 @@ abstract class ListeAyar
     {
         $this->dilId = $dilId;
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDilId()
+    {
+        return $this->dilId;
     }
 }

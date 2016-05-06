@@ -207,6 +207,8 @@ class SayfaService
     }
 
     /**
+     * @deprecated use liste
+     *
      * @param SayfaListeAyar $ayar
      * @return SayfaPagedResponse
      *
@@ -214,6 +216,28 @@ class SayfaService
      * @throws UnknownException
      */
     public function getListe(SayfaListeAyar $ayar = null)
+    {
+        // response alalım
+        $response = $this->api->get('/sayfa/liste', is_null($ayar) ? [] : $ayar->toArray());
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new SayfaPagedResponse($response->body);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param SayfaListeAyar $ayar
+     * @return SayfaPagedResponse
+     *
+     * @throws UnauthorizedException
+     * @throws UnknownException
+     */
+    public function liste(SayfaListeAyar $ayar = null)
     {
         // response alalım
         $response = $this->api->get('/sayfa/liste', is_null($ayar) ? [] : $ayar->toArray());

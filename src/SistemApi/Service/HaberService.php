@@ -21,6 +21,8 @@ class HaberService
     private $api;
 
     /**
+     * @deprecated use liste
+     *
      * @param int $adet
      * @return Haber[]
      *
