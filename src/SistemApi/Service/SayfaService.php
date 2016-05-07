@@ -67,18 +67,7 @@ class SayfaService
      */
     public function getById($id)
     {
-        // response alalım
-        $response = $this->api->get('/sayfa/detay-by-id/' . $id);
-
-        // durum koduna göre işlem yapalım
-        switch ($response->code) {
-
-            case 200: return new Sayfa($response->body);
-            case 401: throw new UnauthorizedException($response->body->mesaj);
-            case 404: throw new NotFoundException($response->body->mesaj);
-        }
-
-        throw new UnknownException($response);
+        return $this->get($id);
     }
 
     /**
@@ -192,18 +181,7 @@ class SayfaService
      */
     public function getKategoriById($id)
     {
-        // response alalım
-        $response = $this->api->get('/sayfa/kategori/detay-by-id/' . $id);
-
-        // durum koduna göre işlem yapalım
-        switch ($response->code) {
-
-            case 200: return new SayfaKategori($response->body);
-            case 401: throw new UnauthorizedException($response->body->mesaj);
-            case 404: throw new NotFoundException($response->body->mesaj);
-        }
-
-        throw new UnknownException($response);
+        return $this->getKategori($id);
     }
 
     /**
@@ -217,17 +195,7 @@ class SayfaService
      */
     public function getListe(SayfaListeAyar $ayar = null)
     {
-        // response alalım
-        $response = $this->api->get('/sayfa/liste', is_null($ayar) ? [] : $ayar->toArray());
-
-        // durum koduna göre işlem yapalım
-        switch ($response->code) {
-
-            case 200: return new SayfaPagedResponse($response->body);
-            case 401: throw new UnauthorizedException($response->body->mesaj);
-        }
-
-        throw new UnknownException($response);
+        return $this->liste($ayar);
     }
 
     /**

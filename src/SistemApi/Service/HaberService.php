@@ -8,7 +8,6 @@ use SistemApi\Model\Ayar\HaberKategoriListeAyar;
 use SistemApi\Model\Ayar\HaberListeAyar;
 use SistemApi\Model\Haber;
 use SistemApi\Model\HaberKategori;
-use SistemApi\Model\Kategori;
 use SistemApi\Model\Response\HaberKategoriPagedResponse;
 use SistemApi\Model\Response\HaberPagedResponse;
 
@@ -277,26 +276,14 @@ class HaberService
      * @deprecated use getKategori
      *
      * @param int $id
-     * @return Kategori
+     * @return HaberKategori
      *
      * @throws NotFoundException
      * @throws UnauthorizedException
      */
     public function getKategoriById($id)
     {
-        // response alalım
-        $response = $this->api->get('/haber/kategori/detay/' . $id);
-
-        // durum koduna göre işlem yapalım
-        switch ($response->code) {
-
-            case 200: return new Kategori($response->body);
-            case 401: throw new UnauthorizedException($response->body->mesaj);
-            case 404: throw new NotFoundException($response->body->mesaj);
-
-        }
-
-        throw new UnknownException($response);
+        return $this->getKategori($id);
     }
 
     /**
