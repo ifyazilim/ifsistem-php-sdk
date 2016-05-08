@@ -130,14 +130,6 @@ class Model implements Arrayable, Jsonable
 
         if (in_array($key, $this->array_models)) {
 
-            /*
-            if (method_exists($this, 'set' . Str::studly($key))) {
-                $method_name = 'set' . Str::studly($key);
-                $this->$method_name($value);
-                return $this;
-            }
-            */
-
             $values = new Collection();
             foreach ($value as $index => $item) {
                 $values->put($index, (array) $item);

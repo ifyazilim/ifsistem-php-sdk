@@ -5,7 +5,9 @@ use SistemApi\Exception\NotFoundException;
 use SistemApi\Exception\UnauthorizedException;
 use SistemApi\Exception\UnknownException;
 use SistemApi\Model\Ayar\UrunKategoriListeAyar;
+use SistemApi\Model\Ayar\UrunListeAyar;
 use SistemApi\Model\Response\UrunKategoriPagedResponse;
+use SistemApi\Model\Response\UrunPagedResponse;
 use SistemApi\Model\UrunKategori;
 use SistemApi\Model\UrunOzellikGrup;
 
@@ -16,6 +18,28 @@ class UrunService
      * @var ApiService
      */
     private $api;
+
+    /**
+     * @param UrunListeAyar $ayar
+     * @return UrunPagedResponse
+     *
+     * @throws UnauthorizedException
+     * @throws UnknownException
+     */
+    public function liste(UrunListeAyar $ayar = null)
+    {
+        // response alalım
+        $response = $this->api->get('/urun/liste', is_null($ayar) ? [] : $ayar->toArray());
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new UrunPagedResponse($response->body);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+        }
+
+        throw new UnknownException($response);
+    }
 
     /**
      * @deprecated use listeKategori

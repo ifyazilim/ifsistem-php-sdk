@@ -20,37 +20,22 @@ class SayfaService
     private $api;
 
     /**
-     * @deprecated getByKodu kullanın
+     * @param SayfaListeAyar $ayar
+     * @return SayfaPagedResponse
      *
-     * @param $kodu
-     * @return Sayfa
-     *
-     * @throws NotFoundException
      * @throws UnauthorizedException
+     * @throws UnknownException
      */
-    public function getDetayByKodu($kodu)
-    {
-        return $this->getByKodu($kodu);
-    }
-
-    /**
-     * @param string $kodu
-     * @return Sayfa
-     *
-     * @throws NotFoundException
-     * @throws UnauthorizedException
-     */
-    public function getByKodu($kodu)
+    public function liste(SayfaListeAyar $ayar = null)
     {
         // response alalım
-        $response = $this->api->get('/sayfa/detay-by-kodu/' . $kodu);
+        $response = $this->api->get('/sayfa/liste', is_null($ayar) ? [] : $ayar->toArray());
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {
 
-            case 200: return new Sayfa($response->body);
+            case 200: return new SayfaPagedResponse($response->body);
             case 401: throw new UnauthorizedException($response->body->mesaj);
-            case 404: throw new NotFoundException($response->body->mesaj);
         }
 
         throw new UnknownException($response);
@@ -81,6 +66,43 @@ class SayfaService
     {
         // response alalım
         $response = $this->api->get('/sayfa/detay/' . $id);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new Sayfa($response->body);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 404: throw new NotFoundException($response->body->mesaj);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @deprecated getByKodu kullanın
+     *
+     * @param $kodu
+     * @return Sayfa
+     *
+     * @throws NotFoundException
+     * @throws UnauthorizedException
+     */
+    public function getDetayByKodu($kodu)
+    {
+        return $this->getByKodu($kodu);
+    }
+
+    /**
+     * @param string $kodu
+     * @return Sayfa
+     *
+     * @throws NotFoundException
+     * @throws UnauthorizedException
+     */
+    public function getByKodu($kodu)
+    {
+        // response alalım
+        $response = $this->api->get('/sayfa/detay-by-kodu/' . $kodu);
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {
@@ -196,28 +218,6 @@ class SayfaService
     public function getListe(SayfaListeAyar $ayar = null)
     {
         return $this->liste($ayar);
-    }
-
-    /**
-     * @param SayfaListeAyar $ayar
-     * @return SayfaPagedResponse
-     *
-     * @throws UnauthorizedException
-     * @throws UnknownException
-     */
-    public function liste(SayfaListeAyar $ayar = null)
-    {
-        // response alalım
-        $response = $this->api->get('/sayfa/liste', is_null($ayar) ? [] : $ayar->toArray());
-
-        // durum koduna göre işlem yapalım
-        switch ($response->code) {
-
-            case 200: return new SayfaPagedResponse($response->body);
-            case 401: throw new UnauthorizedException($response->body->mesaj);
-        }
-
-        throw new UnknownException($response);
     }
 
     /**

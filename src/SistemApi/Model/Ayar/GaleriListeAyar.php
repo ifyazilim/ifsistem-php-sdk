@@ -26,6 +26,14 @@ class GaleriListeAyar extends ListeAyar
     }
 
     /**
+     * @return GaleriListeAyar
+     */
+    public function setOrderBySira()
+    {
+        return $this->setOrderBy('sira');
+    }
+
+    /**
      * @param int $turId
      * @return GaleriListeAyar
      */
@@ -43,5 +51,21 @@ class GaleriListeAyar extends ListeAyar
     {
         $this->haberId = $haberId;
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTurId()
+    {
+        return $this->turId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getHaberId()
+    {
+        return $this->haberId;
     }
 }
