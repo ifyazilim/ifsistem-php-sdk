@@ -1,41 +1,25 @@
 <?php namespace SistemApi\Model;
 
-use Carbon\Carbon;
+use SistemApi\Model\Base\Model;
 
-class UrunKategori
+/**
+ * @property int id
+ * @property string adi
+ * @property string radi
+ * @property int site_id
+ * @property int resim_id
+ *
+ * // diğer
+ *
+ * @property int urun_adet
+ * @property string resim_adresi
+ *
+ * // model
+ *
+ * @property Resim resim
+ *
+ */
+class UrunKategori extends Model
 {
-    public $id;
-    public $adi;
-    public $radi;
 
-    /**
-     * @var Carbon
-     */
-    public $created_at;
-
-    /**
-     * @var Carbon
-     */
-    public $updated_at;
-
-    // diğer
-
-    public $urun_adet;
-    public $resim_adresi;
-
-    /**
-     * @param \stdClass $item
-     */
-    public function __construct($item = null)
-    {
-        if (isset($item->id)) $this->id = $item->id;
-        if (isset($item->adi)) $this->adi = $item->adi;
-        if (isset($item->radi)) $this->radi = $item->radi;
-        if (isset($item->created_at)) $this->created_at = Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at);
-        if (isset($item->updated_at)) $this->updated_at = Carbon::createFromFormat('Y-m-d H:i:s', $item->updated_at);
-
-        // diğer
-        if (isset($item->urun_adet)) $this->urun_adet = $item->urun_adet;
-        if (isset($item->resim_adresi)) $this->resim_adresi = $item->resim_adresi;
-    }
 }

@@ -45,7 +45,7 @@ class ApiService
     {
         $headers = [
             'Accept' => 'application/json',
-            'Content-Type' => 'application/json',
+            'Content-Type' => empty($files) ? 'application/json' : 'multipart/form-data',
             'X-IFSISTEM-TOKEN' => $this->token
         ];
 
