@@ -52,6 +52,16 @@ class KullaniciListeAyar extends ListeAyar
     }
 
     /**
+     * @param array $ids
+     * @return KullaniciListeAyar
+     */
+    public function setIds($ids)
+    {
+        $this->ids = $ids;
+        return $this;
+    }
+
+    /**
      * @param string $grupKodu
      * @return KullaniciListeAyar
      */
