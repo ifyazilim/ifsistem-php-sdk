@@ -36,7 +36,7 @@ abstract class ListeAyar
     {
         // varsayılan bilgiler için
         $args['sayfa'] = isset($args['sayfa']) ? ($args['sayfa'] < 1 ? 1 : $args['sayfa']) : 1;
-        $args['adet'] = isset($args['adet']) ? ($args['adet'] < 1 || $args['adet'] > 50 ? 50 : $args['adet']) : 50;
+        $args['adet'] = isset($args['adet']) ? ($args['adet'] < 1 || $args['adet'] > 1000 ? 1000 : $args['adet']) : 50;
         $args['orderBy'] = isset($args['orderBy']) ? $args['orderBy'] : 'id';
         $args['orderType'] = isset($args['orderType']) ? $args['orderType'] : 'desc';
         $args['dilId'] = isset($args['dilId']) ? $args['dilId'] : 1; // türkçe
@@ -105,8 +105,7 @@ abstract class ListeAyar
     public function getAdet()
     {
         if (empty($this->adet)) return 50;
-        if ($this->adet > 50) return 50;
-        if ($this->adet < 1) return 50;
+        if ($this->adet < 1 || $this->adet > 1000) return 1000;
 
         return intval($this->adet);
     }

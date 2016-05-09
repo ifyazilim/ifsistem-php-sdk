@@ -5,6 +5,7 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Collection;
 use SistemApi\Model\Resim;
+use SistemApi\Model\Sehir;
 
 /**
  * @property Carbon created_at
@@ -13,7 +14,8 @@ use SistemApi\Model\Resim;
 class Model implements Arrayable, Jsonable
 {
     private $models = [
-        'resim' => Resim::class
+        'resim' => Resim::class,
+        'sehir' => Sehir::class
     ];
 
     private $array_models = [

@@ -10,6 +10,9 @@ use SistemApi\Model\Response\UrunKategoriPagedResponse;
 use SistemApi\Model\Response\UrunPagedResponse;
 use SistemApi\Model\UrunKategori;
 use SistemApi\Model\UrunOzellikGrup;
+use SistemApi\Model\UrunSiparis;
+use SistemApi\Model\UrunSiparisAdres;
+use SistemApi\Model\UrunSiparisUrun;
 
 class UrunService
 {
@@ -216,6 +219,79 @@ class UrunService
             case 400: throw new BadRequestException($response->body->mesaj);
             case 401: throw new UnauthorizedException($response->body->mesaj);
             case 404: throw new NotFoundException($response->body->mesaj);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param array $data
+     * @return UrunSiparis
+     *
+     * @throws BadRequestException
+     * @throws UnauthorizedException
+     * @throws UnknownException
+     */
+    public function ekleSiparis($data)
+    {
+        // response alalım
+        $response = $this->api->post('/urun/siparis/ekle', $data);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new UrunSiparis($response->body);
+            case 400: throw new BadRequestException($response->body->mesaj);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param int $siparisId
+     * @param array $data
+     * @return UrunSiparisUrun
+     *
+     * @throws BadRequestException
+     * @throws UnauthorizedException
+     * @throws UnknownException
+     */
+    public function ekleSiparisUrun($siparisId, $data)
+    {
+        // response alalım
+        $response = $this->api->post('/urun/siparis/' . $siparisId . '/urun/ekle', $data);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new UrunSiparisUrun($response->body);
+            case 400: throw new BadRequestException($response->body->mesaj);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param array $data
+     * @return UrunSiparisAdres
+     *
+     * @throws BadRequestException
+     * @throws UnauthorizedException
+     * @throws UnknownException
+     */
+    public function ekleSiparisAdres($data)
+    {
+        // response alalım
+        $response = $this->api->post('/urun/siparis-adres/ekle', $data);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new UrunSiparisAdres($response->body);
+            case 400: throw new BadRequestException($response->body->mesaj);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
         }
 
         throw new UnknownException($response);

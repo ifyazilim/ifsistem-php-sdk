@@ -1,18 +1,13 @@
 <?php namespace SistemApi\Model;
 
-class Sehir
-{
-    public $id;
-    public $adi;
-    public $radi;
+use SistemApi\Model\Base\Model;
 
-    /**
-     * @param \stdClass $item
-     */
-    public function __construct($item)
-    {
-        if (isset($item->id)) $this->id = $item->id;
-        if (isset($item->adi)) $this->adi = $item->adi;
-        if (isset($item->radi)) $this->radi = $item->radi;
-    }
+/**
+ * @property int id
+ * @property string adi
+ * @property string radi
+ */
+class Sehir extends Model
+{
+
 }

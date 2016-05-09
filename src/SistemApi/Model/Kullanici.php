@@ -8,6 +8,16 @@ use SistemApi\Model\Base\Model;
  * @property string mail
  * @property int site_id
  * @property string unvan
+ * @property string telefon_sabit
+ * @property string telefon_cep
+ * @property string adres_is
+ * @property string adres_ev
+ * @property string sosyal_facebook
+ * @property string sosyal_twitter
+ * @property string sosyal_linkedin
+ * @property string sosyal_instagram
+ * @property string biyografi
+ *
  * @property int orjinal_resim_id
  * @property int kirpilmis_resim_id
  *
