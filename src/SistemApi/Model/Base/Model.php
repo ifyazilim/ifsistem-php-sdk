@@ -4,8 +4,12 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Collection;
+use SistemApi\Model\Ilce;
+use SistemApi\Model\Kullanici;
+use SistemApi\Model\ParaBirim;
 use SistemApi\Model\Resim;
 use SistemApi\Model\Sehir;
+use SistemApi\Model\Urun;
 
 /**
  * @property Carbon created_at
@@ -15,7 +19,11 @@ class Model implements Arrayable, Jsonable
 {
     private $models = [
         'resim' => Resim::class,
-        'sehir' => Sehir::class
+        'sehir' => Sehir::class,
+        'ilce' => Ilce::class,
+        'urun' => Urun::class,
+        'para_birim' => ParaBirim::class,
+        'kullanici' => Kullanici::class
     ];
 
     private $array_models = [

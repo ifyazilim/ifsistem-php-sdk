@@ -5,6 +5,7 @@ use SistemApi\Model\Base\Model;
 /**
  * @property int id
  * @property string adi
+ * @property int sehir_id
  *
  * // model
  *

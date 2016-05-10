@@ -4,14 +4,16 @@ use SistemApi\Exception\BadRequestException;
 use SistemApi\Exception\NotFoundException;
 use SistemApi\Exception\UnauthorizedException;
 use SistemApi\Exception\UnknownException;
+use SistemApi\Model\Ayar\Urun\SiparisListeAyar;
 use SistemApi\Model\Ayar\UrunKategoriListeAyar;
 use SistemApi\Model\Ayar\UrunListeAyar;
+use SistemApi\Model\Response\Urun\SiparisPagedResponse;
 use SistemApi\Model\Response\UrunKategoriPagedResponse;
 use SistemApi\Model\Response\UrunPagedResponse;
+use SistemApi\Model\Urun\SiparisAdres;
 use SistemApi\Model\UrunKategori;
 use SistemApi\Model\UrunOzellikGrup;
 use SistemApi\Model\UrunSiparis;
-use SistemApi\Model\UrunSiparisAdres;
 use SistemApi\Model\UrunSiparisUrun;
 
 class UrunService
@@ -225,6 +227,52 @@ class UrunService
     }
 
     /**
+     * @param SiparisListeAyar $ayar
+     * @return SiparisPagedResponse
+     *
+     * @throws UnauthorizedException
+     * @throws UnknownException
+     */
+    public function listeSiparis(SiparisListeAyar $ayar = null)
+    {
+        // response alalım
+        $response = $this->api->get('/urun/siparis/liste', is_null($ayar) ? [] : $ayar->toArray());
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new SiparisPagedResponse($response->body);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param int $id
+     * @return UrunSiparis
+     *
+     * @throws NotFoundException
+     * @throws UnauthorizedException
+     */
+    public function getSiparis($id)
+    {
+        // response alalım
+        $response = $this->api->get('/urun/siparis/detay/' . $id);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new UrunSiparis($response->body);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 404: throw new NotFoundException($response->body->mesaj);
+
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
      * @param array $data
      * @return UrunSiparis
      *
@@ -275,7 +323,7 @@ class UrunService
 
     /**
      * @param array $data
-     * @return UrunSiparisAdres
+     * @return SiparisAdres
      *
      * @throws BadRequestException
      * @throws UnauthorizedException
@@ -289,7 +337,7 @@ class UrunService
         // durum koduna göre işlem yapalım
         switch ($response->code) {
 
-            case 200: return new UrunSiparisAdres($response->body);
+            case 200: return new SiparisAdres($response->body);
             case 400: throw new BadRequestException($response->body->mesaj);
             case 401: throw new UnauthorizedException($response->body->mesaj);
         }

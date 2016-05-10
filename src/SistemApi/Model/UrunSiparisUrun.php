@@ -10,6 +10,10 @@ use SistemApi\Model\Base\Model;
  * @property int adet
  * @property int fiyat
  * @property int kdv_orani
+ *
+ * // model
+ *
+ * @property Urun
  */
 class UrunSiparisUrun extends Model
 {
