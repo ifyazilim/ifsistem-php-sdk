@@ -1,5 +1,6 @@
 <?php namespace SistemApi\Model;
 
+use Illuminate\Support\Collection;
 use SistemApi\Model\Base\Model;
 
 /**
@@ -16,6 +17,7 @@ use SistemApi\Model\Base\Model;
  * // model
  *
  * @property UrunKategori kategori
+ * @property Collection|Resim[] resimler
  *
  */
 class Urun extends Model
@@ -24,6 +26,13 @@ class Urun extends Model
     {
         switch ($key) {
             case 'kategori': $value = new UrunKategori($value); break;
+            case 'resimler':
+                $collection = new Collection();
+                foreach ($value as $item) {
+                    $collection->push(new Resim($item));
+                }
+                $value = $collection;
+                break;
         }
 
         parent::__set($key, $value);

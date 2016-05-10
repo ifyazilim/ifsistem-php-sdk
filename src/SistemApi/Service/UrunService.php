@@ -10,6 +10,7 @@ use SistemApi\Model\Ayar\UrunListeAyar;
 use SistemApi\Model\Response\Urun\SiparisPagedResponse;
 use SistemApi\Model\Response\UrunKategoriPagedResponse;
 use SistemApi\Model\Response\UrunPagedResponse;
+use SistemApi\Model\Urun;
 use SistemApi\Model\Urun\SiparisAdres;
 use SistemApi\Model\UrunKategori;
 use SistemApi\Model\UrunOzellikGrup;
@@ -41,6 +42,29 @@ class UrunService
 
             case 200: return new UrunPagedResponse($response->body);
             case 401: throw new UnauthorizedException($response->body->mesaj);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param int $id
+     * @return Urun
+     *
+     * @throws NotFoundException
+     * @throws UnauthorizedException
+     */
+    public function get($id)
+    {
+        // response alalım
+        $response = $this->api->get('/urun/detay/' . $id);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new Urun($response->body);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 404: throw new NotFoundException($response->body->mesaj);
         }
 
         throw new UnknownException($response);
