@@ -25,8 +25,8 @@ class Sayfa extends Model
             case 'kategori': $value = new SayfaKategori($value); break;
             case 'yazarlar':
                 $collection = new Collection();
-                foreach ($value as $id => $item) {
-                    $collection->put($id, new Kullanici($item));
+                foreach ($value as $item) {
+                    $collection->push(new Kullanici($item));
                 }
                 $value = $collection;
                 break;
