@@ -10,6 +10,7 @@ use SistemApi\Service\IletisimMesajService;
 use SistemApi\Service\KullaniciService;
 use SistemApi\Service\MansetService;
 use SistemApi\Service\MenuService;
+use SistemApi\Service\ReklamService;
 use SistemApi\Service\ResimService;
 use SistemApi\Service\SayfaService;
 use SistemApi\Service\SehirService;
@@ -36,6 +37,7 @@ use SistemApi\Service\UrunService;
  * @property UrunService urun
  * @property KullaniciService kullanici
  * @property ResimService resim
+ * @property ReklamService reklam
  */
 class ApiClient
 {
@@ -69,6 +71,7 @@ class ApiClient
             'urun' => \DI\get(UrunService::class),
             'kullanici' => \DI\get(KullaniciService::class),
             'resim' => \DI\get(ResimService::class),
+            'reklam' => \DI\get(ReklamService::class),
 
             'api' => function() use($token, $uri) {
                 return new ApiService($token, $uri);
