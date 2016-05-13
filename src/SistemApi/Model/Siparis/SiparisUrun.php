@@ -1,10 +1,9 @@
-<?php namespace SistemApi\Model;
+<?php namespace SistemApi\Model\Siparis;
 
 use SistemApi\Model\Base\Model;
+use SistemApi\Model\Urun;
 
 /**
- * @deprecated use Siparis\SiparisUrun
- *
  * @property int id
  * @property int site_id
  * @property int siparis_id
@@ -17,7 +16,7 @@ use SistemApi\Model\Base\Model;
  *
  * @property Urun
  */
-class UrunSiparisUrun extends Model
+class SiparisUrun extends Model
 {
 
 }

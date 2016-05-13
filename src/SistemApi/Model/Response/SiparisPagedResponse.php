@@ -1,11 +1,8 @@
-<?php namespace SistemApi\Model\Response\Urun;
+<?php namespace SistemApi\Model\Response;
 
 use SistemApi\Model\Response\Base\PagedResponse;
 use SistemApi\Model\Siparis;
 
-/**
- * @deprecated use SiparisPagedResponse
- */
 class SiparisPagedResponse extends PagedResponse
 {
     /**

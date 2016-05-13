@@ -4,18 +4,13 @@ use SistemApi\Exception\BadRequestException;
 use SistemApi\Exception\NotFoundException;
 use SistemApi\Exception\UnauthorizedException;
 use SistemApi\Exception\UnknownException;
-use SistemApi\Model\Ayar\Urun\SiparisListeAyar;
 use SistemApi\Model\Ayar\UrunKategoriListeAyar;
 use SistemApi\Model\Ayar\UrunListeAyar;
-use SistemApi\Model\Response\Urun\SiparisPagedResponse;
 use SistemApi\Model\Response\UrunKategoriPagedResponse;
 use SistemApi\Model\Response\UrunPagedResponse;
 use SistemApi\Model\Urun;
-use SistemApi\Model\Urun\SiparisAdres;
 use SistemApi\Model\UrunKategori;
 use SistemApi\Model\UrunOzellikGrup;
-use SistemApi\Model\UrunSiparis;
-use SistemApi\Model\UrunSiparisUrun;
 
 class UrunService
 {
@@ -245,125 +240,6 @@ class UrunService
             case 400: throw new BadRequestException($response->body->mesaj);
             case 401: throw new UnauthorizedException($response->body->mesaj);
             case 404: throw new NotFoundException($response->body->mesaj);
-        }
-
-        throw new UnknownException($response);
-    }
-
-    /**
-     * @param SiparisListeAyar $ayar
-     * @return SiparisPagedResponse
-     *
-     * @throws UnauthorizedException
-     * @throws UnknownException
-     */
-    public function listeSiparis(SiparisListeAyar $ayar = null)
-    {
-        // response alalım
-        $response = $this->api->get('/urun/siparis/liste', is_null($ayar) ? [] : $ayar->toArray());
-
-        // durum koduna göre işlem yapalım
-        switch ($response->code) {
-
-            case 200: return new SiparisPagedResponse($response->body);
-            case 401: throw new UnauthorizedException($response->body->mesaj);
-        }
-
-        throw new UnknownException($response);
-    }
-
-    /**
-     * @param int $id
-     * @return UrunSiparis
-     *
-     * @throws NotFoundException
-     * @throws UnauthorizedException
-     */
-    public function getSiparis($id)
-    {
-        // response alalım
-        $response = $this->api->get('/urun/siparis/detay/' . $id);
-
-        // durum koduna göre işlem yapalım
-        switch ($response->code) {
-
-            case 200: return new UrunSiparis($response->body);
-            case 401: throw new UnauthorizedException($response->body->mesaj);
-            case 404: throw new NotFoundException($response->body->mesaj);
-
-        }
-
-        throw new UnknownException($response);
-    }
-
-    /**
-     * @param array $data
-     * @return UrunSiparis
-     *
-     * @throws BadRequestException
-     * @throws UnauthorizedException
-     * @throws UnknownException
-     */
-    public function ekleSiparis($data)
-    {
-        // response alalım
-        $response = $this->api->post('/urun/siparis/ekle', $data);
-
-        // durum koduna göre işlem yapalım
-        switch ($response->code) {
-
-            case 200: return new UrunSiparis($response->body);
-            case 400: throw new BadRequestException($response->body->mesaj);
-            case 401: throw new UnauthorizedException($response->body->mesaj);
-        }
-
-        throw new UnknownException($response);
-    }
-
-    /**
-     * @param int $siparisId
-     * @param array $data
-     * @return UrunSiparisUrun
-     *
-     * @throws BadRequestException
-     * @throws UnauthorizedException
-     * @throws UnknownException
-     */
-    public function ekleSiparisUrun($siparisId, $data)
-    {
-        // response alalım
-        $response = $this->api->post('/urun/siparis/' . $siparisId . '/urun/ekle', $data);
-
-        // durum koduna göre işlem yapalım
-        switch ($response->code) {
-
-            case 200: return new UrunSiparisUrun($response->body);
-            case 400: throw new BadRequestException($response->body->mesaj);
-            case 401: throw new UnauthorizedException($response->body->mesaj);
-        }
-
-        throw new UnknownException($response);
-    }
-
-    /**
-     * @param array $data
-     * @return SiparisAdres
-     *
-     * @throws BadRequestException
-     * @throws UnauthorizedException
-     * @throws UnknownException
-     */
-    public function ekleSiparisAdres($data)
-    {
-        // response alalım
-        $response = $this->api->post('/urun/siparis-adres/ekle', $data);
-
-        // durum koduna göre işlem yapalım
-        switch ($response->code) {
-
-            case 200: return new SiparisAdres($response->body);
-            case 400: throw new BadRequestException($response->body->mesaj);
-            case 401: throw new UnauthorizedException($response->body->mesaj);
         }
 
         throw new UnknownException($response);

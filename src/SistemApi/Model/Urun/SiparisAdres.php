@@ -3,6 +3,8 @@
 use SistemApi\Model\Base\Model;
 
 /**
+ * @deprecated use Siparis\SiparisAdres
+ *
  * @property int id
  * @property int site_id
  * @property int kullanici_id

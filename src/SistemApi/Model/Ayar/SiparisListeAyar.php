@@ -1,10 +1,7 @@
-<?php namespace SistemApi\Model\Ayar\Urun;
+<?php namespace SistemApi\Model\Ayar;
 
 use SistemApi\Model\Ayar\Base\ListeAyar;
 
-/**
- * @deprecated use SiparisListeAyar
- */
 class SiparisListeAyar extends ListeAyar
 {
     /**

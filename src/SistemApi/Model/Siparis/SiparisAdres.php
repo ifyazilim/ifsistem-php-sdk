@@ -1,10 +1,8 @@
-<?php namespace SistemApi\Model;
+<?php namespace SistemApi\Model\Siparis;
 
 use SistemApi\Model\Base\Model;
 
 /**
- * @deprecated use Siparis\SiparisAdres
- *
  * @property int id
  * @property int site_id
  * @property int kullanici_id
@@ -15,7 +13,7 @@ use SistemApi\Model\Base\Model;
  * @property string semt
  * @property string adres
  */
-class UrunSiparisAdres extends Model
+class SiparisAdres extends Model
 {
 
 }

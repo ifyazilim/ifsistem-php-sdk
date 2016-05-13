@@ -8,8 +8,6 @@ use SistemApi\Model\Urun\KargoYontem;
 use SistemApi\Model\Urun\OdemeYontem;
 
 /**
- * @deprecated use Siparis
- *
  * @property int id
  * @property int site_id
  * @property int kullanici_id
@@ -43,7 +41,7 @@ use SistemApi\Model\Urun\OdemeYontem;
  * @property SiparisAdres teslimat_adres
  * @property Collection|SiparisUrun[] urunler
  */
-class UrunSiparis extends Model
+class Siparis extends Model
 {
     const DURUM_SEPET = 1;
     const DURUM_ISLENIYOR = 2;
