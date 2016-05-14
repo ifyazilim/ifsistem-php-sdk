@@ -1,15 +1,22 @@
 <?php namespace SistemApi\Model;
 
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use SistemApi\Model\Base\Model;
 
 /**
  * @property int id
  * @property int site_id
+ * @property string baslik
+ * @property string rbaslik
+ * @property string icerik
  * @property int kategori_id
  * @property int resim_id
  * @property int hit
+ * @property Carbon eser_zamani
+ * @property Carbon yayin_zamani
  * @property int is_aktif
+ * @property Collection dil_metalar
  *
  * // diğer modeller
  *
@@ -19,6 +26,11 @@ use SistemApi\Model\Base\Model;
  */
 class SanatEser extends Model
 {
+    protected $dates = [
+        'eser_zamani',
+        'yayin_zamani'
+    ];
+
     public function __set($key, $value)
     {
         switch ($key) {
