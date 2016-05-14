@@ -4,6 +4,7 @@ use SistemApi\Exception\BadRequestException;
 use SistemApi\Exception\NotFoundException;
 use SistemApi\Exception\UnauthorizedException;
 use SistemApi\Exception\UnknownException;
+use SistemApi\Model\Ayar\Urun\OzellikGrupListeAyar;
 use SistemApi\Model\Ayar\UrunKategoriListeAyar;
 use SistemApi\Model\Ayar\UrunListeAyar;
 use SistemApi\Model\Response\UrunKategoriPagedResponse;
@@ -194,6 +195,8 @@ class UrunService
     }
 
     /**
+     * @deprecated use listeOzellikGrup
+     *
      * @return UrunKategori[]
      *
      * @throws UnauthorizedException
@@ -203,6 +206,33 @@ class UrunService
     {
         // response alalım
         $response = $this->api->get('/urun/ozellik-grup-liste');
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200:
+
+                return array_map(function($item) {
+                    return new UrunOzellikGrup($item);
+                }, $response->body);
+
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param OzellikGrupListeAyar $ayar
+     * @return UrunKategori[]
+     *
+     * @throws UnauthorizedException
+     * @throws UnknownException
+     */
+    public function listeOzellikGrup(OzellikGrupListeAyar $ayar = null)
+    {
+        // response alalım
+        $response = $this->api->get('/urun/ozellik-grup/liste', is_null($ayar) ? [] : $ayar->toArray());
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {
