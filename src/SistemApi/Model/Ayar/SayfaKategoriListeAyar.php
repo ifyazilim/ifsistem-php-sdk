@@ -10,15 +10,6 @@ class SayfaKategoriListeAyar extends ListeAyar
     private $ustKategoriId;
 
     /**
-     * @return ListeAyar
-     */
-    public function setOrderByAdi()
-    {
-        parent::setOrderBy('adi');
-        return $this;
-    }
-
-    /**
      * @return array
      */
     public function toArray()
