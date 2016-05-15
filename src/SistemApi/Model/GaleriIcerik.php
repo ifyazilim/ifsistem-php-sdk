@@ -6,6 +6,7 @@ class GaleriIcerik
 {
     public $id;
     public $aciklama;
+    public $kodu;
     public $galeri_id;
     public $embed_kodu;
     public $created_at;
@@ -23,6 +24,7 @@ class GaleriIcerik
     {
         if (isset($item->id)) $this->id = $item->id;
         if (isset($item->aciklama)) $this->aciklama = $item->aciklama;
+        if (isset($item->kodu)) $this->kodu = $item->kodu;
         if (isset($item->galeri_id)) $this->galeri_id = $item->galeri_id;
         if (isset($item->embed_kodu)) $this->embed_kodu = $item->embed_kodu;
         if (isset($item->created_at)) $this->created_at = Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at);
