@@ -136,4 +136,51 @@ class SiparisService
 
         throw new UnknownException($response);
     }
+
+    /**
+     * @return Siparis\SiparisDurum[]
+     *
+     * @throws UnauthorizedException
+     * @throws UnknownException
+     */
+    public function listeDurum()
+    {
+        // response alalım
+        $response = $this->api->get('/siparis/durum/liste');
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return array_map(function($item) {
+                return new Siparis\SiparisDurum($item);
+            }, $response->body);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param array $data
+     * @return Siparis\SiparisDurum
+     *
+     * @throws BadRequestException
+     * @throws UnauthorizedException
+     * @throws UnknownException
+     */
+    public function ekleDurum($data)
+    {
+        // response alalım
+        $response = $this->api->post('/siparis/durum/ekle', $data);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new Siparis\SiparisDurum($response->body);
+            case 400: throw new BadRequestException($response->body->mesaj);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+        }
+
+        throw new UnknownException($response);
+    }
 }
