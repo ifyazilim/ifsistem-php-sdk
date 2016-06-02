@@ -1,5 +1,6 @@
 <?php namespace SistemApi\Model;
 
+use Illuminate\Support\Collection;
 use SistemApi\Model\Base\Model;
 
 /**
@@ -7,7 +8,9 @@ use SistemApi\Model\Base\Model;
  * @property string adi
  * @property string mail
  * @property int site_id
+ * @property int is_yonetici
  * @property string unvan
+ * @property string meslek
  * @property string telefon_sabit
  * @property string telefon_cep
  * @property string adres_is
@@ -28,6 +31,7 @@ use SistemApi\Model\Base\Model;
  *
  * @property Resim resim_orjinal
  * @property Resim resim_kirpilmis
+ * @property Collection|Grup[] gruplar
  */
 class Kullanici extends Model
 {
@@ -37,6 +41,13 @@ class Kullanici extends Model
             case 'resim_orjinal':
             case 'resim_kirpilmis':
                 $value = new Resim($value);
+                break;
+            case 'gruplar':
+                $collection = new Collection();
+                foreach ($value as $item) {
+                    $collection->push(new Grup($item));
+                }
+                $value = $collection;
                 break;
         }
 

@@ -1,5 +1,6 @@
 <?php namespace SistemApi\Service;
 
+use SistemApi\Exception\InternalApiErrorException;
 use SistemApi\Exception\NotFoundException;
 use SistemApi\Exception\UnauthorizedException;
 use SistemApi\Exception\UnknownException;
@@ -37,6 +38,7 @@ class SemtService
 
             case 401: throw new UnauthorizedException($response->body->mesaj);
             case 404: throw new NotFoundException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
         }
 
         throw new UnknownException($response);

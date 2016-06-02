@@ -1,5 +1,6 @@
 <?php namespace SistemApi\Service;
 
+use SistemApi\Exception\InternalApiErrorException;
 use SistemApi\Exception\UnauthorizedException;
 use SistemApi\Exception\UnknownException;
 use SistemApi\Model\Ayar\SehirListeAyar;
@@ -36,6 +37,7 @@ class SehirService
                 }, $response->body);
 
             case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
         }
 
         throw new UnknownException($response);
@@ -57,6 +59,7 @@ class SehirService
 
             case 200: return new SehirPagedResponse($response->body);
             case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
         }
 
         throw new UnknownException($response);

@@ -1,5 +1,6 @@
 <?php namespace SistemApi\Service;
 
+use SistemApi\Exception\InternalApiErrorException;
 use SistemApi\Exception\NotFoundException;
 use SistemApi\Exception\UnauthorizedException;
 use SistemApi\Exception\UnknownException;
@@ -37,6 +38,7 @@ class GaleriService
             case 200: return new Galeri($response->body);
             case 401: throw new UnauthorizedException($response->body->mesaj);
             case 404: throw new NotFoundException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
         }
 
         throw new UnknownException($response);
@@ -64,6 +66,7 @@ class GaleriService
                 }, $response->body);
 
             case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
         }
 
         throw new UnknownException($response);
@@ -87,6 +90,7 @@ class GaleriService
 
             case 200: return new GaleriIcerikPagedResponse($response->body);
             case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
         }
 
         throw new UnknownException($response);
@@ -109,6 +113,7 @@ class GaleriService
 
             case 200: return new GaleriPagedResponse($response->body);
             case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
         }
 
         throw new UnknownException($response);

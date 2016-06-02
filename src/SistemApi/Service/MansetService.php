@@ -1,6 +1,7 @@
 <?php namespace SistemApi\Service;
 
 use SistemApi\Exception\BadRequestException;
+use SistemApi\Exception\InternalApiErrorException;
 use SistemApi\Exception\NotFoundException;
 use SistemApi\Exception\UnauthorizedException;
 use SistemApi\Exception\UnknownException;
@@ -40,6 +41,7 @@ class MansetService
 
             case 401: throw new UnauthorizedException($response->body->mesaj);
             case 404: throw new NotFoundException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
         }
 
         throw new UnknownException($response);
@@ -62,6 +64,7 @@ class MansetService
 
             case 200: return new MansetKategoriPagedResponse($response->body);
             case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
         }
 
         throw new UnknownException($response);
@@ -85,6 +88,7 @@ class MansetService
             case 200: return new MansetKategori($response->body);
             case 401: throw new UnauthorizedException($response->body->mesaj);
             case 404: throw new NotFoundException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
 
         }
 
@@ -110,6 +114,7 @@ class MansetService
             case 200: return new MansetKategori($response->body);
             case 400: throw new BadRequestException($response->body->mesaj);
             case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
         }
 
         throw new UnknownException($response);
@@ -137,6 +142,7 @@ class MansetService
             case 400: throw new BadRequestException($response->body->mesaj);
             case 401: throw new UnauthorizedException($response->body->mesaj);
             case 404: throw new NotFoundException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
         }
 
         throw new UnknownException($response);
@@ -163,6 +169,7 @@ class MansetService
             case 400: throw new BadRequestException($response->body->mesaj);
             case 401: throw new UnauthorizedException($response->body->mesaj);
             case 404: throw new NotFoundException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
         }
 
         throw new UnknownException($response);

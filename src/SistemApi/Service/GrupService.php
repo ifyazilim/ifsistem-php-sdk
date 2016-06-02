@@ -1,16 +1,14 @@
 <?php namespace SistemApi\Service;
 
+use Illuminate\Support\Collection;
 use SistemApi\Exception\BadRequestException;
 use SistemApi\Exception\InternalApiErrorException;
 use SistemApi\Exception\NotFoundException;
 use SistemApi\Exception\UnauthorizedException;
 use SistemApi\Exception\UnknownException;
-use SistemApi\Model\Ayar\KullaniciListeAyar;
-use SistemApi\Model\Kullanici;
-use SistemApi\Model\KullaniciAdres;
-use SistemApi\Model\Response\KullaniciPagedResponse;
+use SistemApi\Model\Grup;
 
-class KullaniciService
+class GrupService
 {
     /**
      * @Inject
@@ -19,21 +17,25 @@ class KullaniciService
     private $api;
 
     /**
-     * @param KullaniciListeAyar $ayar
-     * @return KullaniciPagedResponse
+     * @return Collection|Grup[]
      *
      * @throws UnauthorizedException
      * @throws UnknownException
      */
-    public function liste(KullaniciListeAyar $ayar = null)
+    public function liste()
     {
         // response alalım
-        $response = $this->api->get('/kullanici/liste', is_null($ayar) ? [] : $ayar->toArray());
+        $response = $this->api->get('/grup/liste');
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {
 
-            case 200: return new KullaniciPagedResponse($response->body);
+            case 200:
+                $collection = new Collection();
+                foreach ($response->body as $item) {
+                    $collection->push(new Grup($item));
+                }
+                return $collection;
             case 401: throw new UnauthorizedException($response->body->mesaj);
             case 500: throw new InternalApiErrorException($response);
         }
@@ -43,22 +45,20 @@ class KullaniciService
 
     /**
      * @param int $id
-     * @return Kullanici
+     * @return Grup
      *
      * @throws NotFoundException
      * @throws UnauthorizedException
-     * @throws InternalApiErrorException
-     * @throws UnknownException
      */
     public function get($id)
     {
         // response alalım
-        $response = $this->api->get('/kullanici/detay/' . $id);
+        $response = $this->api->get('/grup/detay/' . $id);
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {
 
-            case 200: return new Kullanici($response->body);
+            case 200: return new Grup($response->body);
             case 401: throw new UnauthorizedException($response->body->mesaj);
             case 404: throw new NotFoundException($response->body->mesaj);
             case 500: throw new InternalApiErrorException($response);
@@ -69,32 +69,21 @@ class KullaniciService
 
     /**
      * @param array $data
-     * @param string|null $orjinalResim
-     * @param string|null $kirpilmisResim
-     * @return Kullanici
+     * @return Grup
      *
      * @throws BadRequestException
      * @throws UnauthorizedException
      * @throws UnknownException
      */
-    public function ekle($data, $orjinalResim = null, $kirpilmisResim = null)
+    public function ekle($data)
     {
-        $files = [];
-
-        if ( ! empty($orjinalResim) || ! empty($kirpilmisResim)) {
-            $files = [
-                'orjinal_resim' => $orjinalResim,
-                'kirpilmis_resim' => $kirpilmisResim
-            ];
-        }
-
         // response alalım
-        $response = $this->api->post('/kullanici/ekle', $data, $files);
+        $response = $this->api->post('/grup/ekle', $data);
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {
 
-            case 200: return new Kullanici($response->body);
+            case 200: return new Grup($response->body);
             case 400: throw new BadRequestException($response->body->mesaj);
             case 401: throw new UnauthorizedException($response->body->mesaj);
             case 500: throw new InternalApiErrorException($response);
@@ -106,33 +95,22 @@ class KullaniciService
     /**
      * @param int $id
      * @param array $data
-     * @param string|null $orjinalResim
-     * @param string|null $kirpilmisResim
-     * @return Kullanici
+     * @return Grup
      *
      * @throws BadRequestException
      * @throws UnauthorizedException
      * @throws NotFoundException
      * @throws UnknownException
      */
-    public function guncelle($id, $data, $orjinalResim = null, $kirpilmisResim = null)
+    public function guncelle($id, $data)
     {
-        $files = [];
-
-        if ( ! empty($orjinalResim) || ! empty($kirpilmisResim)) {
-            $files = [
-                'orjinal_resim' => $orjinalResim,
-                'kirpilmis_resim' => $kirpilmisResim
-            ];
-        }
-
         // response alalım
-        $response = $this->api->post('/kullanici/guncelle/' . $id, $data, $files);
+        $response = $this->api->post('/grup/guncelle/' . $id, $data);
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {
 
-            case 200: return new Kullanici($response->body);
+            case 200: return new Grup($response->body);
             case 400: throw new BadRequestException($response->body->mesaj);
             case 401: throw new UnauthorizedException($response->body->mesaj);
             case 404: throw new NotFoundException($response->body->mesaj);
@@ -144,7 +122,7 @@ class KullaniciService
 
     /**
      * @param int $id
-     * @return Kullanici
+     * @return Grup
      *
      * @throws BadRequestException
      * @throws UnauthorizedException
@@ -154,12 +132,12 @@ class KullaniciService
     public function sil($id)
     {
         // response alalım
-        $response = $this->api->get('/kullanici/sil/' . $id);
+        $response = $this->api->get('/grup/sil/' . $id);
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {
 
-            case 200: return new Kullanici($response->body);
+            case 200: return new Grup($response->body);
             case 400: throw new BadRequestException($response->body->mesaj);
             case 401: throw new UnauthorizedException($response->body->mesaj);
             case 404: throw new NotFoundException($response->body->mesaj);
@@ -168,31 +146,5 @@ class KullaniciService
 
         throw new UnknownException($response);
 
-    }
-
-    /**
-     * @param int $kullaniciId
-     * @param array $data
-     * @return KullaniciAdres
-     *
-     * @throws BadRequestException
-     * @throws UnauthorizedException
-     * @throws UnknownException
-     */
-    public function ekleAdres($kullaniciId, $data)
-    {
-        // response alalım
-        $response = $this->api->post('/kullanici/' . $kullaniciId . '/adres/ekle', $data);
-
-        // durum koduna göre işlem yapalım
-        switch ($response->code) {
-
-            case 200: return new KullaniciAdres($response->body);
-            case 400: throw new BadRequestException($response->body->mesaj);
-            case 401: throw new UnauthorizedException($response->body->mesaj);
-            case 500: throw new InternalApiErrorException($response);
-        }
-
-        throw new UnknownException($response);
     }
 }

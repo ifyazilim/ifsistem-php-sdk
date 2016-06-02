@@ -4,6 +4,7 @@ use DI\ContainerBuilder;
 use SistemApi\Service\ApiService;
 use SistemApi\Service\EmlakService;
 use SistemApi\Service\GaleriService;
+use SistemApi\Service\GrupService;
 use SistemApi\Service\HaberService;
 use SistemApi\Service\IlceService;
 use SistemApi\Service\IletisimMesajService;
@@ -42,6 +43,7 @@ use SistemApi\Service\UrunService;
  * @property ReklamService reklam
  * @property SiparisService siparis
  * @property SanatService sanat
+ * @property GrupService grup
  */
 class ApiClient
 {
@@ -78,6 +80,7 @@ class ApiClient
             'reklam' => \DI\get(ReklamService::class),
             'siparis' => \DI\get(SiparisService::class),
             'sanat' => \DI\get(SanatService::class),
+            'grup' => \DI\get(GrupService::class),
 
             'api' => function() use($token, $uri) {
                 return new ApiService($token, $uri);

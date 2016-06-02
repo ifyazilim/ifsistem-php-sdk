@@ -1,6 +1,7 @@
 <?php namespace SistemApi\Service;
 
 use SistemApi\Exception\BadRequestException;
+use SistemApi\Exception\InternalApiErrorException;
 use SistemApi\Exception\UnauthorizedException;
 use SistemApi\Exception\UnknownException;
 use SistemApi\Model\Resim;
@@ -35,6 +36,7 @@ class ResimService
             case 200: return new Resim($response->body);
             case 400: throw new BadRequestException($response->body->mesaj);
             case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
         }
 
         throw new UnknownException($response);

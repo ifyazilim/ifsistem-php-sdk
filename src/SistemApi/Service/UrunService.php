@@ -1,6 +1,7 @@
 <?php namespace SistemApi\Service;
 
 use SistemApi\Exception\BadRequestException;
+use SistemApi\Exception\InternalApiErrorException;
 use SistemApi\Exception\NotFoundException;
 use SistemApi\Exception\UnauthorizedException;
 use SistemApi\Exception\UnknownException;
@@ -38,6 +39,7 @@ class UrunService
 
             case 200: return new UrunPagedResponse($response->body);
             case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
         }
 
         throw new UnknownException($response);
@@ -61,6 +63,7 @@ class UrunService
             case 200: return new Urun($response->body);
             case 401: throw new UnauthorizedException($response->body->mesaj);
             case 404: throw new NotFoundException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
         }
 
         throw new UnknownException($response);
@@ -89,6 +92,7 @@ class UrunService
                 }, $response->body);
 
             case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
         }
 
         throw new UnknownException($response);
@@ -111,6 +115,7 @@ class UrunService
 
             case 200: return new UrunKategoriPagedResponse($response->body);
             case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
         }
 
         throw new UnknownException($response);
@@ -134,6 +139,7 @@ class UrunService
             case 200: return new UrunKategori($response->body);
             case 401: throw new UnauthorizedException($response->body->mesaj);
             case 404: throw new NotFoundException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
 
         }
 
@@ -162,6 +168,7 @@ class UrunService
             case 200: return new UrunKategori($response->body);
             case 400: throw new BadRequestException($response->body->mesaj);
             case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
         }
 
         throw new UnknownException($response);
@@ -189,6 +196,7 @@ class UrunService
             case 400: throw new BadRequestException($response->body->mesaj);
             case 401: throw new UnauthorizedException($response->body->mesaj);
             case 404: throw new NotFoundException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
         }
 
         throw new UnknownException($response);
@@ -217,6 +225,7 @@ class UrunService
                 }, $response->body);
 
             case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
         }
 
         throw new UnknownException($response);
@@ -244,6 +253,7 @@ class UrunService
                 }, $response->body);
 
             case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
         }
 
         throw new UnknownException($response);
@@ -270,6 +280,7 @@ class UrunService
             case 400: throw new BadRequestException($response->body->mesaj);
             case 401: throw new UnauthorizedException($response->body->mesaj);
             case 404: throw new NotFoundException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
         }
 
         throw new UnknownException($response);
