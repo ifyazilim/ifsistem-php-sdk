@@ -10,6 +10,11 @@ class ApiService
      */
     private $token;
 
+    /**ü
+     * @var int
+     */
+    private $dilId = 1;
+
     /**
      * @var string
      */
@@ -35,7 +40,8 @@ class ApiService
     {
         $headers = [
             'Accept' => 'application/json',
-            'X-IFSISTEM-TOKEN' => $this->token
+            'X-IFSISTEM-TOKEN' => $this->token,
+            'X-IFSISTEM-DIL-ID' => $this->dilId
         ];
 
         return Request::get($this->uri . $uri, $headers, $query);
@@ -46,11 +52,20 @@ class ApiService
         $headers = [
             'Accept' => 'application/json',
             'Content-Type' => empty($files) ? 'application/json' : 'multipart/form-data',
-            'X-IFSISTEM-TOKEN' => $this->token
+            'X-IFSISTEM-TOKEN' => $this->token,
+            'X-IFSISTEM-DIL-ID' => $this->dilId
         ];
 
         $body = empty($files) ? Request\Body::Json($data) : Request\Body::multipart($data, $files);
 
         return Request::post($this->uri . $uri, $headers, $body);
+    }
+
+    /**
+     * @param int $dilId
+     */
+    public function setDilId($dilId)
+    {
+        $this->dilId = $dilId;
     }
 }
