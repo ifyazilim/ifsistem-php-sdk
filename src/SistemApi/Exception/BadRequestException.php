@@ -18,4 +18,12 @@ class BadRequestException extends \RuntimeException
 
         $this->response = $response;
     }
+
+    /**
+     * @return Response
+     */
+    public function getResponse()
+    {
+        return $this->response;
+    }
 }
