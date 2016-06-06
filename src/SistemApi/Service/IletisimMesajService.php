@@ -53,7 +53,7 @@ class IletisimMesajService
         switch ($response->code) {
 
             case 200: return $response->body->mesaj;
-            case 400: throw new BadRequestException($response->body->mesaj);
+            case 400: throw new BadRequestException($response);
             case 401: throw new UnauthorizedException($response->body->mesaj);
             case 404: throw new NotFoundException($response->body->mesaj);
             case 500: throw new InternalApiErrorException($response);

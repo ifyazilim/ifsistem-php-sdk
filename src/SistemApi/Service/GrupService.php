@@ -84,7 +84,7 @@ class GrupService
         switch ($response->code) {
 
             case 200: return new Grup($response->body);
-            case 400: throw new BadRequestException($response->body->mesaj);
+            case 400: throw new BadRequestException($response);
             case 401: throw new UnauthorizedException($response->body->mesaj);
             case 500: throw new InternalApiErrorException($response);
         }
@@ -111,7 +111,7 @@ class GrupService
         switch ($response->code) {
 
             case 200: return new Grup($response->body);
-            case 400: throw new BadRequestException($response->body->mesaj);
+            case 400: throw new BadRequestException($response);
             case 401: throw new UnauthorizedException($response->body->mesaj);
             case 404: throw new NotFoundException($response->body->mesaj);
             case 500: throw new InternalApiErrorException($response);
@@ -138,7 +138,7 @@ class GrupService
         switch ($response->code) {
 
             case 200: return new Grup($response->body);
-            case 400: throw new BadRequestException($response->body->mesaj);
+            case 400: throw new BadRequestException($response);
             case 401: throw new UnauthorizedException($response->body->mesaj);
             case 404: throw new NotFoundException($response->body->mesaj);
             case 500: throw new InternalApiErrorException($response);
