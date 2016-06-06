@@ -61,6 +61,37 @@ class ApiService
         return Request::post($this->uri . $uri, $headers, $body);
     }
 
+    public function put($uri, $data = [], $files = [])
+    {
+        $headers = [
+            'Accept' => 'application/json',
+            'Content-Type' => empty($files) ? 'application/json' : 'multipart/form-data',
+            'X-IFSISTEM-TOKEN' => $this->token,
+            'X-IFSISTEM-DIL-ID' => $this->dilId
+        ];
+
+        $body = empty($files) ? Request\Body::Json($data) : Request\Body::multipart($data, $files);
+
+        return Request::put($this->uri . $uri, $headers, $body);
+    }
+
+    /**
+     * @param string $uri
+     * @param array $query
+     *
+     * @return Response
+     */
+    public function delete($uri, $query = [])
+    {
+        $headers = [
+            'Accept' => 'application/json',
+            'X-IFSISTEM-TOKEN' => $this->token,
+            'X-IFSISTEM-DIL-ID' => $this->dilId
+        ];
+
+        return Request::delete($this->uri . $uri, $headers, $query);
+    }
+
     /**
      * @param int $dilId
      */

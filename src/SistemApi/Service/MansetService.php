@@ -6,9 +6,11 @@ use SistemApi\Exception\NotFoundException;
 use SistemApi\Exception\UnauthorizedException;
 use SistemApi\Exception\UnknownException;
 use SistemApi\Model\Ayar\MansetKategoriListeAyar;
+use SistemApi\Model\Ayar\MansetListeAyar;
 use SistemApi\Model\Manset;
 use SistemApi\Model\MansetKategori;
 use SistemApi\Model\Response\MansetKategoriPagedResponse;
+use SistemApi\Model\Response\MansetPagedResponse;
 
 class MansetService
 {
@@ -19,6 +21,156 @@ class MansetService
     private $api;
 
     /**
+     * @param MansetListeAyar $ayar
+     * @return MansetPagedResponse
+     *
+     * @throws UnauthorizedException
+     * @throws UnknownException
+     */
+    public function liste(MansetListeAyar $ayar = null)
+    {
+        // response alalım
+        $response = $this->api->get('/manset/liste', is_null($ayar) ? [] : $ayar->toArray());
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new MansetPagedResponse($response->body);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param int $id
+     * @return Manset
+     *
+     * @throws NotFoundException
+     * @throws UnauthorizedException
+     */
+    public function get($id)
+    {
+        // response alalım
+        $response = $this->api->get('/manset/detay/' . $id);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new Manset($response->body);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 404: throw new NotFoundException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param array $data
+     * @param string|null $imageOriginal
+     * @param string|null $imageCropped
+     * @return Manset
+     *
+     * @throws BadRequestException
+     * @throws UnauthorizedException
+     * @throws UnknownException
+     */
+    public function ekle($data, $imageOriginal = null, $imageCropped = null)
+    {
+        $files = [];
+
+        if ( ! empty($imageOriginal) || ! empty($imageCropped)) {
+            $files = [
+                'image_original' => $imageOriginal,
+                'image_cropped' => $imageCropped
+            ];
+        }
+
+        // response alalım
+        $response = $this->api->post('/manset/ekle', $data, $files);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new Manset($response->body);
+            case 400: throw new BadRequestException($response->body->mesaj);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param int $id
+     * @param array $data
+     * @param string|null $imageOriginal
+     * @param string|null $imageCropped
+     * @return Manset
+     *
+     * @throws BadRequestException
+     * @throws UnauthorizedException
+     * @throws UnknownException
+     */
+    public function guncelle($id, $data, $imageOriginal = null, $imageCropped = null)
+    {
+        $files = [];
+
+        if ( ! empty($imageOriginal) || ! empty($imageCropped)) {
+            $files = [
+                'image_original' => $imageOriginal,
+                'image_cropped' => $imageCropped
+            ];
+        }
+
+        // response alalım
+        $response = $this->api->put('/manset/guncelle/' . $id, $data, $files);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new Manset($response->body);
+            case 400: throw new BadRequestException($response->body->mesaj);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param int $id
+     * @return Manset
+     *
+     * @throws BadRequestException
+     * @throws UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnknownException
+     */
+    public function sil($id)
+    {
+        // response alalım
+        $response = $this->api->delete('/manset/sil/' . $id);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new Manset($response->body);
+            case 400: throw new BadRequestException($response->body->mesaj);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 404: throw new NotFoundException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @deprecated use liste
+     *
      * @param string $kategoriKodu
      * @return Manset[]
      *

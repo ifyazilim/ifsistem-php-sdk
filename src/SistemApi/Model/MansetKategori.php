@@ -5,10 +5,12 @@ use SistemApi\Model\Base\Model;
 
 /**
  * @property int id
- * @property string adi
- * @property string kodu
+ * @property string adi @deprecated
+ * @property string title
+ * @property string kodu @deprecated
+ * @property string code
  * @property int site_id
- * @property Collection dil_metalar
+ * @property Collection languages
  */
 class MansetKategori extends Model
 {

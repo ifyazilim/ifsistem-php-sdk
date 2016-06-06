@@ -6,6 +6,7 @@ use SistemApi\Service\EmlakService;
 use SistemApi\Service\GaleriService;
 use SistemApi\Service\GrupService;
 use SistemApi\Service\HaberService;
+use SistemApi\Service\HeadlineService;
 use SistemApi\Service\IlceService;
 use SistemApi\Service\IletisimMesajService;
 use SistemApi\Service\KullaniciService;

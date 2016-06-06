@@ -1,40 +1,43 @@
 <?php namespace SistemApi\Model;
 
-use Carbon\Carbon;
+use Illuminate\Support\Collection;
+use SistemApi\Model\Base\Model;
 
-class Manset
+/**
+ * @property int id
+ * @property string baslik @deprecated use title
+ * @property string title
+ * @property string link
+ * @property int category_id
+ *
+ * // diğer
+ *
+ * @property string resim_adresi @deprecated use image_original_url
+ * @property string image_original_url
+ * @property string image_cropped_url
+ * @property Collection languages
+ *
+ * // model
+ *
+ * @property MansetKategori category
+ * @property Resim resim @deprecated use image_original
+ * @property Resim image_original
+ * @property Resim image_cropped
+ */
+class Manset extends Model
 {
-    public $id;
-    public $baslik;
-    public $link;
-
-    /**
-     * @var Carbon
-     */
-    public $created_at;
-
-    /**
-     * @var Carbon
-     */
-    public $updated_at;
-
-    // diğer
-
-    public $resim_adresi;
-
-    /**
-     * @param \stdClass $item
-     */
-    public function __construct($item)
+    public function __set($key, $value)
     {
-        if (isset($item->id)) $this->id = $item->id;
-        if (isset($item->baslik)) $this->baslik = $item->baslik;
-        if (isset($item->link)) $this->link = $item->link;
-        if (isset($item->created_at)) $this->created_at = Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at);
-        if (isset($item->updated_at)) $this->updated_at = Carbon::createFromFormat('Y-m-d H:i:s', $item->updated_at);
+        switch ($key) {
+            case 'image_original':
+            case 'image_cropped':
+                $value = new Resim($value);
+                break;
+            case 'category':
+                $value = new MansetKategori($value);
+                break;
+        }
 
-        // diğer
-
-        if (isset($item->resim_adresi)) $this->resim_adresi = $item->resim_adresi;
+        parent::__set($key, $value);
     }
 }
