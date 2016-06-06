@@ -127,7 +127,7 @@ class MansetService
         }
 
         // response alalım
-        $response = $this->api->put('/manset/guncelle/' . $id, $data, $files);
+        $response = $this->api->post('/manset/guncelle/' . $id, $data, $files);
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {
@@ -153,7 +153,7 @@ class MansetService
     public function sil($id)
     {
         // response alalım
-        $response = $this->api->delete('/manset/sil/' . $id);
+        $response = $this->api->get('/manset/sil/' . $id);
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {
