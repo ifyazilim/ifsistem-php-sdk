@@ -8,6 +8,7 @@ use SistemApi\Model\Base\Model;
  * @property string radi
  * @property int site_id
  * @property int resim_id
+ * @property int is_active
  *
  * // diğer
  *

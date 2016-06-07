@@ -155,12 +155,18 @@ class UrunService
      * @throws UnauthorizedException
      * @throws UnknownException
      */
-    public function ekleKategori($data, $resim)
+    public function ekleKategori($data, $resim = null)
     {
+        $files = [];
+
+        if ( ! empty($resim)) {
+            $files = [
+                'resim' => $files
+            ];
+        }
+
         // response alalım
-        $response = $this->api->post('/urun/kategori/ekle', $data, [
-            'resim' => $resim
-        ]);
+        $response = $this->api->post('/urun/kategori/ekle', $data, $files);
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {
@@ -184,10 +190,45 @@ class UrunService
      * @throws NotFoundException
      * @throws UnknownException
      */
-    public function guncelleKategori($id, $data)
+    public function guncelleKategori($id, $data, $resim = null)
+    {
+        $files = [];
+
+        if ( ! empty($resim)) {
+            $files = [
+                'resim' => $files
+            ];
+        }
+
+        // response alalım
+        $response = $this->api->post('/urun/kategori/guncelle/' . $id, $data, $files);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new UrunKategori($response->body);
+            case 400: throw new BadRequestException($response);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 404: throw new NotFoundException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param int $id
+     * @return UrunKategori
+     *
+     * @throws BadRequestException
+     * @throws UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnknownException
+     */
+    public function silKategori($id)
     {
         // response alalım
-        $response = $this->api->post('/urun/kategori/guncelle/' . $id, $data);
+        $response = $this->api->get('/urun/kategori/sil/' . $id);
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {
@@ -253,33 +294,6 @@ class UrunService
                 }, $response->body);
 
             case 401: throw new UnauthorizedException($response->body->mesaj);
-            case 500: throw new InternalApiErrorException($response);
-        }
-
-        throw new UnknownException($response);
-    }
-
-    /**
-     * @param int $id
-     * @return UrunKategori
-     *
-     * @throws BadRequestException
-     * @throws UnauthorizedException
-     * @throws NotFoundException
-     * @throws UnknownException
-     */
-    public function silKategori($id)
-    {
-        // response alalım
-        $response = $this->api->get('/urun/kategori/sil/' . $id);
-
-        // durum koduna göre işlem yapalım
-        switch ($response->code) {
-
-            case 200: return new UrunKategori($response->body);
-            case 400: throw new BadRequestException($response);
-            case 401: throw new UnauthorizedException($response->body->mesaj);
-            case 404: throw new NotFoundException($response->body->mesaj);
             case 500: throw new InternalApiErrorException($response);
         }
 
