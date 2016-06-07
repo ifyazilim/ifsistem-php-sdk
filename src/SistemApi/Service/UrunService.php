@@ -161,7 +161,7 @@ class UrunService
 
         if ( ! empty($resim)) {
             $files = [
-                'resim' => $files
+                'resim' => $resim
             ];
         }
 
@@ -183,6 +183,7 @@ class UrunService
     /**
      * @param int $id
      * @param array $data
+     * @param string $resim
      * @return UrunKategori
      *
      * @throws BadRequestException
@@ -196,7 +197,7 @@ class UrunService
 
         if ( ! empty($resim)) {
             $files = [
-                'resim' => $files
+                'resim' => $resim
             ];
         }
 
