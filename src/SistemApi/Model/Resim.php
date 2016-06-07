@@ -12,6 +12,7 @@ use SistemApi\Model\Base\Model;
  * // diğer alanlar
  *
  * @property string url
+ * @property string basename
  */
 class Resim extends Model
 {

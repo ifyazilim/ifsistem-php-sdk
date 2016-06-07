@@ -153,16 +153,28 @@ class HaberService
 
     /**
      * @param array $data
+     * @param null $imageOriginal
+     * @param null $imageCropped
+     * @param null $imageThumb
+     *
      * @return Haber
      *
-     * @throws BadRequestException
      * @throws UnauthorizedException
-     * @throws UnknownException
      */
-    public function ekle($data)
+    public function ekle($data, $imageOriginal = null, $imageCropped = null, $imageThumb = null)
     {
+        $files = [];
+
+        if ( ! empty($imageOriginal) || ! empty($imageCropped) || ! empty($imageThumb)) {
+            $files = [
+                'image_original' => $imageOriginal,
+                'image_cropped' => $imageCropped,
+                'image_thumb' => $imageThumb
+            ];
+        }
+
         // response alalım
-        $response = $this->api->post('/haber/ekle', $data);
+        $response = $this->api->post('/haber/ekle', $data, $files);
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {
@@ -179,17 +191,29 @@ class HaberService
     /**
      * @param int $id
      * @param array $data
+     * @param null $imageOriginal
+     * @param null $imageCropped
+     * @param null $imageThumb
+     *
      * @return Haber
      *
-     * @throws BadRequestException
-     * @throws UnauthorizedException
      * @throws NotFoundException
-     * @throws UnknownException
+     * @throws UnauthorizedException
      */
-    public function guncelle($id, $data)
+    public function guncelle($id, $data, $imageOriginal = null, $imageCropped = null, $imageThumb = null)
     {
+        $files = [];
+
+        if ( ! empty($imageOriginal) || ! empty($imageCropped) || ! empty($imageThumb)) {
+            $files = [
+                'image_original' => $imageOriginal,
+                'image_cropped' => $imageCropped,
+                'image_thumb' => $imageThumb
+            ];
+        }
+
         // response alalım
-        $response = $this->api->post('/haber/guncelle/' . $id, $data);
+        $response = $this->api->post('/haber/guncelle/' . $id, $data, $files);
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {
