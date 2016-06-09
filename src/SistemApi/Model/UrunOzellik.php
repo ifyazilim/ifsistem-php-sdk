@@ -2,6 +2,9 @@
 
 use Carbon\Carbon;
 
+/**
+ * @deprecated use Urun\Ozellik
+ */
 class UrunOzellik
 {
     public $id;

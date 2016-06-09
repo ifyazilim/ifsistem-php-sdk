@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Collection;
 use SistemApi\Model\Base\Model;
+use SistemApi\Model\Urun\Kategori;
 
 /**
  * @property int id
@@ -16,7 +17,7 @@ use SistemApi\Model\Base\Model;
  *
  * // model
  *
- * @property UrunKategori kategori
+ * @property Kategori kategori
  * @property Collection|Resim[] resimler
  *
  */
@@ -25,7 +26,7 @@ class Urun extends Model
     public function __set($key, $value)
     {
         switch ($key) {
-            case 'kategori': $value = new UrunKategori($value); break;
+            case 'kategori': $value = new Kategori($value); break;
             case 'resimler':
                 $collection = new Collection();
                 foreach ($value as $item) {

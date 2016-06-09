@@ -1,10 +1,9 @@
-<?php namespace SistemApi\Model;
+<?php namespace SistemApi\Model\Urun;
 
 use SistemApi\Model\Base\Model;
+use SistemApi\Model\Resim;
 
 /**
- * @deprecated use Urun\Kategori
- *
  * @property int id
  * @property string adi
  * @property string radi
@@ -22,7 +21,7 @@ use SistemApi\Model\Base\Model;
  * @property Resim resim
  *
  */
-class UrunKategori extends Model
+class Kategori extends Model
 {
 
 }

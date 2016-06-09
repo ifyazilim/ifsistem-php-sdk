@@ -10,12 +10,18 @@ class OzellikGrupListeAyar extends ListeAyar
     private $kategoriIds;
 
     /**
+     * @var bool
+     */
+    private $onlyUseInProducts = true;
+
+    /**
      * @return array
      */
     public function toArray()
     {
         return array_merge(parent::toArray(), [
-            'kategoriIds' => $this->kategoriIds
+            'kategoriIds' => $this->kategoriIds,
+            'onlyUseInProducts' => $this->onlyUseInProducts
         ]);
     }
 
@@ -53,5 +59,23 @@ class OzellikGrupListeAyar extends ListeAyar
     public function getKategoriIds()
     {
         return $this->kategoriIds;
+    }
+
+    /**
+     * @param bool $onlyUseInProducts
+     * @return OzellikGrupListeAyar
+     */
+    public function setOnlyUseInProducts($onlyUseInProducts)
+    {
+        $this->onlyUseInProducts = $onlyUseInProducts;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getOnlyUseInProducts()
+    {
+        return $this->onlyUseInProducts;
     }
 }

@@ -1,7 +1,11 @@
 <?php namespace SistemApi\Model;
 
 use Carbon\Carbon;
+use SistemApi\Model\Urun\Ozellik;
 
+/**
+ * @deprecated use Urun\OzellikGrup
+ */
 class UrunOzellikGrup
 {
     public $id;
@@ -20,7 +24,7 @@ class UrunOzellikGrup
     // modeller
 
     /**
-     * @var UrunOzellik[]
+     * @var Ozellik[]
      */
     public $ozellikler = [];
 
@@ -36,7 +40,7 @@ class UrunOzellikGrup
 
         if (isset($item->ozellikler)) {
             foreach ($item->ozellikler as $ozellik) {
-                $this->ozellikler[] = new UrunOzellik($ozellik);
+                $this->ozellikler[] = new Ozellik($ozellik);
             }
         }
     }

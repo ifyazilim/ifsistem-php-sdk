@@ -6,13 +6,15 @@ use SistemApi\Exception\NotFoundException;
 use SistemApi\Exception\UnauthorizedException;
 use SistemApi\Exception\UnknownException;
 use SistemApi\Model\Ayar\Urun\OzellikGrupListeAyar;
+use SistemApi\Model\Ayar\Urun\OzellikListeAyar;
 use SistemApi\Model\Ayar\UrunKategoriListeAyar;
 use SistemApi\Model\Ayar\UrunListeAyar;
+use SistemApi\Model\Response\Urun\OzellikPagedResponse;
 use SistemApi\Model\Response\UrunKategoriPagedResponse;
 use SistemApi\Model\Response\UrunPagedResponse;
 use SistemApi\Model\Urun;
-use SistemApi\Model\UrunKategori;
-use SistemApi\Model\UrunOzellikGrup;
+use SistemApi\Model\Urun\OzellikSet;
+use SistemApi\Model\Urun\OzellikTur;
 
 class UrunService
 {
@@ -72,7 +74,7 @@ class UrunService
     /**
      * @deprecated use listeKategori
      *
-     * @return UrunKategori[]
+     * @return Urun\Kategori[]
      *
      * @throws UnauthorizedException
      * @throws UnknownException
@@ -88,7 +90,7 @@ class UrunService
             case 200:
 
                 return array_map(function($item) {
-                    return new UrunKategori($item);
+                    return new Urun\Kategori($item);
                 }, $response->body);
 
             case 401: throw new UnauthorizedException($response->body->mesaj);
@@ -123,7 +125,7 @@ class UrunService
 
     /**
      * @param int $id
-     * @return UrunKategori
+     * @return Urun\Kategori
      *
      * @throws NotFoundException
      * @throws UnauthorizedException
@@ -136,7 +138,7 @@ class UrunService
         // durum koduna göre işlem yapalım
         switch ($response->code) {
 
-            case 200: return new UrunKategori($response->body);
+            case 200: return new Urun\Kategori($response->body);
             case 401: throw new UnauthorizedException($response->body->mesaj);
             case 404: throw new NotFoundException($response->body->mesaj);
             case 500: throw new InternalApiErrorException($response);
@@ -149,7 +151,7 @@ class UrunService
     /**
      * @param array $data
      * @param string $resim
-     * @return UrunKategori
+     * @return Urun\Kategori
      *
      * @throws BadRequestException
      * @throws UnauthorizedException
@@ -171,7 +173,7 @@ class UrunService
         // durum koduna göre işlem yapalım
         switch ($response->code) {
 
-            case 200: return new UrunKategori($response->body);
+            case 200: return new Urun\Kategori($response->body);
             case 400: throw new BadRequestException($response);
             case 401: throw new UnauthorizedException($response->body->mesaj);
             case 500: throw new InternalApiErrorException($response);
@@ -184,7 +186,7 @@ class UrunService
      * @param int $id
      * @param array $data
      * @param string $resim
-     * @return UrunKategori
+     * @return Urun\Kategori
      *
      * @throws BadRequestException
      * @throws UnauthorizedException
@@ -207,7 +209,7 @@ class UrunService
         // durum koduna göre işlem yapalım
         switch ($response->code) {
 
-            case 200: return new UrunKategori($response->body);
+            case 200: return new Urun\Kategori($response->body);
             case 400: throw new BadRequestException($response);
             case 401: throw new UnauthorizedException($response->body->mesaj);
             case 404: throw new NotFoundException($response->body->mesaj);
@@ -219,7 +221,7 @@ class UrunService
 
     /**
      * @param int $id
-     * @return UrunKategori
+     * @return Urun\Kategori
      *
      * @throws BadRequestException
      * @throws UnauthorizedException
@@ -234,7 +236,135 @@ class UrunService
         // durum koduna göre işlem yapalım
         switch ($response->code) {
 
-            case 200: return new UrunKategori($response->body);
+            case 200: return new Urun\Kategori($response->body);
+            case 400: throw new BadRequestException($response);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 404: throw new NotFoundException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param OzellikListeAyar $ayar
+     * @return OzellikPagedResponse
+     *
+     * @throws UnauthorizedException
+     * @throws UnknownException
+     */
+    public function listeOzellik(OzellikListeAyar $ayar = null)
+    {
+        // response alalım
+        $response = $this->api->get('/urun/ozellik/liste', is_null($ayar) ? [] : $ayar->toArray());
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new OzellikPagedResponse($response->body);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param int $id
+     * @return Urun\Ozellik
+     *
+     * @throws NotFoundException
+     * @throws UnauthorizedException
+     */
+    public function getOzellik($id)
+    {
+        // response alalım
+        $response = $this->api->get('/urun/ozellik/detay/' . $id);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new Urun\Ozellik($response->body);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 404: throw new NotFoundException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param array $data
+     * @return Urun\Ozellik
+     *
+     * @throws BadRequestException
+     * @throws UnauthorizedException
+     * @throws UnknownException
+     */
+    public function ekleOzellik($data)
+    {
+        // response alalım
+        $response = $this->api->post('/urun/ozellik/ekle', $data);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new Urun\Ozellik($response->body);
+            case 400: throw new BadRequestException($response);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param int $id
+     * @param array $data
+     * @return Urun\Ozellik
+     *
+     * @throws BadRequestException
+     * @throws UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnknownException
+     */
+    public function guncelleOzellik($id, $data)
+    {
+        // response alalım
+        $response = $this->api->post('/urun/ozellik/guncelle/' . $id, $data);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new Urun\Ozellik($response->body);
+            case 400: throw new BadRequestException($response);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 404: throw new NotFoundException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param int $id
+     * @return Urun\Ozellik
+     *
+     * @throws BadRequestException
+     * @throws UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnknownException
+     */
+    public function silOzellik($id)
+    {
+        // response alalım
+        $response = $this->api->get('/urun/ozellik/sil/' . $id);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new Urun\Ozellik($response->body);
             case 400: throw new BadRequestException($response);
             case 401: throw new UnauthorizedException($response->body->mesaj);
             case 404: throw new NotFoundException($response->body->mesaj);
@@ -247,7 +377,7 @@ class UrunService
     /**
      * @deprecated use listeOzellikGrup
      *
-     * @return UrunKategori[]
+     * @return Urun\OzellikGrup[]
      *
      * @throws UnauthorizedException
      * @throws UnknownException
@@ -263,7 +393,7 @@ class UrunService
             case 200:
 
                 return array_map(function($item) {
-                    return new UrunOzellikGrup($item);
+                    return new Urun\OzellikGrup($item);
                 }, $response->body);
 
             case 401: throw new UnauthorizedException($response->body->mesaj);
@@ -275,7 +405,7 @@ class UrunService
 
     /**
      * @param OzellikGrupListeAyar $ayar
-     * @return UrunKategori[]
+     * @return Urun\OzellikGrup[]
      *
      * @throws UnauthorizedException
      * @throws UnknownException
@@ -291,7 +421,271 @@ class UrunService
             case 200:
 
                 return array_map(function($item) {
-                    return new UrunOzellikGrup($item);
+                    return new Urun\OzellikGrup($item);
+                }, $response->body);
+
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param int $id
+     * @return Urun\OzellikGrup
+     *
+     * @throws NotFoundException
+     * @throws UnauthorizedException
+     */
+    public function getOzellikGrup($id)
+    {
+        // response alalım
+        $response = $this->api->get('/urun/ozellik-grup/detay/' . $id);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new Urun\OzellikGrup($response->body);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 404: throw new NotFoundException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param array $data
+     * @return Urun\OzellikGrup
+     *
+     * @throws BadRequestException
+     * @throws UnauthorizedException
+     * @throws UnknownException
+     */
+    public function ekleOzellikGrup($data)
+    {
+        // response alalım
+        $response = $this->api->post('/urun/ozellik-grup/ekle', $data);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new Urun\OzellikGrup($response->body);
+            case 400: throw new BadRequestException($response);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param int $id
+     * @param array $data
+     * @return Urun\OzellikGrup
+     *
+     * @throws BadRequestException
+     * @throws UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnknownException
+     */
+    public function guncelleOzellikGrup($id, $data)
+    {
+        // response alalım
+        $response = $this->api->post('/urun/ozellik-grup/guncelle/' . $id, $data);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new Urun\OzellikGrup($response->body);
+            case 400: throw new BadRequestException($response);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 404: throw new NotFoundException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param int $id
+     * @return Urun\OzellikGrup
+     *
+     * @throws BadRequestException
+     * @throws UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnknownException
+     */
+    public function silOzellikGrup($id)
+    {
+        // response alalım
+        $response = $this->api->get('/urun/ozellik-grup/sil/' . $id);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new Urun\OzellikGrup($response->body);
+            case 400: throw new BadRequestException($response);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 404: throw new NotFoundException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @return OzellikSet[]
+     *
+     * @throws UnauthorizedException
+     * @throws UnknownException
+     */
+    public function listeOzellikSet()
+    {
+        // response alalım
+        $response = $this->api->get('/urun/ozellik-set/liste');
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200:
+
+                return array_map(function($item) {
+                    return new OzellikSet($item);
+                }, $response->body);
+
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param int $id
+     * @return OzellikSet
+     *
+     * @throws NotFoundException
+     * @throws UnauthorizedException
+     */
+    public function getOzellikSet($id)
+    {
+        // response alalım
+        $response = $this->api->get('/urun/ozellik-set/detay/' . $id);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new OzellikSet($response->body);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 404: throw new NotFoundException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param array $data
+     * @return OzellikSet
+     *
+     * @throws BadRequestException
+     * @throws UnauthorizedException
+     * @throws UnknownException
+     */
+    public function ekleOzellikSet($data)
+    {
+        // response alalım
+        $response = $this->api->post('/urun/ozellik-set/ekle', $data);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new OzellikSet($response->body);
+            case 400: throw new BadRequestException($response);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param int $id
+     * @param array $data
+     * @return OzellikSet
+     *
+     * @throws BadRequestException
+     * @throws UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnknownException
+     */
+    public function guncelleOzellikSet($id, $data)
+    {
+        // response alalım
+        $response = $this->api->post('/urun/ozellik-set/guncelle/' . $id, $data);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new OzellikSet($response->body);
+            case 400: throw new BadRequestException($response);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 404: throw new NotFoundException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param int $id
+     * @return OzellikSet
+     *
+     * @throws BadRequestException
+     * @throws UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnknownException
+     */
+    public function silOzellikSet($id)
+    {
+        // response alalım
+        $response = $this->api->get('/urun/ozellik-set/sil/' . $id);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new OzellikSet($response->body);
+            case 400: throw new BadRequestException($response);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 404: throw new NotFoundException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @return OzellikTur[]
+     *
+     * @throws UnauthorizedException
+     * @throws UnknownException
+     */
+    public function listeOzellikTur()
+    {
+        // response alalım
+        $response = $this->api->get('/urun/ozellik-tur/liste');
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200:
+
+                return array_map(function($item) {
+                    return new OzellikTur($item);
                 }, $response->body);
 
             case 401: throw new UnauthorizedException($response->body->mesaj);

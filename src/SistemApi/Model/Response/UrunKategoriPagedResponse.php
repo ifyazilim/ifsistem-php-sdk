@@ -1,7 +1,7 @@
 <?php namespace SistemApi\Model\Response;
 
 use SistemApi\Model\Response\Base\PagedResponse;
-use SistemApi\Model\UrunKategori;
+use SistemApi\Model\Urun\Kategori;
 
 class UrunKategoriPagedResponse extends PagedResponse
 {
@@ -10,13 +10,23 @@ class UrunKategoriPagedResponse extends PagedResponse
      */
     public function __construct($item)
     {
-        parent::__construct($item, UrunKategori::class);
+        parent::__construct($item, Kategori::class);
     }
 
     /**
-     * @return UrunKategori[]
+     * @deprecated use getKategoriler
+     *
+     * @return Kategori[]
      */
     public function getUrunKategoriler()
+    {
+        return $this->getKategoriler();
+    }
+
+    /**
+     * @return Kategori[]
+     */
+    public function getKategoriler()
     {
         return $this->kayitlar;
     }
