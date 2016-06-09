@@ -12,7 +12,12 @@ class OzellikGrupListeAyar extends ListeAyar
     /**
      * @var bool
      */
-    private $onlyUseInProducts = true;
+    private $onlyUseInProducts = 1;
+
+    /**
+     * @var array
+     */
+    private $attributeSetIds = [];
 
     /**
      * @return array
@@ -21,7 +26,8 @@ class OzellikGrupListeAyar extends ListeAyar
     {
         return array_merge(parent::toArray(), [
             'kategoriIds' => $this->kategoriIds,
-            'onlyUseInProducts' => $this->onlyUseInProducts
+            'onlyUseInProducts' => $this->onlyUseInProducts,
+            'attributeSetIds' => $this->attributeSetIds
         ]);
     }
 
@@ -62,7 +68,7 @@ class OzellikGrupListeAyar extends ListeAyar
     }
 
     /**
-     * @param bool $onlyUseInProducts
+     * @param int $onlyUseInProducts
      * @return OzellikGrupListeAyar
      */
     public function setOnlyUseInProducts($onlyUseInProducts)
@@ -72,10 +78,38 @@ class OzellikGrupListeAyar extends ListeAyar
     }
 
     /**
-     * @return bool
+     * @return int
      */
     public function getOnlyUseInProducts()
     {
         return $this->onlyUseInProducts;
+    }
+
+    /**
+     * @param int $attributeSetId
+     * @return $this
+     */
+    public function addAttributeSetId($attributeSetId)
+    {
+        $this->attributeSetIds[] = $attributeSetId;
+        return $this;
+    }
+
+    /**
+     * @param array $attributeSetIds
+     * @return OzellikGrupListeAyar
+     */
+    public function setAttributeSetIds($attributeSetIds)
+    {
+        $this->attributeSetIds = $attributeSetIds;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAttributeSetIds()
+    {
+        return $this->attributeSetIds;
     }
 }

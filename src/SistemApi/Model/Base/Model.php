@@ -147,6 +147,7 @@ class Model implements Arrayable, Jsonable
     public function setAttribute($key, $value)
     {
         if (is_null($value)) {
+            $this->attributes[$key] = null;
             return $this;
         }
 

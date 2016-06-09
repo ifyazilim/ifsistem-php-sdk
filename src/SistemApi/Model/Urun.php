@@ -3,23 +3,36 @@
 use Illuminate\Support\Collection;
 use SistemApi\Model\Base\Model;
 use SistemApi\Model\Urun\Kategori;
+use SistemApi\Model\Urun\Ozellik;
 
 /**
  * @property int id
- * @property string adi
- * @property string radi
+ *
+ * @property string adi @deprecated use title
+ * @property string radi @deprecated use slug
+ * @property string aciklama @deprecated use description
+ * @property string title
+ * @property string slug
+ * @property string description
+ *
  * @property string urun_kodu
- * @property string aciklama
  * @property int kategori_id
  * @property int site_id
  * @property int ozellik_set_id
  * @property int hit
+ * @property int para_birim_id
+ * @property float liste_fiyati
+ * @property float fiyat
+ * @property int kdv_orani
+ * @property int is_kdv_dahil
+ * @property int is_active
  *
  * // model
  *
  * @property Kategori kategori
+ * @property Collection languages
  * @property Collection|Resim[] resimler
- *
+ * @property Collection|Ozellik[] ozellikler
  */
 class Urun extends Model
 {
@@ -31,6 +44,13 @@ class Urun extends Model
                 $collection = new Collection();
                 foreach ($value as $item) {
                     $collection->push(new Resim($item));
+                }
+                $value = $collection;
+                break;
+            case 'ozellikler':
+                $collection = new Collection();
+                foreach ($value as $item) {
+                    $collection->push(new Ozellik($item));
                 }
                 $value = $collection;
                 break;

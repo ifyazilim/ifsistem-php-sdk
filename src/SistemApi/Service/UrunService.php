@@ -72,6 +72,86 @@ class UrunService
     }
 
     /**
+     * @param array $data
+     * @return Urun
+     *
+     * @throws BadRequestException
+     * @throws UnauthorizedException
+     * @throws UnknownException
+     */
+    public function ekle($data)
+    {
+        // response alalım
+        $response = $this->api->post('/urun/ekle', $data);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new Urun($response->body);
+            case 400: throw new BadRequestException($response);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param int $id
+     * @param array $data
+     * @return Urun
+     *
+     * @throws BadRequestException
+     * @throws UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnknownException
+     */
+    public function guncelle($id, $data)
+    {
+        // response alalım
+        $response = $this->api->post('/urun/guncelle/' . $id, $data);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new Urun($response->body);
+            case 400: throw new BadRequestException($response);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 404: throw new NotFoundException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param int $id
+     * @return Urun
+     *
+     * @throws BadRequestException
+     * @throws UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnknownException
+     */
+    public function sil($id)
+    {
+        // response alalım
+        $response = $this->api->get('/urun/sil/' . $id);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new Urun($response->body);
+            case 400: throw new BadRequestException($response);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 404: throw new NotFoundException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
      * @deprecated use listeKategori
      *
      * @return Urun\Kategori[]
