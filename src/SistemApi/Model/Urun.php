@@ -30,6 +30,7 @@ use SistemApi\Model\Urun\Ozellik;
  * // model
  *
  * @property Kategori kategori
+ * @property ParaBirim para_birim
  * @property Collection languages
  * @property Collection|Resim[] resimler
  * @property Collection|Ozellik[] ozellikler

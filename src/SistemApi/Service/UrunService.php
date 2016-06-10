@@ -9,6 +9,7 @@ use SistemApi\Model\Ayar\Urun\OzellikGrupListeAyar;
 use SistemApi\Model\Ayar\Urun\OzellikListeAyar;
 use SistemApi\Model\Ayar\UrunKategoriListeAyar;
 use SistemApi\Model\Ayar\UrunListeAyar;
+use SistemApi\Model\Resim;
 use SistemApi\Model\Response\Urun\OzellikPagedResponse;
 use SistemApi\Model\Response\UrunKategoriPagedResponse;
 use SistemApi\Model\Response\UrunPagedResponse;
@@ -769,6 +770,93 @@ class UrunService
                 }, $response->body);
 
             case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param int $urunId
+     * @return Resim[]
+     *
+     * @throws NotFoundException
+     * @throws UnauthorizedException
+     */
+    public function listeResim($urunId)
+    {
+        // response alalım
+        $response = $this->api->get('/urun/resim/liste/' . $urunId);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200:
+
+                return array_map(function($item) {
+                    return new Resim($item);
+                }, $response->body);
+
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 404: throw new NotFoundException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param int $urunId
+     * @param string $resim
+     * @return Resim
+     *
+     * @throws NotFoundException
+     * @throws UnauthorizedException
+     */
+    public function ekleResim($urunId, $resim)
+    {
+        $files = [
+            'resim' => $resim
+        ];
+
+        // response alalım
+        $response = $this->api->post('/urun/resim/ekle/' . $urunId, [], $files);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new Resim($response->body);
+            case 400: throw new BadRequestException($response);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 404: throw new NotFoundException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @param int $id
+     * @param int $resimId
+     * @return Urun
+     *
+     * @throws BadRequestException
+     * @throws UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnknownException
+     */
+    public function silResim($id, $resimId)
+    {
+        // response alalım
+        $response = $this->api->get('/urun/resim/sil/' . $id . '/' . $resimId);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new Urun($response->body);
+            case 400: throw new BadRequestException($response);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 404: throw new NotFoundException($response->body->mesaj);
             case 500: throw new InternalApiErrorException($response);
         }
 
