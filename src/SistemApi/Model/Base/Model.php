@@ -113,6 +113,12 @@ class Model implements Arrayable, Jsonable
                 null;
         }
 
+        if ($this->languages instanceof Collection) {
+            return isset($this->languages->get($dilId)[$key]) ?
+                $this->languages->get($dilId)[$key] :
+                null;
+        }
+
         return null;
     }
 

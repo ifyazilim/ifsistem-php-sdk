@@ -15,6 +15,7 @@ use SistemApi\Model\Base\Model;
  * // diğer modeller
  *
  * @property SayfaKategori kategori
+ * @property Collection languages
  * @property Collection|Kullanici[] yazarlar
  */
 class Sayfa extends Model
