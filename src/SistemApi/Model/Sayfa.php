@@ -5,9 +5,17 @@ use SistemApi\Model\Base\Model;
 
 /**
  * @property int id
+ *
  * @property string baslik
  * @property string rbaslik
+ * @property string ozet
  * @property string icerik
+ *
+ * @property string title
+ * @property string slug
+ * @property string summary
+ * @property string content
+ *
  * @property string kodu
  * @property int kategori_id
  * @property int hit
