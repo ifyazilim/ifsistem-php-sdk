@@ -12,7 +12,7 @@ class OzellikGrupListeAyar extends ListeAyar
     /**
      * @var bool
      */
-    private $onlyUseInProducts = 1;
+    private $onlyUseInProducts = 0;
 
     /**
      * @var array
@@ -45,7 +45,10 @@ class OzellikGrupListeAyar extends ListeAyar
      */
     public function addKategoriId($kategoriId)
     {
-        $this->kategoriIds[] = $kategoriId;
+        // int olarak 0'dan büyük bir sayı girildiyse
+        if ($kategoriId > 0) {
+            $this->kategoriIds[] = $kategoriId;
+        }
         return $this;
     }
 
@@ -91,7 +94,10 @@ class OzellikGrupListeAyar extends ListeAyar
      */
     public function addAttributeSetId($attributeSetId)
     {
-        $this->attributeSetIds[] = $attributeSetId;
+        // int olarak 0'dan büyük bir sayı girildiyse
+        if ($attributeSetId > 0) {
+            $this->attributeSetIds[] = $attributeSetId;
+        }
         return $this;
     }
 

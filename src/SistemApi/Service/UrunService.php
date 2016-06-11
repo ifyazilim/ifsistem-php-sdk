@@ -80,7 +80,7 @@ class UrunService
      * @throws UnauthorizedException
      * @throws UnknownException
      */
-    public function ekle($data)
+    public function ekle($data = [])
     {
         // response alalım
         $response = $this->api->post('/urun/ekle', $data);
