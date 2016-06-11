@@ -13,7 +13,7 @@ use SistemApi\Model\Urun\OdemeYontem;
  * @property int kullanici_id
  * @property int para_birim_id
  * @property int toplam_tutar
- * @property int durum
+ * @property int durum_id
  *
  * @property int odeme_yontem_id
  * @property string odeme_yontem_bilgi
@@ -29,6 +29,9 @@ use SistemApi\Model\Urun\OdemeYontem;
  * @property int teslimat_adres_id
  * @property string teslimat_adres_bilgi
  *
+ * @property string telefon
+ * @property string status
+ *
  * // model
  *
  * @property Kullanici kullanici
@@ -43,8 +46,10 @@ use SistemApi\Model\Urun\OdemeYontem;
  */
 class Siparis extends Model
 {
-    const DURUM_SEPET = 1;
-    const DURUM_ISLENIYOR = 2;
+    const STATUS_NEW = 'new';
+    const STATUS_ACTIVE = 'active';
+    const STATUS_PASSIVE = 'passive';
+    const STATUS_DELETED = 'deleted';
 
     public function __set($key, $value)
     {
@@ -65,25 +70,5 @@ class Siparis extends Model
         }
 
         parent::__set($key, $value);
-    }
-
-    public function getDurumAdi()
-    {
-        switch ($this->durum) {
-            case self::DURUM_SEPET: return 'Sepette';
-            case self::DURUM_ISLENIYOR: return 'İşleniyor';
-        }
-
-        return 'Bilinmiyor';
-    }
-
-    public function getDurumAdiLabel()
-    {
-        switch ($this->durum) {
-            case self::DURUM_SEPET: return '<span class="label label-info">Sepette</span>';
-            case self::DURUM_ISLENIYOR: return '<span class="label label-danger">İşleniyor</span>';
-        }
-
-        return '<span class="label label-default">Bilinmiyor</span>';
     }
 }
