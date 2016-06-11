@@ -174,6 +174,33 @@ class SiparisService
     }
 
     /**
+     * @param int $siparisId
+     * @param int $siparisUrunId
+     * @param array $data
+     * @return SiparisUrun
+     *
+     * @throws BadRequestException
+     * @throws UnauthorizedException
+     * @throws UnknownException
+     */
+    public function guncelleUrun($siparisId, $siparisUrunId, $data)
+    {
+        // response alalım
+        $response = $this->api->post('/siparis/urun/guncelle/' . $siparisId . '/' . $siparisUrunId, $data);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new SiparisUrun($response->body);
+            case 400: throw new BadRequestException($response);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
      * @param array $data
      * @return Siparis\SiparisAdres
      *
