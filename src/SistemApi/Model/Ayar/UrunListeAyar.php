@@ -20,6 +20,11 @@ class UrunListeAyar extends ListeAyar
     private $ozellikIds = [];
 
     /**
+     * @var string[]
+     */
+    private $categoryCodes = [];
+
+    /**
      * @return array
      */
     public function toArray()
@@ -27,7 +32,8 @@ class UrunListeAyar extends ListeAyar
         return array_merge(parent::toArray(), [
             'kategoriIds' => $this->kategoriIds,
             'ozellikGrupIds' => $this->ozellikGrupIds,
-            'ozellikIds' => $this->ozellikIds
+            'ozellikIds' => $this->ozellikIds,
+            'category_codes' => $this->categoryCodes
         ]);
     }
 
@@ -113,6 +119,37 @@ class UrunListeAyar extends ListeAyar
     public function getOzellikIds()
     {
         return $this->ozellikIds;
+    }
+
+    /**
+     * @param string $categoryCode
+     * @return $this
+     */
+    public function addCategoryCode($categoryCode)
+    {
+        if ( ! is_null($categoryCode)) {
+            $this->categoryCodes[] = $categoryCode;
+        }
+        $this->categoryCodes = uniqid($this->categoryCodes);
+        return $this;
+    }
+
+    /**
+     * @param \string[] $categoryCodes
+     * @return UrunListeAyar
+     */
+    public function setCategoryCodes($categoryCodes)
+    {
+        $this->categoryCodes = $categoryCodes;
+        return $this;
+    }
+
+    /**
+     * @return \string[]
+     */
+    public function getCategoryCodes()
+    {
+        return $this->categoryCodes;
     }
 
 
