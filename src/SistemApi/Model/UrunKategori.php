@@ -3,7 +3,7 @@
 use SistemApi\Model\Base\Model;
 
 /**
- * @deprecated use Urun\Kategori
+ * @deprecated use SistemApi\Model\Product\ProductCategory
  *
  * @property int id
  * @property string adi

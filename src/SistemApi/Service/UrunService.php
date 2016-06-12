@@ -9,6 +9,7 @@ use SistemApi\Model\Ayar\Urun\OzellikGrupListeAyar;
 use SistemApi\Model\Ayar\Urun\OzellikListeAyar;
 use SistemApi\Model\Ayar\UrunKategoriListeAyar;
 use SistemApi\Model\Ayar\UrunListeAyar;
+use SistemApi\Model\Product\ProductCategory;
 use SistemApi\Model\Resim;
 use SistemApi\Model\Response\Urun\OzellikPagedResponse;
 use SistemApi\Model\Response\UrunKategoriPagedResponse;
@@ -155,7 +156,7 @@ class UrunService
     /**
      * @deprecated use listeKategori
      *
-     * @return Urun\Kategori[]
+     * @return ProductCategory[]
      *
      * @throws UnauthorizedException
      * @throws UnknownException
@@ -171,7 +172,7 @@ class UrunService
             case 200:
 
                 return array_map(function($item) {
-                    return new Urun\Kategori($item);
+                    return new ProductCategory($item);
                 }, $response->body);
 
             case 401: throw new UnauthorizedException($response->body->mesaj);
@@ -206,7 +207,7 @@ class UrunService
 
     /**
      * @param int $id
-     * @return Urun\Kategori
+     * @return ProductCategory
      *
      * @throws NotFoundException
      * @throws UnauthorizedException
@@ -219,7 +220,7 @@ class UrunService
         // durum koduna göre işlem yapalım
         switch ($response->code) {
 
-            case 200: return new Urun\Kategori($response->body);
+            case 200: return new ProductCategory($response->body);
             case 401: throw new UnauthorizedException($response->body->mesaj);
             case 404: throw new NotFoundException($response->body->mesaj);
             case 500: throw new InternalApiErrorException($response);
@@ -232,7 +233,7 @@ class UrunService
     /**
      * @param array $data
      * @param string $resim
-     * @return Urun\Kategori
+     * @return ProductCategory
      *
      * @throws BadRequestException
      * @throws UnauthorizedException
@@ -254,7 +255,7 @@ class UrunService
         // durum koduna göre işlem yapalım
         switch ($response->code) {
 
-            case 200: return new Urun\Kategori($response->body);
+            case 200: return new ProductCategory($response->body);
             case 400: throw new BadRequestException($response);
             case 401: throw new UnauthorizedException($response->body->mesaj);
             case 500: throw new InternalApiErrorException($response);
@@ -267,7 +268,7 @@ class UrunService
      * @param int $id
      * @param array $data
      * @param string $resim
-     * @return Urun\Kategori
+     * @return ProductCategory
      *
      * @throws BadRequestException
      * @throws UnauthorizedException
@@ -290,7 +291,7 @@ class UrunService
         // durum koduna göre işlem yapalım
         switch ($response->code) {
 
-            case 200: return new Urun\Kategori($response->body);
+            case 200: return new ProductCategory($response->body);
             case 400: throw new BadRequestException($response);
             case 401: throw new UnauthorizedException($response->body->mesaj);
             case 404: throw new NotFoundException($response->body->mesaj);
@@ -302,7 +303,7 @@ class UrunService
 
     /**
      * @param int $id
-     * @return Urun\Kategori
+     * @return ProductCategory
      *
      * @throws BadRequestException
      * @throws UnauthorizedException
@@ -317,7 +318,7 @@ class UrunService
         // durum koduna göre işlem yapalım
         switch ($response->code) {
 
-            case 200: return new Urun\Kategori($response->body);
+            case 200: return new ProductCategory($response->body);
             case 400: throw new BadRequestException($response);
             case 401: throw new UnauthorizedException($response->body->mesaj);
             case 404: throw new NotFoundException($response->body->mesaj);

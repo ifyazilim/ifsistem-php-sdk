@@ -28,7 +28,8 @@ class Model implements Arrayable, Jsonable
 
     private $array_models = [
         'dil_metalar',
-        'languages'
+        'languages',
+        'langs'
     ];
 
     protected $attributes = [];
@@ -127,6 +128,17 @@ class Model implements Arrayable, Jsonable
         if ($this->languages instanceof Collection) {
             return isset($this->languages->get($languageId)[$key]) ?
                 $this->languages->get($languageId)[$key] :
+                null;
+        }
+
+        return null;
+    }
+
+    public function getValueByLangIdKey($langId, $key)
+    {
+        if ($this->langs instanceof Collection) {
+            return isset($this->langs->get($langId)[$key]) ?
+                $this->langs->get($langId)[$key] :
                 null;
         }
 

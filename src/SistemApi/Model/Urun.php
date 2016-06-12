@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Collection;
 use SistemApi\Model\Base\Model;
-use SistemApi\Model\Urun\Kategori;
+use SistemApi\Model\Product\ProductCategory;
 use SistemApi\Model\Urun\Ozellik;
 
 /**
@@ -29,7 +29,7 @@ use SistemApi\Model\Urun\Ozellik;
  *
  * // model
  *
- * @property Kategori kategori
+ * @property ProductCategory kategori
  * @property ParaBirim para_birim
  * @property Collection languages
  * @property Collection|Resim[] resimler
@@ -45,7 +45,7 @@ class Urun extends Model
     public function __set($key, $value)
     {
         switch ($key) {
-            case 'kategori': $value = new Kategori($value); break;
+            case 'kategori': $value = new ProductCategory($value); break;
             case 'resimler':
                 $collection = new Collection();
                 foreach ($value as $item) {

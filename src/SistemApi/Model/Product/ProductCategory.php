@@ -1,14 +1,13 @@
-<?php namespace SistemApi\Model\Urun;
+<?php namespace SistemApi\Model\Product;
 
+use Illuminate\Support\Collection;
 use SistemApi\Model\Base\Model;
 use SistemApi\Model\Resim;
 
 /**
- * @deprecated use SistemApi\Model\Product\ProductCategory
- *
  * @property int id
- * @property string adi
- * @property string radi
+ * @property string title
+ * @property string slug
  * @property int site_id
  * @property int resim_id
  * @property int is_active
@@ -21,9 +20,9 @@ use SistemApi\Model\Resim;
  * // model
  *
  * @property Resim resim
- *
+ * @property Collection langs
  */
-class Kategori extends Model
+class ProductCategory extends Model
 {
 
 }
