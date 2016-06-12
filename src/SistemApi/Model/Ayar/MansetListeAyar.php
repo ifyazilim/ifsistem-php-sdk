@@ -5,14 +5,23 @@ use SistemApi\Model\Ayar\Base\ListeAyar;
 class MansetListeAyar extends ListeAyar
 {
     /**
+     * @deprecated
+     *
      * @var array
      */
     private $categoryIds = [];
 
     /**
+     * @deprecated
+     *
      * @var string
      */
     private $categoryCode;
+
+    /**
+     * @var string[]
+     */
+    private $categoryCodes;
 
     /**
      * @return array
@@ -21,7 +30,8 @@ class MansetListeAyar extends ListeAyar
     {
         return array_merge(parent::toArray(), [
             'category_ids' => $this->categoryIds,
-            'category_code' => $this->categoryCode
+            'category_code' => $this->categoryCode,
+            'category_codes' => $this->categoryCodes
         ]);
     }
 
@@ -34,6 +44,8 @@ class MansetListeAyar extends ListeAyar
     }
 
     /**
+     * @deprecated use addCategoryCode
+     *
      * @param int $categoryId
      * @return $this
      */
@@ -44,6 +56,8 @@ class MansetListeAyar extends ListeAyar
     }
 
     /**
+     * @deprecated use setCategoryCodes
+     *
      * @param int $categoryIds
      * @return MansetListeAyar
      */
@@ -54,6 +68,8 @@ class MansetListeAyar extends ListeAyar
     }
 
     /**
+     * @deprecated use getCategoryCodes
+     *
      * @return int
      */
     public function getCategoryIds()
@@ -62,6 +78,8 @@ class MansetListeAyar extends ListeAyar
     }
 
     /**
+     * @deprecated use addCategoryCode
+     *
      * @param string $categoryCode
      * @return MansetListeAyar
      */
@@ -72,10 +90,42 @@ class MansetListeAyar extends ListeAyar
     }
 
     /**
+     * @deprecated use getCategoryCodes
+     *
      * @return string
      */
     public function getCategoryCode()
     {
         return $this->categoryCode;
+    }
+
+    /**
+     * @param string $categoryCode
+     * @return $this
+     */
+    public function addCategoryCode($categoryCode)
+    {
+        if ( ! is_null($categoryCode)) {
+            $this->categoryCodes[] = $categoryCode;
+        }
+        return $this;
+    }
+
+    /**
+     * @param \string[] $categoryCodes
+     * @return MansetListeAyar
+     */
+    public function setCategoryCodes($categoryCodes)
+    {
+        $this->categoryCodes = $categoryCodes;
+        return $this;
+    }
+
+    /**
+     * @return \string[]
+     */
+    public function getCategoryCodes()
+    {
+        return $this->categoryCodes;
     }
 }
