@@ -11,6 +11,7 @@ use SistemApi\Model\Urun\Ozellik;
  * @property string adi @deprecated use title
  * @property string radi @deprecated use slug
  * @property string aciklama @deprecated use description
+ *
  * @property string title
  * @property string slug
  * @property string description
@@ -25,7 +26,10 @@ use SistemApi\Model\Urun\Ozellik;
  * @property float fiyat
  * @property int kdv_orani
  * @property int is_kdv_dahil
- * @property string status
+ *
+ * @property int is_new
+ * @property int is_active
+ * @property int is_deleted
  *
  * // model
  *
@@ -34,6 +38,7 @@ use SistemApi\Model\Urun\Ozellik;
  * @property Collection languages
  * @property Collection|Resim[] resimler
  * @property Collection|Ozellik[] ozellikler
+ * @property Collection|ProductCategory[] categories
  */
 class Urun extends Model
 {
@@ -57,6 +62,13 @@ class Urun extends Model
                 $collection = new Collection();
                 foreach ($value as $item) {
                     $collection->push(new Ozellik($item));
+                }
+                $value = $collection;
+                break;
+            case 'categories':
+                $collection = new Collection();
+                foreach ($value as $item) {
+                    $collection->push(new ProductCategory($item));
                 }
                 $value = $collection;
                 break;
