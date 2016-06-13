@@ -1,66 +1,48 @@
 <?php namespace SistemApi\Model;
 
-use Carbon\Carbon;
+use Illuminate\Support\Collection;
+use SistemApi\Model\Base\Model;
 
-class Galeri
+/**
+ * @property int id
+ * @property string baslik
+ * @property string rbaslik
+ * @property string kodu
+ * @property int site_id
+ * @property int tur_id
+ * @property int varsayilan_icerik_id
+ *
+ * // modeller
+ *
+ * @property GaleriIcerik varsayilanIcerik
+ * @property Collection|GaleriIcerik[] icerikler
+ */
+class Galeri extends Model
 {
-    public $id;
-    public $baslik;
-    public $rbaslik;
-    public $kodu;
-    public $site_id;
-    public $haber_id;
-    public $tur_id;
-    public $varsayilan_icerik_id;
+    const TUR_RESIM = 1;
+    const TUR_VIDEO = 2;
 
-    /**
-     * @var Carbon
-     */
-    public $created_at;
-
-    /**
-     * @var Carbon
-     */
-    public $updated_at;
-
-    /**
-     * @var GaleriIcerik
-     */
-    public $varsayilanIcerik;
-
-    /**
-     * @var GaleriIcerik[]
-     */
-    public $icerikler = [];
-
-    /**
-     * @param \stdClass $item
-     */
-    public function __construct($item)
+    public function __set($key, $value)
     {
-        if (isset($item->id)) $this->id = $item->id;
-        if (isset($item->baslik)) $this->baslik = $item->baslik;
-        if (isset($item->rbaslik)) $this->rbaslik = $item->rbaslik;
-        if (isset($item->kodu)) $this->kodu = $item->kodu;
-        if (isset($item->site_id)) $this->site_id = $item->site_id;
-        if (isset($item->haber_id)) $this->haber_id = $item->haber_id;
-        if (isset($item->tur_id)) $this->tur_id = $item->tur_id;
-        if (isset($item->varsayilan_icerik_id)) $this->varsayilan_icerik_id = $item->varsayilan_icerik_id;
-        if (isset($item->created_at)) $this->created_at = Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at);
-        if (isset($item->updated_at)) $this->updated_at = Carbon::createFromFormat('Y-m-d H:i:s', $item->updated_at);
-
-        if (isset($item->varsayilanIcerik)) {
-            $this->varsayilanIcerik = new GaleriIcerik($item->varsayilanIcerik);
+        switch ($key) {
+            case 'varsayilanIcerik':
+                $value = new GaleriIcerik($value);
+                break;
+            case 'icerikler':
+                $collection = new Collection();
+                foreach ($value as $item) {
+                    $collection->push(new GaleriIcerik($item));
+                }
+                $value = $collection;
+                break;
         }
 
-        if (isset($item->icerikler)) {
-            foreach ($item->icerikler as $icerik) {
-                $this->icerikler[] = new GaleriIcerik($icerik);
-            }
-        }
+        parent::__set($key, $value);
     }
 
     /**
+     * @deprecated use tur_id
+     *
      * @return bool
      */
     public function isResimGalerisi()

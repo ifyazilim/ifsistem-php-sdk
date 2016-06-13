@@ -4,6 +4,7 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Collection;
+use SistemApi\Model\Galeri;
 use SistemApi\Model\Ilce;
 use SistemApi\Model\Kullanici;
 use SistemApi\Model\ParaBirim;
@@ -23,7 +24,8 @@ class Model implements Arrayable, Jsonable
         'ilce' => Ilce::class,
         'urun' => Urun::class,
         'para_birim' => ParaBirim::class,
-        'kullanici' => Kullanici::class
+        'kullanici' => Kullanici::class,
+        'galeri' => Galeri::class
     ];
 
     private $array_models = [

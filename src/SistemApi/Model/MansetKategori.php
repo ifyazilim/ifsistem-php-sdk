@@ -27,7 +27,7 @@ class MansetKategori extends Model
     {
         return isset($this->settings->cropper->aspectRatio->height) ?
             $this->settings->cropper->aspectRatio->height :
-            850;
+            350;
     }
 
     public function getSettingCropperMinCropBoxWidth()
@@ -41,6 +41,6 @@ class MansetKategori extends Model
     {
         return isset($this->settings->cropper->minCropBox->height) ?
             $this->settings->cropper->aspectRatio->height :
-            850;
+            350;
     }
 }

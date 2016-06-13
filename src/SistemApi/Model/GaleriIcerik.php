@@ -1,38 +1,36 @@
 <?php namespace SistemApi\Model;
 
-use Carbon\Carbon;
+use SistemApi\Model\Base\Model;
 
-class GaleriIcerik
+/**
+ * @property int id
+ * @property string aciklama
+ * @property string kodu
+ * @property int galeri_id
+ * @property string embed_kodu
+ *
+ * // diğer
+ *
+ * @property string resim_adresi_orjinal
+ * @property string resim_adresi_kirpilmis
+ *
+ * // modeller
+ *
+ * @property Galeri galeri
+ * @property Resim imageOriginal
+ * @property Resim imageCropped
+ */
+class GaleriIcerik extends Model
 {
-    public $id;
-    public $aciklama;
-    public $kodu;
-    public $galeri_id;
-    public $embed_kodu;
-    public $created_at;
-    public $updated_at;
-
-    // diğer
-
-    public $resim_adresi_orjinal;
-    public $resim_adresi_kirpilmis;
-
-    /**
-     * @param \stdClass $item
-     */
-    public function __construct($item)
+    public function __set($key, $value)
     {
-        if (isset($item->id)) $this->id = $item->id;
-        if (isset($item->aciklama)) $this->aciklama = $item->aciklama;
-        if (isset($item->kodu)) $this->kodu = $item->kodu;
-        if (isset($item->galeri_id)) $this->galeri_id = $item->galeri_id;
-        if (isset($item->embed_kodu)) $this->embed_kodu = $item->embed_kodu;
-        if (isset($item->created_at)) $this->created_at = Carbon::createFromFormat('Y-m-d H:i:s', $item->created_at);
-        if (isset($item->updated_at)) $this->updated_at = Carbon::createFromFormat('Y-m-d H:i:s', $item->updated_at);
+        switch ($key) {
+            case 'imageOriginal':
+            case 'imageCropped':
+                $value = new Resim($value);
+                break;
+        }
 
-        // diğer
-
-        if (isset($item->resim_adresi_orjinal)) $this->resim_adresi_orjinal = $item->resim_adresi_orjinal;
-        if (isset($item->resim_adresi_kirpilmis)) $this->resim_adresi_kirpilmis = $item->resim_adresi_kirpilmis;
+        parent::__set($key, $value);
     }
 }
