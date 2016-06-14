@@ -6,12 +6,13 @@ use SistemApi\Service\EmlakService;
 use SistemApi\Service\GaleriService;
 use SistemApi\Service\GrupService;
 use SistemApi\Service\HaberService;
-use SistemApi\Service\HeadlineService;
 use SistemApi\Service\IlceService;
 use SistemApi\Service\IletisimMesajService;
+use SistemApi\Service\ImageService;
 use SistemApi\Service\KullaniciService;
 use SistemApi\Service\MansetService;
 use SistemApi\Service\MenuService;
+use SistemApi\Service\ReferenceService;
 use SistemApi\Service\ReklamService;
 use SistemApi\Service\ResimService;
 use SistemApi\Service\SanatService;
@@ -45,6 +46,9 @@ use SistemApi\Service\UrunService;
  * @property SiparisService siparis
  * @property SanatService sanat
  * @property GrupService grup
+ *
+ * @property ReferenceService reference
+ * @property ImageService image
  */
 class ApiClient
 {
@@ -82,6 +86,9 @@ class ApiClient
             'siparis' => \DI\get(SiparisService::class),
             'sanat' => \DI\get(SanatService::class),
             'grup' => \DI\get(GrupService::class),
+
+            'reference' => \DI\get(ReferenceService::class),
+            'image' => \DI\get(ImageService::class),
 
             'api' => function() use($token, $uri) {
                 return new ApiService($token, $uri);
