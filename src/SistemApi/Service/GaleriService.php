@@ -48,6 +48,8 @@ class GaleriService
     }
 
     /**
+     * @deprecated use listeIcerik
+     *
      * @param int $adet
      * @return GaleriIcerik[]
      *
@@ -76,6 +78,8 @@ class GaleriService
     }
 
     /**
+     * @deprecated use listeIcerik
+     *
      * @param int $galeriId
      * @param GaleriIcerikListeAyar $galeriIcerikListeAyar
      * @return GaleriIcerikPagedResponse

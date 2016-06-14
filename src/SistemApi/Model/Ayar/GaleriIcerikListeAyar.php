@@ -10,12 +10,18 @@ class GaleriIcerikListeAyar extends ListeAyar
     private $galeriIds;
 
     /**
+     * @var int
+     */
+    private $galeriTurId;
+
+    /**
      * @return array
      */
     public function toArray()
     {
         return array_merge(parent::toArray(), [
-            'galeri_ids' => $this->galeriIds
+            'galeri_ids' => $this->galeriIds,
+            'galeri_tur_id' => $this->galeriTurId
         ]);
     }
 
@@ -48,5 +54,23 @@ class GaleriIcerikListeAyar extends ListeAyar
     public function getGaleriIds()
     {
         return $this->galeriIds;
+    }
+
+    /**
+     * @param int $galeriTurId
+     * @return GaleriIcerikListeAyar
+     */
+    public function setGaleriTurId($galeriTurId)
+    {
+        $this->galeriTurId = $galeriTurId;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getGaleriTurId()
+    {
+        return $this->galeriTurId;
     }
 }
