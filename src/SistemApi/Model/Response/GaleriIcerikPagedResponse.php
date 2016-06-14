@@ -14,9 +14,19 @@ class GaleriIcerikPagedResponse extends PagedResponse
     }
 
     /**
+     * @deprecated use getIcerikler
+     *
      * @return GaleriIcerik[]
      */
     public function getGaleriIcerikler()
+    {
+        return $this->getIcerikler();
+    }
+
+    /**
+     * @return GaleriIcerik[]
+     */
+    public function getIcerikler()
     {
         return $this->kayitlar;
     }

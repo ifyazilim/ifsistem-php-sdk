@@ -62,8 +62,8 @@ class EmlakIlanListeAyar extends ListeAyar
             'turId' => $this->turId,
             'kategoriId' => $this->kategoriId,
             'danismanId' => $this->danismanId,
-            'excludedIds' => implode(',', $this->excludedIds),
-            'oneCikanOncelikli' => $this->oneCikanOncelikli ? 1 : 0
+            'excludedIds' => $this->excludedIds,
+            'oneCikanOncelikli' => $this->oneCikanOncelikli
         ]);
     }
 
@@ -78,6 +78,14 @@ class EmlakIlanListeAyar extends ListeAyar
     }
 
     /**
+     * @return int
+     */
+    public function getDanismanId()
+    {
+        return $this->danismanId;
+    }
+
+    /**
      * @param array $excludedId
      * @return EmlakIlanListeAyar
      */
@@ -85,6 +93,24 @@ class EmlakIlanListeAyar extends ListeAyar
     {
         $this->excludedIds[] = $excludedId;
         return $this;
+    }
+
+    /**
+     * @param array $excludedIds
+     * @return EmlakIlanListeAyar
+     */
+    public function setExcludedIds($excludedIds)
+    {
+        $this->excludedIds = $excludedIds;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getExcludedIds()
+    {
+        return $this->excludedIds;
     }
 
     /**
@@ -98,6 +124,14 @@ class EmlakIlanListeAyar extends ListeAyar
     }
 
     /**
+     * @return boolean
+     */
+    public function isOneCikanOncelikli()
+    {
+        return $this->oneCikanOncelikli;
+    }
+
+    /**
      * @param int $sehirId
      * @return EmlakIlanListeAyar
      */
@@ -105,6 +139,14 @@ class EmlakIlanListeAyar extends ListeAyar
     {
         $this->sehirId = $sehirId;
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSehirId()
+    {
+        return $this->sehirId;
     }
 
     /**
@@ -118,6 +160,14 @@ class EmlakIlanListeAyar extends ListeAyar
     }
 
     /**
+     * @return int
+     */
+    public function getIlceId()
+    {
+        return $this->ilceId;
+    }
+
+    /**
      * @param int $semtId
      * @return EmlakIlanListeAyar
      */
@@ -125,6 +175,14 @@ class EmlakIlanListeAyar extends ListeAyar
     {
         $this->semtId = $semtId;
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSemtId()
+    {
+        return $this->semtId;
     }
 
     /**
@@ -138,6 +196,14 @@ class EmlakIlanListeAyar extends ListeAyar
     }
 
     /**
+     * @return int
+     */
+    public function getTipId()
+    {
+        return $this->tipId;
+    }
+
+    /**
      * @param int $turId
      * @return EmlakIlanListeAyar
      */
@@ -148,6 +214,14 @@ class EmlakIlanListeAyar extends ListeAyar
     }
 
     /**
+     * @return int
+     */
+    public function getTurId()
+    {
+        return $this->turId;
+    }
+
+    /**
      * @param int $kategoriId
      * @return EmlakIlanListeAyar
      */
@@ -155,5 +229,13 @@ class EmlakIlanListeAyar extends ListeAyar
     {
         $this->kategoriId = $kategoriId;
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getKategoriId()
+    {
+        return $this->kategoriId;
     }
 }

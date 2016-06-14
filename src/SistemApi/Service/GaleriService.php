@@ -252,6 +252,29 @@ class GaleriService
     }
 
     /**
+     * @param GaleriIcerikListeAyar $ayar
+     * @return GaleriIcerikPagedResponse
+     *
+     * @throws UnauthorizedException
+     * @throws UnknownException
+     */
+    public function listeIcerik(GaleriIcerikListeAyar $ayar = null)
+    {
+        // response alalım
+        $response = $this->api->get('/galeri/icerik/liste', is_null($ayar) ? [] : $ayar->toArray());
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new GaleriIcerikPagedResponse($response->body);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
      * @param int $id
      * @return GaleriIcerik
      *
