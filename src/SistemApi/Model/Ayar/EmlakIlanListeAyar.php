@@ -86,12 +86,15 @@ class EmlakIlanListeAyar extends ListeAyar
     }
 
     /**
-     * @param array $excludedId
+     * @param int $excludedId
      * @return EmlakIlanListeAyar
      */
     public function addExcludedId($excludedId)
     {
-        $this->excludedIds[] = $excludedId;
+        if ($excludedId > 0) {
+            $this->excludedIds[] = $excludedId;
+            $this->excludedIds = array_unique($this->excludedIds);
+        }
         return $this;
     }
 
