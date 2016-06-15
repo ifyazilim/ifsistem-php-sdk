@@ -24,8 +24,9 @@ class EmlakService
     private $api;
 
     /**
-     * @return EmlakTip[]
+     * @deprecated use listeTip
      *
+     * @return EmlakTip[]
      * @throws UnauthorizedException
      */
     public function getListeTipler()
@@ -50,8 +51,9 @@ class EmlakService
     }
 
     /**
-     * @return EmlakTip[]
+     * @deprecated use listeTur
      *
+     * @return EmlakTur[]
      * @throws UnauthorizedException
      */
     public function getListeTurler()
@@ -77,14 +79,91 @@ class EmlakService
     }
 
     /**
-     * @return EmlakKategori[]
+     * @return EmlakTip[]
+     * @throws UnauthorizedException
+     */
+    public function listeTip()
+    {
+        // response alalım
+        $response = $this->api->get('/emlak/tip/liste');
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200:
+
+                return array_map(function($item) {
+                    return new EmlakTip($item);
+                }, $response->body);
+
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @return EmlakTur[]
+     * @throws UnauthorizedException
+     */
+    public function listeTur()
+    {
+        // response alalım
+        $response = $this->api->get('/emlak/tur/liste');
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200:
+
+                return array_map(function($item) {
+                    return new EmlakTur($item);
+                }, $response->body);
+
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
+
+    }
+
+    /**
+     * @deprecated use listeKategori
      *
+     * @return EmlakKategori[]
      * @throws UnauthorizedException
      */
     public function getListeKategoriler()
     {
         // response alalım
         $response = $this->api->get('/emlak/kategori-liste');
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200:
+
+                return array_map(function($item) {
+                    return new EmlakKategori($item);
+                }, $response->body);
+
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @return EmlakKategori[]
+     * @throws UnauthorizedException
+     */
+    public function listeKategori()
+    {
+        // response alalım
+        $response = $this->api->get('/emlak/kategori/liste');
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {
@@ -131,6 +210,8 @@ class EmlakService
     }
 
     /**
+     * @deprecated listeIlan
+     *
      * @param EmlakIlanListeAyar $emlakIlanListeAyar
      * @return EmlakIlanPagedResponse
      *
@@ -154,21 +235,72 @@ class EmlakService
     }
 
     /**
-     * @param EmlakIlanListeAyar $emlakIlanListeAyar
+     * @param EmlakIlanListeAyar $ayar
+     * @return EmlakIlanPagedResponse
+     *
+     * @throws UnauthorizedException
+     * @throws UnknownException
+     */
+    public function listeIlan(EmlakIlanListeAyar $ayar = null)
+    {
+        // response alalım
+        $response = $this->api->get('/emlak/ilan/liste', is_null($ayar) ? [] : $ayar->toArray());
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new EmlakIlanPagedResponse($response->body);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @deprecated use listeIlan
+     *
+     * @param EmlakIlanListeAyar $ayar
      * @return int
      *
      * @throws UnauthorizedException
      * @throws UnknownException
      */
-    public function getAdetIlanlar(EmlakIlanListeAyar $emlakIlanListeAyar = null)
+    public function getAdetIlanlar(EmlakIlanListeAyar $ayar = null)
     {
         // response alalım
-        $response = $this->api->get('/emlak/ilan-adet', is_null($emlakIlanListeAyar) ? [] : $emlakIlanListeAyar->toArray());
+        $response = $this->api->get('/emlak/ilan-adet', is_null($ayar) ? [] : $ayar->toArray());
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {
             case 200: return $response->body;
             case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @deprecated use getIlan
+     *
+     * @param int $id
+     * @return EmlakIlan
+     *
+     * @throws NotFoundException
+     * @throws UnauthorizedException
+     */
+    public function getIlanDetay($id)
+    {
+        // response alalım
+        $response = $this->api->get('/emlak/ilan-detay/' . $id);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return new EmlakIlan($response->body);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 404: throw new NotFoundException($response->body->mesaj);
             case 500: throw new InternalApiErrorException($response);
         }
 
@@ -182,10 +314,10 @@ class EmlakService
      * @throws NotFoundException
      * @throws UnauthorizedException
      */
-    public function getIlanDetay($id)
+    public function getIlan($id)
     {
         // response alalım
-        $response = $this->api->get('/emlak/ilan-detay/' . $id);
+        $response = $this->api->get('/emlak/ilan/detay/' . $id);
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {

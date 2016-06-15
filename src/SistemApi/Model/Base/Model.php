@@ -10,6 +10,7 @@ use SistemApi\Model\Kullanici;
 use SistemApi\Model\ParaBirim;
 use SistemApi\Model\Resim;
 use SistemApi\Model\Sehir;
+use SistemApi\Model\Semt;
 use SistemApi\Model\Urun;
 
 /**
@@ -23,6 +24,7 @@ class Model implements Arrayable, Jsonable
         'sehir' => Sehir::class,
         'ilce' => Ilce::class,
         'urun' => Urun::class,
+        'semt' => Semt::class,
         'para_birim' => ParaBirim::class,
         'kullanici' => Kullanici::class,
         'galeri' => Galeri::class
