@@ -42,11 +42,6 @@ use SistemApi\Model\Urun\Ozellik;
  */
 class Urun extends Model
 {
-    const STATUS_NEW = 'new';
-    const STATUS_ACTIVE = 'active';
-    const STATUS_PASSIVE = 'passive';
-    const STATUS_DELETED = 'deleted';
-
     public function __set($key, $value)
     {
         switch ($key) {

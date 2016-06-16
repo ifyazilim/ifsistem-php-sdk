@@ -30,7 +30,10 @@ use SistemApi\Model\Urun\OdemeYontem;
  * @property string teslimat_adres_bilgi
  *
  * @property string telefon
- * @property string status
+ *
+ * @property int is_new
+ * @property int is_active
+ * @property int is_deleted
  *
  * // model
  *
@@ -46,11 +49,6 @@ use SistemApi\Model\Urun\OdemeYontem;
  */
 class Siparis extends Model
 {
-    const STATUS_NEW = 'new';
-    const STATUS_ACTIVE = 'active';
-    const STATUS_PASSIVE = 'passive';
-    const STATUS_DELETED = 'deleted';
-
     public function __set($key, $value)
     {
         switch ($key) {
