@@ -6,6 +6,7 @@ use SistemApi\Model\Base\Model;
  * @property int id
  * @property int site_id
  * @property int kullanici_id
+ * @property int siparis_id
  * @property string adi
  * @property string mail
  * @property string telefon

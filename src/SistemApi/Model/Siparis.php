@@ -3,6 +3,7 @@
 use Illuminate\Support\Collection;
 use SistemApi\Model\Base\Model;
 use SistemApi\Model\Siparis\SiparisAdres;
+use SistemApi\Model\Siparis\SiparisDurum;
 use SistemApi\Model\Siparis\SiparisUrun;
 use SistemApi\Model\Urun\KargoYontem;
 use SistemApi\Model\Urun\OdemeYontem;
@@ -41,6 +42,7 @@ use SistemApi\Model\Urun\OdemeYontem;
  *
  * @property Kullanici kullanici
  * @property ParaBirim para_birim
+ * @property SiparisDurum durum
  * @property OdemeYontem odeme_yontem_bilgi_model
  * @property KargoYontem kargo_yontem_bilgi_model
  * @property SiparisAdres fatura_adres_bilgi_model
@@ -60,6 +62,9 @@ class Siparis extends Model
             case 'teslimat_adres_bilgi_model': $value = new SiparisAdres($value); break;
             case 'fatura_adres': $value = new SiparisAdres($value); break;
             case 'teslimat_adres': $value = new SiparisAdres($value); break;
+            case 'durum':
+                $value = new SiparisDurum($value);
+                break;
             case 'urunler':
                 $collection = new Collection();
                 foreach ($value as $item) {
