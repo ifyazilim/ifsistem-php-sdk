@@ -12,6 +12,7 @@ use SistemApi\Model\Urun\OdemeYontem;
  * @property int site_id
  * @property int kullanici_id
  * @property int para_birim_id
+ * @property int alt_toplam
  * @property int toplam_tutar
  * @property int durum_id
  *
@@ -30,6 +31,7 @@ use SistemApi\Model\Urun\OdemeYontem;
  * @property string teslimat_adres_bilgi
  *
  * @property string telefon
+ * @property string hash
  *
  * @property int is_new
  * @property int is_active
