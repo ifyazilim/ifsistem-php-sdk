@@ -8,7 +8,6 @@ use SistemApi\Service\GrupService;
 use SistemApi\Service\HaberService;
 use SistemApi\Service\IlceService;
 use SistemApi\Service\IletisimMesajService;
-use SistemApi\Service\ImageService;
 use SistemApi\Service\KullaniciService;
 use SistemApi\Service\MansetService;
 use SistemApi\Service\MenuService;
@@ -48,7 +47,6 @@ use SistemApi\Service\UrunService;
  * @property GrupService grup
  *
  * @property ReferenceService reference
- * @property ImageService image
  */
 class ApiClient
 {
@@ -88,7 +86,6 @@ class ApiClient
             'grup' => \DI\get(GrupService::class),
 
             'reference' => \DI\get(ReferenceService::class),
-            'image' => \DI\get(ImageService::class),
 
             'api' => function() use($token, $uri) {
                 return new ApiService($token, $uri);

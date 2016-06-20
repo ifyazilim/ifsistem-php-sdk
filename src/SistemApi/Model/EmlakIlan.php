@@ -17,7 +17,6 @@ use SistemApi\Model\Base\Model;
  * @property string harita_lat
  * @property string harita_lng
  * @property int danisman_id
- * @property int varsayilan_resim_id
  * @property string fiyat
  * @property string metre_kare
  * @property int oda_sayisi
@@ -33,14 +32,14 @@ use SistemApi\Model\Base\Model;
  * @property int is_krediye_uygun
  * @property int is_takasli
  * @property int is_one_cikan
- *
- * // diğer
- *
- * @property string resim_adresi
+ * @property int is_new
+ * @property int is_active
+ * @property int is_deleted
  *
  * // modeller
  *
  * @property EmlakTip tip
+ * @property EmlakKategori kategori
  * @property EmlakTur tur
  * @property Ilce ilce
  * @property Semt semt
@@ -53,6 +52,7 @@ class EmlakIlan extends Model
     {
         switch ($key) {
             case 'tip': $value = new EmlakTip($value); break;
+            case 'kategori': $value = new EmlakKategori($value); break;
             case 'tur': $value = new EmlakTur($value); break;
             case 'danisman': $value = new EmlakDanisman($value); break;
             case 'resimler':
@@ -66,38 +66,5 @@ class EmlakIlan extends Model
         }
 
         parent::__set($key, $value);
-    }
-
-    /**
-     * @deprecated
-     *
-     * @return bool
-     */
-    public function isResimli()
-    {
-        return ! empty($this->varsayilan_resim_id);
-    }
-
-    /**
-     * @deprecated
-     *
-     * @return string
-     */
-    public function getAdresTumu()
-    {
-        $adres = [];
-
-        // semt boş değilse
-        if ( ! empty($this->semt_id))
-            $adres[] = $this->semt->adi;
-
-        // ilceyi ekleyelim
-        $adres[] = $this->ilce->adi;
-
-        // şehri ekleyelim
-        $adres[] = $this->ilce->sehir->adi;
-
-        // geriye dönelim
-        return $this->adres . '<br />' . implode(' / ', $adres);
     }
 }
