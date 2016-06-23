@@ -17,6 +17,11 @@ class KullaniciListeAyar extends ListeAyar
     private $grupKodu;
 
     /**
+     * @var int
+     */
+    private $hasArt;
+
+    /**
      * @var array
      */
     private $groupCodes = [];
@@ -39,8 +44,10 @@ class KullaniciListeAyar extends ListeAyar
         return array_merge(parent::toArray(), [
             'ids' => $this->ids,
             'grupKodu' => $this->grupKodu,
+            'has_art' => $this->hasArt,
             'group_codes' => $this->groupCodes,
-            'page_category_codes' => $this->pageCategoryCodes
+            'page_category_codes' => $this->pageCategoryCodes,
+            'art_category_codes' => $this->artCategoryCodes
         ]);
     }
 
@@ -192,5 +199,23 @@ class KullaniciListeAyar extends ListeAyar
     public function getArtCategoryCodes()
     {
         return $this->artCategoryCodes;
+    }
+
+    /**
+     * @param int $hasArt
+     * @return KullaniciListeAyar
+     */
+    public function setHasArt($hasArt)
+    {
+        $this->hasArt = $hasArt;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getHasArt()
+    {
+        return $this->hasArt;
     }
 }

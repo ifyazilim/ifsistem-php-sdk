@@ -20,7 +20,8 @@ class SanatEserListeAyar extends ListeAyar
     public function toArray()
     {
         return array_merge(parent::toArray(), [
-            'kategoriIds' => $this->kategoriIds
+            'kategoriIds' => $this->kategoriIds,
+            'artist_ids' => $this->artistIds
         ]);
     }
 
