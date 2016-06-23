@@ -10,23 +10,37 @@ class KullaniciListeAyar extends ListeAyar
     private $ids = [];
 
     /**
+     * @deprecated
+     *
      * @var string
      */
     private $grupKodu;
+
+    /**
+     * @var array
+     */
+    private $groupCodes = [];
+
+    /**
+     * @var array
+     */
+    private $pageCategoryCodes = [];
 
     /**
      * @return array
      */
     public function toArray()
     {
-        return array_merge([
+        return array_merge(parent::toArray(), [
             'ids' => $this->ids,
-            'grupKodu' => $this->grupKodu
-        ], parent::toArray());
+            'grupKodu' => $this->grupKodu,
+            'group_codes' => $this->groupCodes,
+            'page_category_codes' => $this->pageCategoryCodes
+        ]);
     }
 
     /**
-     * @return ListeAyar
+     * @return KullaniciListeAyar
      */
     public function setOrderByAdi()
     {
@@ -62,6 +76,8 @@ class KullaniciListeAyar extends ListeAyar
     }
 
     /**
+     * @deprecated use addGroupCode
+     *
      * @param string $grupKodu
      * @return KullaniciListeAyar
      */
@@ -72,10 +88,73 @@ class KullaniciListeAyar extends ListeAyar
     }
 
     /**
+     * @deprecated
      * @return string
      */
     public function getGrupKodu()
     {
         return $this->grupKodu;
+    }
+
+    /**
+     * @param string $code
+     * @return $this
+     */
+    public function addGroupCode($code)
+    {
+        if ( ! is_null($code)) {
+            $this->groupCodes[] = $code;
+            $this->groupCodes = array_unique($this->groupCodes);
+        }
+        return $this;
+    }
+
+    /**
+     * @param array $groupCodes
+     * @return KullaniciListeAyar
+     */
+    public function setGroupCodes($groupCodes)
+    {
+        $this->groupCodes = $groupCodes;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getGroupCodes()
+    {
+        return $this->groupCodes;
+    }
+
+    /**
+     * @param string $code
+     * @return $this
+     */
+    public function addPageCategoryCode($code)
+    {
+        if ( ! is_null($code)) {
+            $this->pageCategoryCodes[] = $code;
+            $this->pageCategoryCodes = array_unique($this->pageCategoryCodes);
+        }
+        return $this;
+    }
+
+    /**
+     * @param array $pageCategoryCodes
+     * @return KullaniciListeAyar
+     */
+    public function setPageCategoryCodes($pageCategoryCodes)
+    {
+        $this->pageCategoryCodes = $pageCategoryCodes;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPageCategoryCodes()
+    {
+        return $this->pageCategoryCodes;
     }
 }
