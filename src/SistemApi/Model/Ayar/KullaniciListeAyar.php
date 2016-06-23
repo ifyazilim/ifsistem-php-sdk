@@ -27,6 +27,11 @@ class KullaniciListeAyar extends ListeAyar
     private $pageCategoryCodes = [];
 
     /**
+     * @var array
+     */
+    private $artCategoryCodes = [];
+
+    /**
      * @return array
      */
     public function toArray()
@@ -156,5 +161,36 @@ class KullaniciListeAyar extends ListeAyar
     public function getPageCategoryCodes()
     {
         return $this->pageCategoryCodes;
+    }
+
+    /**
+     * @param string $code
+     * @return $this
+     */
+    public function addArtCategoryCode($code)
+    {
+        if ( ! is_null($code)) {
+            $this->artCategoryCodes[] = $code;
+            $this->artCategoryCodes = array_unique($this->artCategoryCodes);
+        }
+        return $this;
+    }
+
+    /**
+     * @param array $artCategoryCodes
+     * @return KullaniciListeAyar
+     */
+    public function setArtCategoryCodes($artCategoryCodes)
+    {
+        $this->artCategoryCodes = $artCategoryCodes;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getArtCategoryCodes()
+    {
+        return $this->artCategoryCodes;
     }
 }

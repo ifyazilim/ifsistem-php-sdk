@@ -1,11 +1,8 @@
-<?php namespace SistemApi\Model\Ayar\Sanat;
+<?php namespace SistemApi\Model\Ayar;
 
 use SistemApi\Model\Ayar\Base\ListeAyar;
 
-/**
- * @deprecated use SanatKategoriListeAyar
- */
-class KategoriListeAyar extends ListeAyar
+class SanatKategoriListeAyar extends ListeAyar
 {
     /**
      * @var int

@@ -1,16 +1,18 @@
-<?php namespace SistemApi\Model\Ayar\Sanat;
+<?php namespace SistemApi\Model\Ayar;
 
 use SistemApi\Model\Ayar\Base\ListeAyar;
 
-/**
- * @deprecated use SanatEserListeAyar
- */
-class EserListeAyar extends ListeAyar
+class SanatEserListeAyar extends ListeAyar
 {
     /**
      * @var int
      */
     private $kategoriIds;
+
+    /**
+     * @var int[]
+     */
+    private $artistIds = [];
 
     /**
      * @return array
@@ -48,5 +50,36 @@ class EserListeAyar extends ListeAyar
     public function getKategoriIds()
     {
         return $this->kategoriIds;
+    }
+
+    /**
+     * @param int $id
+     * @return $this
+     */
+    public function addArtistId($id)
+    {
+        if ( ! empty($id)) {
+            $this->artistIds[] = $id;
+            $this->artistIds = array_unique($this->artistIds);
+        }
+        return $this;
+    }
+
+    /**
+     * @param \int[] $artistIds
+     * @return SanatEserListeAyar
+     */
+    public function setArtistIds($artistIds)
+    {
+        $this->artistIds = $artistIds;
+        return $this;
+    }
+
+    /**
+     * @return \int[]
+     */
+    public function getArtistIds()
+    {
+        return $this->artistIds;
     }
 }

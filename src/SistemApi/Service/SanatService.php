@@ -5,8 +5,8 @@ use SistemApi\Exception\InternalApiErrorException;
 use SistemApi\Exception\NotFoundException;
 use SistemApi\Exception\UnauthorizedException;
 use SistemApi\Exception\UnknownException;
-use SistemApi\Model\Ayar\Sanat\EserListeAyar;
-use SistemApi\Model\Ayar\Sanat\KategoriListeAyar;
+use SistemApi\Model\Ayar\SanatEserListeAyar;
+use SistemApi\Model\Ayar\SanatKategoriListeAyar;
 use SistemApi\Model\Response\Sanat\EserPagedResponse;
 use SistemApi\Model\Response\Sanat\KategoriPagedResponse;
 use SistemApi\Model\SanatEser;
@@ -21,13 +21,13 @@ class SanatService
     private $api;
 
     /**
-     * @param EserListeAyar $ayar
+     * @param SanatEserListeAyar $ayar
      * @return EserPagedResponse
      *
      * @throws UnauthorizedException
      * @throws UnknownException
      */
-    public function listeEser(EserListeAyar $ayar = null)
+    public function listeEser(SanatEserListeAyar $ayar = null)
     {
         // response alalım
         $response = $this->api->get('/sanat/eser/liste', is_null($ayar) ? [] : $ayar->toArray());
@@ -148,7 +148,7 @@ class SanatService
     }
 
     /**
-     * @param KategoriListeAyar $ayar
+     * @param SanatKategoriListeAyar $ayar
      * @return KategoriPagedResponse
      *
      * @throws UnauthorizedException
