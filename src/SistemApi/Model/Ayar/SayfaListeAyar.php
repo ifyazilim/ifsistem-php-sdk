@@ -12,14 +12,19 @@ class SayfaListeAyar extends ListeAyar
     private $kategoriId;
 
     /**
-     * @var int[]
+     * @var int
      */
-    private $categoryIds;
+    private $categoryIds = [];
 
     /**
      * @var string[]
      */
-    private $categoryCodes;
+    private $categoryCodes = [];
+
+    /**
+     * @var int[]
+     */
+    private $authorIds = [];
 
     /**
      * @return array
@@ -29,7 +34,8 @@ class SayfaListeAyar extends ListeAyar
         return array_merge(parent::toArray(), [
             'kategoriId' => $this->kategoriId,
             'category_ids' => $this->categoryIds,
-            'category_codes' => $this->categoryCodes
+            'category_codes' => $this->categoryCodes,
+            'author_ids' => $this->authorIds
         ]);
     }
 
@@ -109,5 +115,36 @@ class SayfaListeAyar extends ListeAyar
     public function getCategoryCodes()
     {
         return $this->categoryCodes;
+    }
+
+    /**
+     * @param int $id
+     * @return $this
+     */
+    public function addAuthorId($id)
+    {
+        if ( ! empty($id)) {
+            $this->authorIds[] = $id;
+            $this->authorIds = array_unique($this->authorIds);
+        }
+        return $this;
+    }
+
+    /**
+     * @param \int[] $authorIds
+     * @return SayfaListeAyar
+     */
+    public function setAuthorIds($authorIds)
+    {
+        $this->authorIds = $authorIds;
+        return $this;
+    }
+
+    /**
+     * @return \int[]
+     */
+    public function getAuthorIds()
+    {
+        return $this->authorIds;
     }
 }
