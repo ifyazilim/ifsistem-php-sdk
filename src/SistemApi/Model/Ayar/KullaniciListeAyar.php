@@ -22,6 +22,11 @@ class KullaniciListeAyar extends ListeAyar
     private $hasArt;
 
     /**
+     * @var int
+     */
+    private $hasPage;
+
+    /**
      * @var array
      */
     private $groupCodes = [];
@@ -45,6 +50,7 @@ class KullaniciListeAyar extends ListeAyar
             'ids' => $this->ids,
             'grupKodu' => $this->grupKodu,
             'has_art' => $this->hasArt,
+            'has_page' => $this->hasPage,
             'group_codes' => $this->groupCodes,
             'page_category_codes' => $this->pageCategoryCodes,
             'art_category_codes' => $this->artCategoryCodes
@@ -217,5 +223,23 @@ class KullaniciListeAyar extends ListeAyar
     public function getHasArt()
     {
         return $this->hasArt;
+    }
+
+    /**
+     * @param int $hasPage
+     * @return KullaniciListeAyar
+     */
+    public function setHasPage($hasPage)
+    {
+        $this->hasPage = $hasPage;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getHasPage()
+    {
+        return $this->hasPage;
     }
 }
