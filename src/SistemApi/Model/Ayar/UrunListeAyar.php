@@ -130,7 +130,7 @@ class UrunListeAyar extends ListeAyar
         if ( ! is_null($categoryCode)) {
             $this->categoryCodes[] = $categoryCode;
         }
-        $this->categoryCodes = uniqid($this->categoryCodes);
+        $this->categoryCodes = array_unique($this->categoryCodes);
         return $this;
     }
 
