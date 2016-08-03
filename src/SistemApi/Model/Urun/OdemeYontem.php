@@ -3,6 +3,8 @@
 use SistemApi\Model\Base\Model;
 
 /**
+ * @deprecated
+ *
  * @property int id
  * @property int site_id
  * @property string baslik

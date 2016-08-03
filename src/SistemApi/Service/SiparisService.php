@@ -8,8 +8,9 @@ use SistemApi\Exception\UnknownException;
 use SistemApi\Model\Ayar\SiparisListeAyar;
 use SistemApi\Model\Response\SiparisPagedResponse;
 use SistemApi\Model\Siparis;
+use SistemApi\Model\Siparis\SiparisKargoYontem;
+use SistemApi\Model\Siparis\SiparisOdemeYontem;
 use SistemApi\Model\Siparis\SiparisUrun;
-use SistemApi\Model\Urun;
 
 class SiparisService
 {
@@ -201,6 +202,8 @@ class SiparisService
     }
 
     /**
+     * @deprecated
+     *
      * @param array $data
      * @return Siparis\SiparisAdres
      *
@@ -348,6 +351,54 @@ class SiparisService
             case 400: throw new BadRequestException($response);
             case 401: throw new UnauthorizedException($response->body->mesaj);
             case 404: throw new NotFoundException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @return SiparisOdemeYontem[]
+     *
+     * @throws UnauthorizedException
+     * @throws UnknownException
+     */
+    public function listeOdemeYontem()
+    {
+        // response alalım
+        $response = $this->api->get('/siparis/odeme-yontem/liste');
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return array_map(function($item) {
+                return new SiparisOdemeYontem($item);
+            }, $response->body);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
+            case 500: throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
+    }
+
+    /**
+     * @return SiparisKargoYontem[]
+     *
+     * @throws UnauthorizedException
+     * @throws UnknownException
+     */
+    public function listeKargoYontem()
+    {
+        // response alalım
+        $response = $this->api->get('/siparis/kargo-yontem/liste');
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200: return array_map(function($item) {
+                return new SiparisKargoYontem($item);
+            }, $response->body);
+            case 401: throw new UnauthorizedException($response->body->mesaj);
             case 500: throw new InternalApiErrorException($response);
         }
 

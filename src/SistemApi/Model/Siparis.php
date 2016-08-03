@@ -4,9 +4,9 @@ use Illuminate\Support\Collection;
 use SistemApi\Model\Base\Model;
 use SistemApi\Model\Siparis\SiparisAdres;
 use SistemApi\Model\Siparis\SiparisDurum;
+use SistemApi\Model\Siparis\SiparisKargoYontem;
+use SistemApi\Model\Siparis\SiparisOdemeYontem;
 use SistemApi\Model\Siparis\SiparisUrun;
-use SistemApi\Model\Urun\KargoYontem;
-use SistemApi\Model\Urun\OdemeYontem;
 
 /**
  * @property int id
@@ -43,8 +43,8 @@ use SistemApi\Model\Urun\OdemeYontem;
  * @property Kullanici kullanici
  * @property ParaBirim para_birim
  * @property SiparisDurum durum
- * @property OdemeYontem odeme_yontem_bilgi_model
- * @property KargoYontem kargo_yontem_bilgi_model
+ * @property SiparisOdemeYontem odeme_yontem_bilgi_model
+ * @property SiparisKargoYontem kargo_yontem_bilgi_model
  * @property SiparisAdres fatura_adres_bilgi_model
  * @property SiparisAdres teslimat_adres_bilgi_model
  * @property SiparisAdres fatura_adres
@@ -56,8 +56,8 @@ class Siparis extends Model
     public function __set($key, $value)
     {
         switch ($key) {
-            case 'odeme_yontem_bilgi_model': $value = new OdemeYontem($value); break;
-            case 'kargo_yontem_bilgi_model': $value = new KargoYontem($value); break;
+            case 'odeme_yontem_bilgi_model': $value = new SiparisOdemeYontem($value); break;
+            case 'kargo_yontem_bilgi_model': $value = new SiparisKargoYontem($value); break;
             case 'fatura_adres_bilgi_model': $value = new SiparisAdres($value); break;
             case 'teslimat_adres_bilgi_model': $value = new SiparisAdres($value); break;
             case 'fatura_adres': $value = new SiparisAdres($value); break;

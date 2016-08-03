@@ -1,16 +1,14 @@
-<?php namespace SistemApi\Model\Urun;
+<?php namespace SistemApi\Model\Siparis;
 
 use SistemApi\Model\Base\Model;
 
 /**
- * @deprecated
- *
  * @property int id
  * @property int site_id
  * @property string baslik
  * @property int is_aktif
  */
-class KargoYontem extends Model
+class SiparisKargoYontem extends Model
 {
 
 }

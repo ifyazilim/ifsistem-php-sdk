@@ -1,6 +1,7 @@
 <?php namespace SistemApi\Model\Siparis;
 
 use SistemApi\Model\Base\Model;
+use SistemApi\Model\Ilce;
 
 /**
  * @property int id
@@ -13,6 +14,10 @@ use SistemApi\Model\Base\Model;
  * @property int ilce_id
  * @property string semt
  * @property string adres
+ *
+ * // model
+ *
+ * @property Ilce ilce
  */
 class SiparisAdres extends Model
 {
