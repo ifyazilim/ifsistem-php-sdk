@@ -64,7 +64,8 @@ abstract class ListeAyar
             'orderType' => $this->orderType,
             'sayfa' => $this->sayfa,
             'adet' => $this->adet,
-            'dilId' => $this->dilId
+            'dilId' => $this->dilId,
+            'query' => $this->query
         ];
     }
 
