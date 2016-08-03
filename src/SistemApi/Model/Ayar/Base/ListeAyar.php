@@ -30,6 +30,11 @@ abstract class ListeAyar
     private $dilId = 1;
 
     /**
+     * @var mixed
+     */
+    private $query;
+
+    /**
      * @param array $args
      */
     public function __construct($args = null)
@@ -198,5 +203,23 @@ abstract class ListeAyar
     public function getDilId()
     {
         return $this->dilId;
+    }
+
+    /**
+     * @param mixed $query
+     * @return ListeAyar
+     */
+    public function setQuery($query)
+    {
+        $this->query = $query;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getQuery()
+    {
+        return $this->query;
     }
 }
