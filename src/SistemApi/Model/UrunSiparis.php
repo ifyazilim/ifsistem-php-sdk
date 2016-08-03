@@ -45,9 +45,6 @@ use SistemApi\Model\Siparis\SiparisUrun;
  */
 class UrunSiparis extends Model
 {
-    const DURUM_SEPET = 1;
-    const DURUM_ISLENIYOR = 2;
-
     public function __set($key, $value)
     {
         switch ($key) {
@@ -67,25 +64,5 @@ class UrunSiparis extends Model
         }
 
         parent::__set($key, $value);
-    }
-
-    public function getDurumAdi()
-    {
-        switch ($this->durum) {
-            case self::DURUM_SEPET: return 'Sepette';
-            case self::DURUM_ISLENIYOR: return 'İşleniyor';
-        }
-
-        return 'Bilinmiyor';
-    }
-
-    public function getDurumAdiLabel()
-    {
-        switch ($this->durum) {
-            case self::DURUM_SEPET: return '<span class="label label-info">Sepette</span>';
-            case self::DURUM_ISLENIYOR: return '<span class="label label-danger">İşleniyor</span>';
-        }
-
-        return '<span class="label label-default">Bilinmiyor</span>';
     }
 }
