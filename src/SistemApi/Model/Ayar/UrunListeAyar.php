@@ -5,6 +5,11 @@ use SistemApi\Model\Ayar\Base\ListeAyar;
 class UrunListeAyar extends ListeAyar
 {
     /**
+     * @var int
+     */
+    private $isActive;
+
+    /**
      * @var array
      */
     private $kategoriIds = [];
@@ -30,6 +35,7 @@ class UrunListeAyar extends ListeAyar
     public function toArray()
     {
         return array_merge(parent::toArray(), [
+            'is_active' => $this->isActive,
             'kategoriIds' => $this->kategoriIds,
             'ozellikGrupIds' => $this->ozellikGrupIds,
             'ozellikIds' => $this->ozellikIds,
@@ -152,5 +158,21 @@ class UrunListeAyar extends ListeAyar
         return $this->categoryCodes;
     }
 
+    /**
+     * @param int $isActive
+     * @return UrunListeAyar
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+        return $this;
+    }
 
+    /**
+     * @return int
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
 }
