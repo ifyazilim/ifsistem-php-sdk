@@ -58,6 +58,7 @@ class SayfaService
     }
 
     /**
+     *
      * @param int $id
      * @return Sayfa
      *
@@ -66,19 +67,9 @@ class SayfaService
      */
     public function get($id)
     {
-        // response alalım
-        $response = $this->api->get('/sayfa/detay/' . $id);
-
-        // durum koduna göre işlem yapalım
-        switch ($response->code) {
-
-            case 200: return new Sayfa($response->body);
-            case 401: throw new UnauthorizedException($response->body->mesaj);
-            case 404: throw new NotFoundException($response->body->mesaj);
-            case 500: throw new InternalApiErrorException($response);
-        }
-
-        throw new UnknownException($response);
+        return $this->detay([
+            'id' => $id
+        ]);
     }
 
     /**
@@ -104,8 +95,22 @@ class SayfaService
      */
     public function getByKodu($kodu)
     {
+        return $this->detay([
+            'kodu' => $kodu
+        ]);
+    }
+
+    /**
+     * @param array $params
+     * @return Sayfa
+     *
+     * @throws NotFoundException
+     * @throws UnauthorizedException
+     */
+    public function detay($params)
+    {
         // response alalım
-        $response = $this->api->get('/sayfa/detay-by-kodu/' . $kodu);
+        $response = $this->api->get('/sayfa/detay', $params);
 
         // durum koduna göre işlem yapalım
         switch ($response->code) {
