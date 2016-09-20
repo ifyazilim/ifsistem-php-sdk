@@ -33,7 +33,8 @@ class Model implements Arrayable, Jsonable
     private $array_models = [
         'dil_metalar',
         'languages',
-        'langs'
+        'langs',
+        'diller'
     ];
 
     protected $attributes = [];
