@@ -149,6 +149,17 @@ class Model implements Arrayable, Jsonable
         return null;
     }
 
+    public function getValueByDilIdKeyYeni($dilId, $key)
+    {
+        if ($this->diller instanceof Collection) {
+            return isset($this->diller->get($dilId)[$key]) ?
+                $this->diller->get($dilId)[$key] :
+                null;
+        }
+
+        return null;
+    }
+
     /**
      * Get the attributes that should be converted to dates.
      *
