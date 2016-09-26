@@ -5,42 +5,40 @@ use SistemApi\Model\Base\Model;
 
 /**
  * @property int id
- * @property string adi @deprecated
- * @property string title
- * @property string kodu @deprecated
- * @property string code
+ * @property string adi
+ * @property string kodu
  * @property int site_id
- * @property array settings
- * @property int is_active
- * @property Collection languages
+ * @property array ayarlar
+ * @property int is_aktif
+ * @property Collection dil_metalar
  */
 class MansetKategori extends Model
 {
     public function getSettingCropperAspectRatioWidth()
     {
-        return isset($this->settings->cropper->aspectRatio->width) ?
-            $this->settings->cropper->aspectRatio->width :
+        return isset($this->ayarlar->cropper->aspectRatio->width) ?
+            $this->ayarlar->cropper->aspectRatio->width :
             850;
     }
 
     public function getSettingCropperAspectRatioHeight()
     {
-        return isset($this->settings->cropper->aspectRatio->height) ?
-            $this->settings->cropper->aspectRatio->height :
+        return isset($this->ayarlar->cropper->aspectRatio->height) ?
+            $this->ayarlar->cropper->aspectRatio->height :
             350;
     }
 
     public function getSettingCropperMinCropBoxWidth()
     {
-        return isset($this->settings->cropper->minCropBox->width) ?
-            $this->settings->cropper->aspectRatio->width :
+        return isset($this->ayarlar->cropper->minCropBox->width) ?
+            $this->ayarlar->cropper->aspectRatio->width :
             850;
     }
 
     public function getSettingCropperMinCropBoxHeight()
     {
-        return isset($this->settings->cropper->minCropBox->height) ?
-            $this->settings->cropper->aspectRatio->height :
+        return isset($this->ayarlar->cropper->minCropBox->height) ?
+            $this->ayarlar->cropper->aspectRatio->height :
             350;
     }
 }
