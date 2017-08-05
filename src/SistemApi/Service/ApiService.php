@@ -1,7 +1,5 @@
 <?php namespace SistemApi\Service;
 
-use GuzzleHttp\Client;
-use Psr\Http\Message\ResponseInterface;
 use Unirest\Request;
 use Unirest\Response;
 
@@ -36,31 +34,25 @@ class ApiService
      * @param string $uri
      * @param array $query
      *
-     * @return ResponseInterface
+     * @return Response
      */
     public function get($uri, $query = [])
     {
         $headers = [
-            'Accept' => 'application/json',
-            'X-IFSISTEM-TOKEN' => $this->token,
+            'Accept'            => 'application/json',
+            'X-IFSISTEM-TOKEN'  => $this->token,
             'X-IFSISTEM-DIL-ID' => $this->dilId
         ];
 
-        $client = new Client();
-
-        return $client->get($this->uri . $uri, [
-            'http_errors' => false,
-            'headers' => $headers,
-            'query' => $query
-        ]);
+        return Request::get($this->uri . $uri, $headers, $query);
     }
 
     public function post($uri, $data = [], $files = [])
     {
         $headers = [
-            'Accept' => 'application/json',
-            'Content-Type' => empty($files) ? 'application/json' : 'multipart/form-data',
-            'X-IFSISTEM-TOKEN' => $this->token,
+            'Accept'            => 'application/json',
+            'Content-Type'      => empty($files) ? 'application/json' : 'multipart/form-data',
+            'X-IFSISTEM-TOKEN'  => $this->token,
             'X-IFSISTEM-DIL-ID' => $this->dilId
         ];
 
@@ -72,9 +64,9 @@ class ApiService
     public function put($uri, $data = [], $files = [])
     {
         $headers = [
-            'Accept' => 'application/json',
-            'Content-Type' => empty($files) ? 'application/json' : 'multipart/form-data',
-            'X-IFSISTEM-TOKEN' => $this->token,
+            'Accept'            => 'application/json',
+            'Content-Type'      => empty($files) ? 'application/json' : 'multipart/form-data',
+            'X-IFSISTEM-TOKEN'  => $this->token,
             'X-IFSISTEM-DIL-ID' => $this->dilId
         ];
 
@@ -92,8 +84,8 @@ class ApiService
     public function delete($uri, $query = [])
     {
         $headers = [
-            'Accept' => 'application/json',
-            'X-IFSISTEM-TOKEN' => $this->token,
+            'Accept'            => 'application/json',
+            'X-IFSISTEM-TOKEN'  => $this->token,
             'X-IFSISTEM-DIL-ID' => $this->dilId
         ];
 
