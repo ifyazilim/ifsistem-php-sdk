@@ -112,9 +112,23 @@ class SayfaService
      */
     public function getByKodu($kodu)
     {
-        return $this->detay([
-            'kodu' => $kodu
-        ]);
+        // response alalım
+        $response = $this->api->get('/sayfa/detay-by-kodu/' . $kodu);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200:
+                return new Sayfa($response->body);
+            case 401:
+                throw new UnauthorizedException($response->body->mesaj);
+            case 404:
+                throw new NotFoundException($response->body->mesaj);
+            case 500:
+                throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
     }
 
     /**
