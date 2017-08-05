@@ -35,9 +35,12 @@ class SayfaService
         // durum koduna göre işlem yapalım
         switch ($response->code) {
 
-            case 200: return new SayfaPagedResponse($response->body);
-            case 401: throw new UnauthorizedException($response->body->mesaj);
-            case 500: throw new InternalApiErrorException($response);
+            case 200:
+                return new SayfaPagedResponse($response->body);
+            case 401:
+                throw new UnauthorizedException($response->body->mesaj);
+            case 500:
+                throw new InternalApiErrorException($response);
         }
 
         throw new UnknownException($response);
@@ -67,9 +70,23 @@ class SayfaService
      */
     public function get($id)
     {
-        return $this->detay([
-            'id' => $id
-        ]);
+        // response alalım
+        $response = $this->api->get('/sayfa/detay/' . $id);
+
+        // durum koduna göre işlem yapalım
+        switch ($response->code) {
+
+            case 200:
+                return new Sayfa($response->body);
+            case 401:
+                throw new UnauthorizedException($response->body->mesaj);
+            case 404:
+                throw new NotFoundException($response->body->mesaj);
+            case 500:
+                throw new InternalApiErrorException($response);
+        }
+
+        throw new UnknownException($response);
     }
 
     /**
@@ -115,10 +132,14 @@ class SayfaService
         // durum koduna göre işlem yapalım
         switch ($response->code) {
 
-            case 200: return new Sayfa($response->body);
-            case 401: throw new UnauthorizedException($response->body->mesaj);
-            case 404: throw new NotFoundException($response->body->mesaj);
-            case 500: throw new InternalApiErrorException($response);
+            case 200:
+                return new Sayfa($response->body);
+            case 401:
+                throw new UnauthorizedException($response->body->mesaj);
+            case 404:
+                throw new NotFoundException($response->body->mesaj);
+            case 500:
+                throw new InternalApiErrorException($response);
         }
 
         throw new UnknownException($response);
@@ -140,10 +161,14 @@ class SayfaService
         // durum koduna göre işlem yapalım
         switch ($response->code) {
 
-            case 200: return new Sayfa($response->body);
-            case 400: throw new BadRequestException($response);
-            case 401: throw new UnauthorizedException($response->body->mesaj);
-            case 500: throw new InternalApiErrorException($response);
+            case 200:
+                return new Sayfa($response->body);
+            case 400:
+                throw new BadRequestException($response);
+            case 401:
+                throw new UnauthorizedException($response->body->mesaj);
+            case 500:
+                throw new InternalApiErrorException($response);
         }
 
         throw new UnknownException($response);
@@ -167,11 +192,16 @@ class SayfaService
         // durum koduna göre işlem yapalım
         switch ($response->code) {
 
-            case 200: return new Sayfa($response->body);
-            case 400: throw new BadRequestException($response);
-            case 401: throw new UnauthorizedException($response->body->mesaj);
-            case 404: throw new NotFoundException($response->body->mesaj);
-            case 500: throw new InternalApiErrorException($response);
+            case 200:
+                return new Sayfa($response->body);
+            case 400:
+                throw new BadRequestException($response);
+            case 401:
+                throw new UnauthorizedException($response->body->mesaj);
+            case 404:
+                throw new NotFoundException($response->body->mesaj);
+            case 500:
+                throw new InternalApiErrorException($response);
         }
 
         throw new UnknownException($response);
@@ -194,11 +224,16 @@ class SayfaService
         // durum koduna göre işlem yapalım
         switch ($response->code) {
 
-            case 200: return new Sayfa($response->body);
-            case 400: throw new BadRequestException($response);
-            case 401: throw new UnauthorizedException($response->body->mesaj);
-            case 404: throw new NotFoundException($response->body->mesaj);
-            case 500: throw new InternalApiErrorException($response);
+            case 200:
+                return new Sayfa($response->body);
+            case 400:
+                throw new BadRequestException($response);
+            case 401:
+                throw new UnauthorizedException($response->body->mesaj);
+            case 404:
+                throw new NotFoundException($response->body->mesaj);
+            case 500:
+                throw new InternalApiErrorException($response);
         }
 
         throw new UnknownException($response);
@@ -247,9 +282,12 @@ class SayfaService
         // durum koduna göre işlem yapalım
         switch ($response->code) {
 
-            case 200: return new SayfaKategoriPagedResponse($response->body);
-            case 401: throw new UnauthorizedException($response->body->mesaj);
-            case 500: throw new InternalApiErrorException($response);
+            case 200:
+                return new SayfaKategoriPagedResponse($response->body);
+            case 401:
+                throw new UnauthorizedException($response->body->mesaj);
+            case 500:
+                throw new InternalApiErrorException($response);
         }
 
         throw new UnknownException($response);
@@ -270,10 +308,14 @@ class SayfaService
         // durum koduna göre işlem yapalım
         switch ($response->code) {
 
-            case 200: return new SayfaKategori($response->body);
-            case 401: throw new UnauthorizedException($response->body->mesaj);
-            case 404: throw new NotFoundException($response->body->mesaj);
-            case 500: throw new InternalApiErrorException($response);
+            case 200:
+                return new SayfaKategori($response->body);
+            case 401:
+                throw new UnauthorizedException($response->body->mesaj);
+            case 404:
+                throw new NotFoundException($response->body->mesaj);
+            case 500:
+                throw new InternalApiErrorException($response);
         }
 
         throw new UnknownException($response);
@@ -295,10 +337,14 @@ class SayfaService
         // durum koduna göre işlem yapalım
         switch ($response->code) {
 
-            case 200: return new SayfaKategori($response->body);
-            case 400: throw new BadRequestException($response);
-            case 401: throw new UnauthorizedException($response->body->mesaj);
-            case 500: throw new InternalApiErrorException($response);
+            case 200:
+                return new SayfaKategori($response->body);
+            case 400:
+                throw new BadRequestException($response);
+            case 401:
+                throw new UnauthorizedException($response->body->mesaj);
+            case 500:
+                throw new InternalApiErrorException($response);
         }
 
         throw new UnknownException($response);
@@ -322,11 +368,16 @@ class SayfaService
         // durum koduna göre işlem yapalım
         switch ($response->code) {
 
-            case 200: return new SayfaKategori($response->body);
-            case 400: throw new BadRequestException($response);
-            case 401: throw new UnauthorizedException($response->body->mesaj);
-            case 404: throw new NotFoundException($response->body->mesaj);
-            case 500: throw new InternalApiErrorException($response);
+            case 200:
+                return new SayfaKategori($response->body);
+            case 400:
+                throw new BadRequestException($response);
+            case 401:
+                throw new UnauthorizedException($response->body->mesaj);
+            case 404:
+                throw new NotFoundException($response->body->mesaj);
+            case 500:
+                throw new InternalApiErrorException($response);
         }
 
         throw new UnknownException($response);
@@ -349,11 +400,16 @@ class SayfaService
         // durum koduna göre işlem yapalım
         switch ($response->code) {
 
-            case 200: return new SayfaKategori($response->body);
-            case 400: throw new BadRequestException($response);
-            case 401: throw new UnauthorizedException($response->body->mesaj);
-            case 404: throw new NotFoundException($response->body->mesaj);
-            case 500: throw new InternalApiErrorException($response);
+            case 200:
+                return new SayfaKategori($response->body);
+            case 400:
+                throw new BadRequestException($response);
+            case 401:
+                throw new UnauthorizedException($response->body->mesaj);
+            case 404:
+                throw new NotFoundException($response->body->mesaj);
+            case 500:
+                throw new InternalApiErrorException($response);
         }
 
         throw new UnknownException($response);
