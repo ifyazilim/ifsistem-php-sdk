@@ -1,5 +1,7 @@
 <?php namespace SistemApi\Service;
 
+use GuzzleHttp\Client;
+use Psr\Http\Message\ResponseInterface;
 use Unirest\Request;
 use Unirest\Response;
 
@@ -34,7 +36,7 @@ class ApiService
      * @param string $uri
      * @param array $query
      *
-     * @return Response
+     * @return ResponseInterface
      */
     public function get($uri, $query = [])
     {
@@ -44,7 +46,13 @@ class ApiService
             'X-IFSISTEM-DIL-ID' => $this->dilId
         ];
 
-        return Request::get($this->uri . $uri, $headers, $query);
+        $client = new Client();
+
+        return $client->get($this->uri . $uri, [
+            'http_errors' => false,
+            'headers' => $headers,
+            'query' => $query
+        ]);
     }
 
     public function post($uri, $data = [], $files = [])
